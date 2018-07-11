@@ -11,7 +11,7 @@ describe('actions', () => {
 		const error = true;
 		const expectedResult = {
 			type: ERROR,
-			payload: error
+			error: error
 		}
 		expect(dataHasErrored(error)).toEqual(expectedResult);
 	})

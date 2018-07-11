@@ -2,33 +2,33 @@ import React from 'react';
 
 import renderer from 'react-test-renderer';
 
-import { dataHasErrored, dataIsLoading, dataFetchDataSuccess } from 'redux/actions';
-import { ERROR, LOADING, SUCCESS } from 'redux/constants';
+import { dataHasErrored, dataIsLoading, dataFetchDataSuccess } from './actions';
+import { ERROR, LOADING, SUCCESS } from './constants';
 
 
 describe('actions', () => {
 	it('should create an action to deliver an error', () => {
-		const message = "oops, error";
+		const error = true;
 		const expectedResult = {
 			type: ERROR,
-			message: message
+			payload: error
 		}
-		expect(dataHasErrored(message)).toEqual(expectedResult);
+		expect(dataHasErrored(error)).toEqual(expectedResult);
 	})
 	it('should create an action to indicate laoding', () => {
-		const message = "loading";
+		const isloading = true;
 		const expectedResult = {
 			type: LOADING,
-			message: message
+			isloading: isloading
 		}
-		expect(dataIsLoading(message)).toEqual(expectedResult);
+		expect(dataIsLoading(isloading)).toEqual(expectedResult);
 	})
-	it('should create an action to manage success', () => {
-		const message = "oops, error";
+	it('should create an action to deliver data', () => {
+		const data = ['hello', 'there'];
 		const expectedResult = {
 			type: SUCCESS,
-			message: message
+			data: data
 		}
-		expect(dataFetchDataSuccess(message)).toEqual(expectedResult);
+		expect(dataFetchDataSuccess(data)).toEqual(expectedResult);
 	})
 })

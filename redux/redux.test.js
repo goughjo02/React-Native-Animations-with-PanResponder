@@ -2,7 +2,7 @@ import React from 'react';
 
 import renderer from 'react-test-renderer';
 
-import { dataHasErrored, dataIsLoading, dataFetchDataSuccess } from './actions';
+import { dataHasErrored, dataIsLoading, fetchDataSuccess } from './actions';
 import { ERROR, LOADING, SUCCESS } from './constants';
 
 
@@ -11,7 +11,7 @@ describe('actions', () => {
 		const error = true;
 		const expectedResult = {
 			type: ERROR,
-			error: error
+			iserror: error
 		}
 		expect(dataHasErrored(error)).toEqual(expectedResult);
 	})
@@ -29,6 +29,6 @@ describe('actions', () => {
 			type: SUCCESS,
 			data: data
 		}
-		expect(dataFetchDataSuccess(data)).toEqual(expectedResult);
+		expect(fetchDataSuccess(data)).toEqual(expectedResult);
 	})
 })

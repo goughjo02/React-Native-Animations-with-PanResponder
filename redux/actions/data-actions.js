@@ -12,9 +12,9 @@ export function dataIsLoading(bool) {
         isloading: bool
     };
 }
-export function dataFetchDataSuccess(data) {
+export function fetchDataSuccess(data) {
     return {
         type: SUCCESS,
-        data
+        data: data
     };
 }

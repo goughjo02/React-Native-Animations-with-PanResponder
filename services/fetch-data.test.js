@@ -3,47 +3,40 @@ import thunk from 'redux-thunk'
 import fetchMock from 'fetch-mock'
 import renderer from 'react-test-renderer';
 
-import { dataHasErrored, dataIsLoading, dataFetchDataSuccess } from './actions';
-import { ERROR, LOADING, SUCCESS } from './constants';
+import { dataHasErrored, dataIsLoading, dataFetchDataSuccess } from '../redux/actions';
+import { ERROR, LOADING, SUCCESS } from '../redux/constants';
 import { fetchData } from './fetch-data';
 
-const middlewares = [thunk]
-const mockStore = configureMockStore(middlewares)
-​
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
+
 describe('async actions', () => {
   afterEach(() => {
-    fetchMock.reset()
-    fetchMock.restore()
+    fetchMock.reset();
+    fetchMock.restore();
   })
-​
-  it('creates LOADING when fetching todos has been done', () => {
-    fetchMock
-      .getOnce('/http_json', { body: { data: ['hello'] }, headers: { 'content-type': 'application/json' } })
-​
-​
+
+  it('creates SUCCESS when fetching data is successful', () => {
+    fetchMock.getOnce('http_json', { body: { data: ['hello'] }, headers: { 'content-type': 'application/json' } });
     const expectations = [
-      { type: LOADING },
-      { type: SUCCESS, body: { data: ['hello'] } }
+    { type: LOADING, isloading: true },
+    { type: SUCCESS, data: ['hello'] }
     ]
-    const store = mockStore({ data: [] })
-​
-    return store.dispatch(fetchData()).then(() => {
-      // return of async actions
+    const store = mockStore({ isloading: [], data: [] });
+    return store.dispatch(fetchData('http_json')).then(() => {
       expect(store.getActions()).toEqual(expectations)
     })
+  })
 
-  it('creates ERROR when data mismatch', () => {
-    fetchMock
-      .getOnce('/http_json', { body: { data: ['not here'] }, headers: { 'content-type': 'application/json' } })
-​
-​
+  it('creates ERROR when fetching data errs', () => {
+    fetchMock.getOnce('http_json', { body: { data: ['hello'] }, headers: { 'content-type': 'application/json' } });
     const expectations = [
-      { type: LOADING },
-      { type: ERROR, iserror: true }
+    { type: LOADING, isloading: true },
+    { type: ERROR, iserror: true }
     ]
-    const store = mockStore({ data: [] })
-​
-    return store.dispatch(fetchData()).then(() => {
-      expect(store.getActions()).toEqual(expectedActions)
+    const store = mockStore({ isloading: [], iserror: [] })
+    return store.dispatch(fetchData('http_json')).then(() => {
+      expect(store.getActions()).toEqual(expectations);
     })
   })
+})

@@ -3,7 +3,7 @@ import { ERROR, LOADING, SUCCESS } from '../constants';
 export function dataHasErrored(bool) {
     return {
         type: ERROR,
-        error: bool
+        iserror: bool
     };
 }
 export function dataIsLoading(bool) {

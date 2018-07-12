@@ -3,17 +3,26 @@ import PropTypes from 'prop-types';
 
 
 const range_selector = (data, startRange, endRange) => {
-	return data.splice(startRange, endRange);
+	var start = startRange > endRange ? endRange : startRange;
+	var range = startRange > endRange ? startRange - endRange : endRange - startRange;
+	var copy_data = JSON.parse(JSON.stringify(data));
+	var result = copy_data.splice(start, range);
+	return result;
 }
 
 const zoom_selector = (data, startZoon, endZoom) => {
-	return data.splice(startZoon, endZoom)
+	var start = startZoon > endZoom ? endZoom : startZoon;
+	var range = startZoon > endZoom ? startZoon - endZoom : endZoom - startZoon;
+	var copy_data = JSON.parse(JSON.stringify(data));
+	var result = copy_data.splice(start, range);
+	return result
 } 
 
 const combination_selector = (data, startRange, endRange, startZoon, endZoom) => {
-	var ranged = range_selector(data, startRange, endRange);
-	var zoomed = zoom_selector(ranged, startZoon, endZoom)
-	return result = zoomed;
+	var copy_data = JSON.parse(JSON.stringify(data));
+	var ranged = range_selector(copy_data, startRange, endRange);
+	var result = zoom_selector(ranged, startZoon, endZoom)
+	return result;
 } 
 
 range_selector.propTypes = {

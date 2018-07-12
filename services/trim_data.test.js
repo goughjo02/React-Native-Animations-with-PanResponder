@@ -21,7 +21,7 @@ describe('Data to trim incoming data', () => {
 		];
 		let startRange, endRange, startZoom, endZoom;
 	});
-	xit('range selector works 1', () => {
+	it('range selector works 1', () => {
 		var expectation = [0, 1, 2, 3, 4];
 		startRange = 0;
 		endRange = 5;

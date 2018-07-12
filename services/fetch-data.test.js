@@ -18,14 +18,14 @@ describe('async actions', () => {
 
   it('creates SUCCESS when fetching data is successful', () => {
     fetchMock.getOnce('http_json', { 
-      status: 200,
-      body: ['expect'], 
-      headers: { 'content-type': 'application/json' } 
+      status: 200, 
+      headers: { 'content-type': 'application/json' },
+      body: ['expect me']
     });
     const expectations = [
     { type: LOADING, isloading: true },
     { type: LOADING, isloading: false },
-    { type: SUCCESS, data: ['expect'] }
+    { type: SUCCESS, data: ['expect me'] }
     ]
     const store = mockStore({ isloading: [], data: [] });
     return store.dispatch(fetchData('http_json')).then(() => {
@@ -33,11 +33,11 @@ describe('async actions', () => {
     })
   })
 
-  xit('creates ERROR when fetching data errs', () => {
+  it('creates ERROR when fetching data errs', () => {
     fetchMock.getOnce('http_json', { 
       status: 401, 
-      body: { data: ['hello'] }, 
-      headers: { 'content-type': 'application/json' } 
+      headers: { 'content-type': 'application/json' },
+      body: ['hello']
     });
     const expectations = [
     { type: LOADING, isloading: true },

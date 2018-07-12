@@ -1,9 +1,10 @@
 import { dataHasErrored, dataIsLoading, fetchDataSuccess } from '../redux/actions';
 
+
 export function fetchData(url) {
     return (dispatch) => {
         dispatch(dataIsLoading(true));
-        fetch(url)
+        return fetch(url)
             .then((response) => {
                 if (!response.ok) {
                     throw Error(response.statusText);

@@ -10,8 +10,8 @@ describe("HTTP Reducer", () => {
 		expect(root_reducer(undefined, {})).toEqual(
 			{
 				data: [],
-				iserror: false,
-				isloading: false
+				errorState: false,
+				loadingState: false
 			}
 		);
 	});
@@ -19,13 +19,13 @@ describe("HTTP Reducer", () => {
 		expect(
 			root_reducer([], {
 				type: LOADING,
-				isloading: true
+				loadingState: true
 			})
 		).toEqual(
 			{
 				data: [],
-				iserror: false,
-				isloading: true
+				errorState: false,
+				loadingState: true
 			}
 		);
 		expect(
@@ -33,20 +33,20 @@ describe("HTTP Reducer", () => {
 				
 					{
 						data: [],
-						iserror: false,
-						isloading: true
+						errorState: false,
+						loadingState: true
 					}
 				,
 				{
 					type: LOADING,
-					isloading: false
+					loadingState: false
 				}
 			)
 		).toEqual(
 			{
 				data: [],
-				iserror: false,
-				isloading: false
+				errorState: false,
+				loadingState: false
 			}
 		);
 	});
@@ -54,13 +54,13 @@ describe("HTTP Reducer", () => {
 		expect(
 			root_reducer([], {
 				type: ERROR,
-				iserror: true
+				errorState: true
 			})
 		).toEqual(
 			{
 				data: [],
-				iserror: true,
-				isloading: false
+				errorState: true,
+				loadingState: false
 			}
 		);
 		expect(
@@ -68,20 +68,20 @@ describe("HTTP Reducer", () => {
 				
 					{
 						data: [],
-						iserror: true,
-						isloading: false
+						errorState: true,
+						loadingState: false
 					}
 				,
 				{
 					type: ERROR,
-					iserror: false
+					errorState: false
 				}
 			)
 		).toEqual(
 			{
 				data: [],
-				iserror: false,
-				isloading: false
+				errorState: false,
+				loadingState: false
 			}
 		);
 	});
@@ -94,8 +94,8 @@ describe("HTTP Reducer", () => {
 		).toEqual(
 			{
 				data: ["test"],
-				iserror: false,
-				isloading: false
+				errorState: false,
+				loadingState: false
 			}
 		);
 		expect(
@@ -103,8 +103,8 @@ describe("HTTP Reducer", () => {
 				
 					{
 						data: ["test"],
-						iserror: false,
-						isloading: false
+						errorState: false,
+						loadingState: false
 					}
 				,
 				{
@@ -115,8 +115,8 @@ describe("HTTP Reducer", () => {
 		).toEqual(
 			{
 				data: ["test 2"],
-				iserror: false,
-				isloading: false
+				errorState: false,
+				loadingState: false
 			}
 		);
 	});

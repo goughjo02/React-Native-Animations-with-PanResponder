@@ -1,41 +1,40 @@
-import React from "react";
-import { applyMiddleware, combineReducers, createStore } from "redux";
+import React from 'react';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunk from 'redux-thunk';
+import { assign } from 'lodash';
 
 import { LOADING, ERROR, SUCCESS } from "./";
 
 
-const initialState = [{
-	data: [],
-    iserror: false,
-    isloading: false
-}]
-export function http_reducer(state = initialState, action) {
-	switch (action.type) {
-		case LOADING:
-		return [...state, {
-			isloading: action.isloading
-		}]
-		case ERROR:
-		return Object.assign({}, state, {
-			iserror: action.iserror
-		})
-		case SUCCESS:
-		return Object.assign({}, state, {
-			data: action.data
-		})
-		default: return payload
-	}
+function loadingState(state = false, action) {
+  switch (action.type) {
+    case LOADING:
+      return action.isloading
+    default:
+      return state
+  }
 }
 
-const root_reducer = combineReducers({
-	http_reducer
+function errorState(state = false, action) {
+  switch (action.type) {
+    case ERROR:
+      return action.iserror
+    default:
+      return state
+  }
+}
+
+function successState(state = [], action) {
+  switch (action.type) {
+    case SUCCESS:
+      return action.data
+    default:
+      return state
+  }
+}
+
+export const root_reducer = combineReducers({
+	isloading: loadingState,
+	iserror: errorState,
+	data: successState
 });
-
-export default function configureStore(initialState) {
-	return createStore(
-		rootReducer,
-		initialState,
-		applyMiddleware(thunk)
-		);
-}

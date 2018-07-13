@@ -1,5 +1,5 @@
 import React from 'react';
-import { applyMiddleware, combineReducers, createStore } from 'redux';
+import { applyMiddleware, } from 'redux';
 import thunk from 'redux-thunk';
 import { merge } from 'lodash';
 
@@ -7,32 +7,29 @@ import { LOADING, ERROR, SUCCESS } from "./";
 
 
 const initial_state = {
+	data: [],
 	isloading: false,
-	iserror: false,
-	data: []
+	iserror: false
 }
 
-function loadingState(state = initial_state, action) {
+export function data_reducer(state = initial_state, action) {
+	console.log("state")
+	console.log(state)
+	console.log("action")
+	console.log(action)
+	console.log("action.isloading")
+	console.log(action.isloading)
+	console.log("result")
+	console.log({ ...state, isloading: action.isloading })
   switch (action.type) {
     case LOADING:
-      return action.isloading
+      return { ...state, isloading: action.isloading }
     case ERROR:
-      return action.iserror
+      return { ...state, iserror: action.iserror }
     case SUCCESS:
-      return action.data
+      return { ...state, data: action.data }
     default:
       return state
   }
 }
 
-export const root_reducer = combineReducers({
-	loadingState
-});
-
-export default function configureStore(initialState) {
-    return createStore(
-        rootReducer,
-        initialState,
-        applyMiddleware(thunk)
-    );
-}

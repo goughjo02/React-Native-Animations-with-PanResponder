@@ -1,4 +1,5 @@
-import { dataHasErrored, dataIsLoading, fetchDataSuccess } from '../redux/actions';
+import redux from 'redux';
+import { dataHasErrored, dataIsLoading, fetchDataSuccess } from '../redux';
 
 
 export function fetchData(url) {

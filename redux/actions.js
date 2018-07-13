@@ -1,4 +1,4 @@
-import { ERROR, LOADING, SUCCESS } from '../constants';
+import { ERROR, LOADING, SUCCESS } from './constants';
 
 export function dataHasErrored(bool) {
     return {

@@ -1,3 +1,4 @@
-const ERROR = 'data loading has errored';
-const LOADING = 'data is loading';
-const SUCCESS = 'succesful fetch of data';
+export const ERROR = 'data loading has errored';
+export const LOADING = 'data is loading';
+export const SUCCESS = 'succesful fetch of data';
+

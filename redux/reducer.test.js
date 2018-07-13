@@ -1,22 +1,21 @@
 import React from 'react';
-import deepFreeze from './deep-freeze';
+import deepFreeze from 'deep-freeze';
 import renderer from 'react-test-renderer';
 
 import { http_reducer } from './';
 import { LOADING, ERROR, SUCCESS } from './'
 
 describe('HTTP Reducer', () => {
-	it('should return the initial state', () => {
-    expect(http_reducer(undefined, {})).toEqual([
+	xit('should return the initial state', () => {
+    expect(http_reducer(undefined, { })).toEqual([
       {
         data: [],
         iserror: false,
         isloading: false
-      }
+      },
     ])
   })
-​
-  it('should handle LOADING', () => {
+	it('should handle LOADING', () => {
     expect(
       http_reducer([], {
         type: LOADING,
@@ -27,10 +26,9 @@ describe('HTTP Reducer', () => {
         data: [],
         iserror: false,
         isloading: true
-      }
+      },
     ])
-​
-    expect(
+	expect(
       reducer(
         [
           {
@@ -42,7 +40,7 @@ describe('HTTP Reducer', () => {
         {
           type: LOADING,
           isloading: false
-        }
+        },
       )
     ).toEqual([
       {
@@ -52,8 +50,7 @@ describe('HTTP Reducer', () => {
       }
     ])
   })
-​
-  it('should handle ERROR', () => {
+	xit('should handle ERROR', () => {
     expect(
       http_reducer([], {
         type: ERROR,
@@ -64,9 +61,8 @@ describe('HTTP Reducer', () => {
         data: [],
         iserror: true,
         isloading: false
-      }
+      },
     ])
-​
     expect(
       reducer(
         [
@@ -79,7 +75,7 @@ describe('HTTP Reducer', () => {
         {
           type: ERROR,
           iserror: false
-        }
+        },
       )
     ).toEqual([
       {
@@ -89,8 +85,7 @@ describe('HTTP Reducer', () => {
       }
     ])
   })
-​
-  it('should handle SUCCESS', () => {
+	xit('should handle SUCCESS', () => {
     expect(
       http_reducer([], {
         type: SUCCESS,
@@ -101,9 +96,8 @@ describe('HTTP Reducer', () => {
         data: ['test'],
         iserror: false,
         isloading: false
-      }
+      },
     ])
-​
     expect(
       reducer(
         [
@@ -116,14 +110,14 @@ describe('HTTP Reducer', () => {
         {
           type: SUCCESS,
           data: ['test 2']
-        }
+        },
       )
     ).toEqual([
       {
         data: ['test 2'],
         iserror: false,
         isloading: false
-      }
+      },
     ])
   })
 })

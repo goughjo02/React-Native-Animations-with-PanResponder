@@ -2,122 +2,92 @@ import React from "react";
 import deepFreeze from "deep-freeze";
 import renderer from "react-test-renderer";
 
-import { data_reducer } from "./";
-import { LOADING, ERROR, SUCCESS } from "./";
+import { http_data_reducer } from "./reducer";
+import { LOADING, ERROR, SUCCESS } from "./constants";
+import { dataIsLoading, dataHasErrored, fetchDataSuccess } from './actions'
 
 describe("HTTP Reducer", () => {
-	it("should return the initial state", () => {
-		expect(data_reducer(undefined, {})).toEqual(
-			{
-				data: [],
-				iserror: false,
-				isloading: false
-			}
-		);
+	it("produces default state", () => {
+		const expected_result = {
+			data: [],
+			isloading: false,
+			iserror: false
+		};
+		expect(http_data_reducer(undefined, {})).toEqual(expected_result);
 	});
-	it("should handle LOADING", () => {
-		expect(
-			data_reducer([], {
-				type: LOADING,
-				isloading: true
-			})
-		).toEqual(
-			{
-				data: [],
-				iserror: false,
-				isloading: true
-			}
-		);
-		expect(
-			data_reducer(
-				
-					{
-						data: [],
-						iserror: false,
-						isloading: true
-					}
-				,
-				{
-					type: LOADING,
-					isloading: false
-				}
-			)
-		).toEqual(
-			{
-				data: [],
-				iserror: false,
-				isloading: false
-			}
-		);
-	});
-	xit("should handle ERROR", () => {
-		expect(
-			data_reducer([], {
-				type: ERROR,
-				iserror: true
-			})
-		).toEqual(
-			{
-				data: [],
-				iserror: true,
-				isloading: false
-			}
-		);
-		expect(
-			data_reducer(
-				
-					{
-						data: [],
-						iserror: true,
-						isloading: false
-					}
-				,
-				{
-					type: ERROR,
-					iserror: false
-				}
-			)
-		).toEqual(
-			{
-				data: [],
-				iserror: false,
-				isloading: false
-			}
-		);
-	});
-	xit("should handle SUCCESS", () => {
-		expect(
-			data_reducer([], {
-				type: SUCCESS,
-				data: ["test"]
-			})
-		).toEqual(
-			{
-				data: ["test"],
-				iserror: false,
-				isloading: false
-			}
-		);
-		expect(
-			data_reducer(
-				
-					{
-						data: ["test"],
-						iserror: false,
-						isloading: false
-					}
-				,
-				{
-					type: SUCCESS,
-					data: ["test 2"]
-				}
-			)
-		).toEqual(
-			{
-				data: ["test 2"],
-				iserror: false,
-				isloading: false
-			}
-		);
-	});
+
+	it('adds data when successful', () => {
+		const state_before = {
+			data: [],
+			isloading: false,
+			iserror: false
+		};
+		const expected_result = {
+			data: ['test'],
+			isloading: false,
+			iserror: false
+		}
+		deepFreeze(state_before)
+		expect(http_data_reducer(state_before, fetchDataSuccess(['test']))).toEqual(expected_result)
+	})
+
+	it('toggle is loading true', () => {
+		const state_before = {
+			data: [],
+			isloading: false,
+			iserror: false
+		}
+		const expected_result = {
+			data: [],
+			isloading: true,
+			iserror: false
+		};
+		deepFreeze(state_before);
+		expect(http_data_reducer(state_before, dataIsLoading(true))).toEqual(expected_result)
+	})
+
+	it('toggle is loading false', () => {
+		const state_before = {
+			data: [],
+			isloading: true,
+			iserror: false
+		}
+		const expected_result = {
+			data: [],
+			isloading: false,
+			iserror: false
+		};
+		deepFreeze(state_before);
+		expect(http_data_reducer(state_before, dataIsLoading(false))).toEqual(expected_result)
+	})
+
+	it('toggle is error true', () => {
+		const state_before = {
+			data: [],
+			isloading: false,
+			iserror: false
+		}
+		const expected_result = {
+			data: [],
+			isloading: false,
+			iserror: true
+		};
+		deepFreeze(state_before);
+		expect(http_data_reducer(state_before, dataHasErrored(true))).toEqual(expected_result)
+	})
+
+	it('toggle is error false', () => {
+		const state_before = {
+			data: [],
+			isloading: false,
+			iserror: true
+		}
+		const expected_result = {
+			data: [],
+			isloading: false,
+			iserror: false
+		};
+		deepFreeze(state_before);
+		expect(http_data_reducer(state_before, dataHasErrored(false))).toEqual(expected_result)
+	})
 });

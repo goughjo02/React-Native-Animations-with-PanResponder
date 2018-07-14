@@ -3,7 +3,15 @@ import renderer from 'react-test-renderer';
 import deepFreeze from 'deep-freeze';
 
 import { configureStore } from './store';
-import { fetchDataSuccess, dataHasErrored, dataIsLoading } from './actions';
+import {
+	dataHasErrored,
+	dataIsLoading,
+	fetchDataSuccess,
+	setStartRange,
+	setEndRange,
+	setStartZoom,
+	setEndZoom
+} from "./actions";
 
 
 describe('store', () => {

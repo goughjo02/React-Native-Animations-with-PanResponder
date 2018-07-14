@@ -1,7 +1,5 @@
 import React from 'react';
-import { applyMiddleware, } from 'redux';
-import thunk from 'redux-thunk';
-import { merge } from 'lodash';
+import { combineReducers, } from 'redux';
 
 import { LOADING, ERROR, SUCCESS } from "./";
 
@@ -36,3 +34,7 @@ export function http_data_reducer(state = initial_state, action) {
       return state
   }
 }
+
+export const root_reducer = combineReducers({
+  data: http_data_reducer
+})

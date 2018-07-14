@@ -46,7 +46,7 @@ describe("actions", () => {
 		expect(setStartRange(data)).toEqual(expectedResult)
 	});
 	it("should create an action to set end range", () => {
-		const data = 100;
+		const data = 200;
 		const expectedResult = {
 			type: END_RANGE,
 			index: 200
@@ -56,7 +56,7 @@ describe("actions", () => {
 	it("should create an action to set start zoom", () => {
 		const data = 25;
 		const expectedResult = {
-			type: START_RANGE,
+			type: START_ZOOM,
 			percent: 25
 		}
 		expect(setStartZoom(data)).toEqual(expectedResult)
@@ -64,7 +64,7 @@ describe("actions", () => {
 	it("should create an action to set end zoom", () => {
 		const data = 75;
 		const expectedResult = {
-			type: END_RANGE,
+			type: END_ZOOM,
 			percent: 75
 		}
 		expect(setEndZoom(data)).toEqual(expectedResult)

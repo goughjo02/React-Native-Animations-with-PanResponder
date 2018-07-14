@@ -76,5 +76,7 @@ export function zoom_reducer(state=initial_zoom_state, action) {
 }
 
 export const root_reducer = combineReducers({
-  data: http_data_reducer
+  data: http_data_reducer,
+  range: range_reducer,
+  zoom: zoom_reducer
 })

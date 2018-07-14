@@ -168,7 +168,7 @@ describe("zoom selectors", () => {
 			expectation
 		);
 	});
-	xit("can set end zoom", () => {
+	it("can set end zoom", () => {
 		const choice = 50;
 		const initial_state = {
 			start: 0,

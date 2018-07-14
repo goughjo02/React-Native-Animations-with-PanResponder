@@ -23,6 +23,14 @@ describe('store', () => {
 			data: [],
 			isloading: false,
 			iserror: false
+		},
+		range: {
+			start: 0,
+			end: 0
+		},
+		zoom: {
+			start: 0,
+			end: 100
 		}
 	}
 	deepFreeze(default_state)
@@ -38,7 +46,15 @@ describe('store', () => {
 				data: ['test'],
 				isloading: false,
 				iserror: false
-			}
+			},
+		range: {
+			start: 0,
+			end: 0
+		},
+		zoom: {
+			start: 0,
+			end: 100
+		}
 		}
 		store.dispatch(fetchDataSuccess(['test']))
 		expect(store.getState()).toEqual(expected_state)
@@ -49,7 +65,15 @@ describe('store', () => {
 				data: [],
 				isloading: true,
 				iserror: false
-			}
+			},
+		range: {
+			start: 0,
+			end: 0
+		},
+		zoom: {
+			start: 0,
+			end: 100
+		}
 		}
 		store.dispatch(dataIsLoading(true))
 		expect(store.getState()).toEqual(expected_state)
@@ -60,7 +84,15 @@ describe('store', () => {
 				data: [],
 				isloading: false,
 				iserror: true
-			}
+			},
+		range: {
+			start: 0,
+			end: 0
+		},
+		zoom: {
+			start: 0,
+			end: 100
+		}
 		}
 		store.dispatch(dataHasErrored(true))
 		expect(store.getState()).toEqual(expected_state)

@@ -32,7 +32,6 @@
     "react-native": "~0.55.2",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
-    "redux-thunk": "^2.3.0",
-    "svg-path-properties": "^0.4.4"
+    "redux-thunk": "^2.3.0"
   }
 }

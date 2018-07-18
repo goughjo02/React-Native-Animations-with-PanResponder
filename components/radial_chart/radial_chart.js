@@ -1,7 +1,6 @@
 import React from "react";
 import { Animated, ART, AppState, StyleSheet, View } from "react-native";
 const { Surface, Shape, Path, Group } = ART;
-import svgPathProperties from 'svg-path-properties';
 import PropTypes from "prop-types";
 
 class RadialChart extends React.Component {
@@ -26,29 +25,32 @@ class RadialChart extends React.Component {
     return p;
   };
   render() {
-    const { maxAngle, radius, rotation, strokWidth } = this.props;
-    const offset = strokWidth * 1.3;
+    const { maxAngle, offsetFactor, precent, radius, rotation, strokeWidth } = this.props;
+    const offset = strokeWidth * offsetFactor;
     const { color1, color2, color3 } = this.props;
     var data = this.props.data.map(e => e.value);
     var max = Math.max(data[0], data[1], data[2]);
+    var radiusInner = radius - strokeWidth / 2 - offset * 2;
+    var radiusMiddle = radius - strokeWidth / 2 - offset;
+    var radiusOuter = radius - strokeWidth / 2;
     const outerPath = this.circlePath(
       radius,
       radius,
-      radius - strokWidth / 2,
+      radiusOuter,
       0,
       maxAngle * (data[0] / max)
     );
-    const midPath = this.circlePath(
+    const middlePath = this.circlePath(
       radius,
       radius,
-      radius - strokWidth / 2 - offset,
+      radiusMiddle,
       0,
       maxAngle * (data[1] / max)
     );
     const innerPath = this.circlePath(
       radius,
       radius,
-      radius - strokWidth / 2 - offset * 2,
+      radiusInner,
       0,
       maxAngle * (data[2] / max)
     );
@@ -59,6 +61,9 @@ class RadialChart extends React.Component {
         alignItems: "center"
       }
     });
+    var innerLength = (2 * Math.PI * radiusInner);
+    var middleLength = (2 * Math.PI * radiusMiddle);
+    var outerLength = (2 * Math.PI * radiusOuter);
     return (
       <React.Fragment>
         <View style={styles.circles}>
@@ -71,20 +76,19 @@ class RadialChart extends React.Component {
               <Shape
                 d={outerPath}
                 stroke={color1}
-                strokeDash={[100, 50]}
-                strokeWidth={strokWidth}
+                strokeWidth={strokeWidth}
                 strokeCap="round"
               />
               <Shape
-                d={midPath}
+                d={middlePath}
                 stroke={color2}
-                strokeWidth={strokWidth}
+                strokeWidth={strokeWidth}
                 strokeCap="round"
               />
               <Shape
                 d={innerPath}
                 stroke={color3}
-                strokeWidth={strokWidth}
+                strokeWidth={strokeWidth}
                 strokeCap="round"
               />
             </Group>
@@ -127,19 +131,14 @@ class AnimRadialChart extends React.Component {
 
   render() {
     const { ...other } = this.props;
-    return (
-      <AnimatedRadialProgress
-        {...other}
-        precent={this.state.precent}
-      />
-    );
+    return <AnimatedRadialProgress {...other} precent={this.state.precent} />;
   }
 }
 
 RadialChart.propTypes = {
   duration: PropTypes.number.isRequired,
   radius: PropTypes.number.isRequired,
-  strokWidth: PropTypes.number.isRequired,
+  strokeWidth: PropTypes.number.isRequired,
   data: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
@@ -148,6 +147,7 @@ RadialChart.propTypes = {
   ),
   rotation: PropTypes.number.isRequired,
   maxAngle: PropTypes.number.isRequired,
+  offsetFactor: PropTypes.number.isRequired,
   color1: PropTypes.string.isRequired,
   color2: PropTypes.string.isRequired,
   color3: PropTypes.string.isRequired
@@ -156,9 +156,10 @@ RadialChart.propTypes = {
 RadialChart.defaultProps = {
   duration: 2000,
   maxAngle: 270,
+  offsetFactor: 1.3,
   radius: 75,
   rotation: -135,
-  strokWidth: 12,
+  strokeWidth: 12,
   color1: "#ff0000",
   color2: "#00ff00",
   color3: "#0000ff"

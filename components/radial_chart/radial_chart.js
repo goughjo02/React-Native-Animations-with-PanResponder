@@ -1,7 +1,7 @@
 import React from "react";
-import { Art, View } from "react-native";
+import { ART, AppState, StyleSheet, View } from "react-native";
 const { Surface, Shape, Path, Group } = ART;
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 class RadialChart extends React.Component {
   state = { appState: AppState.currentState };
@@ -27,8 +27,8 @@ class RadialChart extends React.Component {
   render() {
     const { radius, Width } = this.props;
     const offset = Width * 1.3;
-    const { outer, mid, inner } = this.props.colorsScheme;
-    const { outerData, midData, innerData } = this.props;
+    const { color1, color2, color3 } = this.props;
+    var data = this.props.data.map(e => e.value);
     const outerPath = this.circlePath(
       radius,
       radius,
@@ -72,22 +72,19 @@ class RadialChart extends React.Component {
             <Group rotation={rotation} originX={radius} originY={radius}>
               <Shape
                 d={outerPath}
-                stroke={outer}
-                strokeDash={[outerData, outerCirc * 4]}
+                stroke={color1}
                 strokeWidth={Width}
                 strokeCap="round"
               />
               <Shape
                 d={midPath}
-                stroke={mid}
-                strokeDash={[midData, midCirc * 4]}
+                stroke={color2}
                 strokeWidth={12}
                 strokeCap="round"
               />
               <Shape
                 d={innerPath}
-                stroke={inner}
-                strokeDash={[innerData, innerCirc * 4]}
+                stroke={color3}
                 strokeWidth={12}
                 strokeCap="round"
               />
@@ -111,14 +108,14 @@ RadialChart.propTypes = {
   color1: PropTypes.string.isRequired,
   color2: PropTypes.string.isRequired,
   color3: PropTypes.string.isRequired
-}
+};
 
 RadialChart.defaultProps = {
   radius: 75,
-  Width: 150,
+  Width: 12,
   color1: "#ff0000",
   color2: "#00ff00",
   color3: "#0000ff"
-}
+};
 
-export { RadialChart }
+export { RadialChart };

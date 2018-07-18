@@ -1,6 +1,7 @@
 import React from "react";
 import { Animated, ART, AppState, StyleSheet, View } from "react-native";
 const { Surface, Shape, Path, Group } = ART;
+import svgPathProperties from 'svg-path-properties';
 import PropTypes from "prop-types";
 
 class RadialChart extends React.Component {
@@ -94,7 +95,7 @@ class RadialChart extends React.Component {
   }
 }
 
-const AnimatedCRadialProgress = Animated.createAnimatedComponent(RadialChart);
+const AnimatedRadialProgress = Animated.createAnimatedComponent(RadialChart);
 
 class AnimRadialChart extends React.Component {
   constructor(props) {
@@ -163,4 +164,4 @@ RadialChart.defaultProps = {
   color3: "#0000ff"
 };
 
-export { RadialChart };
+export { AnimRadialChart as RadialChart };

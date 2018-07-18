@@ -25,35 +25,32 @@ class RadialChart extends React.Component {
     return p;
   };
   render() {
-    const { radius, Width } = this.props;
-    const offset = Width * 1.3;
+    const { maxAngle, radius, rotation, strokWidth } = this.props;
+    const offset = strokWidth * 1.3;
     const { color1, color2, color3 } = this.props;
     var data = this.props.data.map(e => e.value);
+    var max = Math.max(data[0], data[1], data[2]);
     const outerPath = this.circlePath(
       radius,
       radius,
-      radius - Width / 2,
+      radius - strokWidth / 2,
       0,
-      360
+      maxAngle * (data[0]/max)
     );
     const midPath = this.circlePath(
       radius,
       radius,
-      radius - Width / 2 - offset,
+      radius - strokWidth / 2 - offset,
       0,
-      360
+      maxAngle * (data[1]/max)
     );
     const innerPath = this.circlePath(
       radius,
       radius,
-      radius - Width / 2 - offset * 2,
+      radius - strokWidth / 2 - offset * 2,
       0,
-      360
+      maxAngle * (data[2]/max)
     );
-    const outerCirc = 2 * Math.PI * (radius - Width / 2);
-    const midCirc = 2 * Math.PI * (radius - Width / 2 - offset);
-    const innerCirc = 2 * Math.PI * (radius - Width / 2 - offset * 2);
-    const rotation = -135;
     const styles = StyleSheet.create({
       circles: {
         alignSelf: "stretch",
@@ -73,19 +70,19 @@ class RadialChart extends React.Component {
               <Shape
                 d={outerPath}
                 stroke={color1}
-                strokeWidth={Width}
+                strokeWidth={strokWidth}
                 strokeCap="round"
               />
               <Shape
                 d={midPath}
                 stroke={color2}
-                strokeWidth={12}
+                strokeWidth={strokWidth}
                 strokeCap="round"
               />
               <Shape
                 d={innerPath}
                 stroke={color3}
-                strokeWidth={12}
+                strokeWidth={strokWidth}
                 strokeCap="round"
               />
             </Group>
@@ -98,21 +95,25 @@ class RadialChart extends React.Component {
 
 RadialChart.propTypes = {
   radius: PropTypes.number.isRequired,
-  Width: PropTypes.number.isRequired,
+  strokWidth: PropTypes.number.isRequired,
   data: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
       value: PropTypes.number.isRequired
     })
   ),
+  rotation: PropTypes.number.isRequired,
+  maxAngle: PropTypes.number.isRequired,
   color1: PropTypes.string.isRequired,
   color2: PropTypes.string.isRequired,
   color3: PropTypes.string.isRequired
 };
 
 RadialChart.defaultProps = {
+  maxAngle: 270,
   radius: 75,
-  Width: 12,
+  rotation: -135,
+  strokWidth: 12,
   color1: "#ff0000",
   color2: "#00ff00",
   color3: "#0000ff"

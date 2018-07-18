@@ -1,5 +1,5 @@
 import React from "react";
-import { ART, AppState, StyleSheet, View } from "react-native";
+import { Animated, ART, AppState, StyleSheet, View } from "react-native";
 const { Surface, Shape, Path, Group } = ART;
 import PropTypes from "prop-types";
 
@@ -35,21 +35,21 @@ class RadialChart extends React.Component {
       radius,
       radius - strokWidth / 2,
       0,
-      maxAngle * (data[0]/max)
+      maxAngle * (data[0] / max)
     );
     const midPath = this.circlePath(
       radius,
       radius,
       radius - strokWidth / 2 - offset,
       0,
-      maxAngle * (data[1]/max)
+      maxAngle * (data[1] / max)
     );
     const innerPath = this.circlePath(
       radius,
       radius,
       radius - strokWidth / 2 - offset * 2,
       0,
-      maxAngle * (data[2]/max)
+      maxAngle * (data[2] / max)
     );
     const styles = StyleSheet.create({
       circles: {
@@ -70,6 +70,7 @@ class RadialChart extends React.Component {
               <Shape
                 d={outerPath}
                 stroke={color1}
+                strokeDash={[100, 50]}
                 strokeWidth={strokWidth}
                 strokeCap="round"
               />
@@ -93,7 +94,49 @@ class RadialChart extends React.Component {
   }
 }
 
+const AnimatedCRadialProgress = Animated.createAnimatedComponent(RadialChart);
+
+class AnimRadialChart extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      precent: new Animated.Value(0)
+    };
+  }
+
+  componentDidMount() {
+    this.animateFill();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.data !== this.props.data) {
+      this.animateFill();
+    } else {
+      return;
+    }
+  }
+
+  animateFill = () => {
+    var { duration } = this.props;
+    Animated.timing(this.state.precent, {
+      toValue: 100,
+      duration: duration
+    }).start();
+  };
+
+  render() {
+    const { ...other } = this.props;
+    return (
+      <AnimatedRadialProgress
+        {...other}
+        precent={this.state.precent}
+      />
+    );
+  }
+}
+
 RadialChart.propTypes = {
+  duration: PropTypes.number.isRequired,
   radius: PropTypes.number.isRequired,
   strokWidth: PropTypes.number.isRequired,
   data: PropTypes.arrayOf(
@@ -110,6 +153,7 @@ RadialChart.propTypes = {
 };
 
 RadialChart.defaultProps = {
+  duration: 2000,
   maxAngle: 270,
   radius: 75,
   rotation: -135,

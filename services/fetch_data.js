@@ -1,6 +1,18 @@
 import redux from 'redux';
 import { dataHasErrored, dataIsLoading, fetchDataSuccess } from '../redux';
 
+function convertDateTime(dateString) {
+    var datetime = dateString.split(" ");
+    var date = datetime[0].split("-");
+    var yyyy = date[0];
+    var mm = date[1] - 1;
+    var dd = date[2];
+    var time = datetime[1].split(":");
+    var h = time[0];
+    var m = time[1];
+    var s = parseInt(time[2]);
+    return new Date(yyyy, mm, dd, h, m, s);
+}
 
 export function fetchData(url) {
     return (dispatch) => {
@@ -14,6 +26,15 @@ export function fetchData(url) {
                 return response;
             })
             .then((response) => response.json())
+            .then((items) => {
+                if (!!items[0].date) {
+                    return items.map((e) => {
+                    e.data = convertDateTime(e.date);
+                })
+                } else {
+                return items
+            }
+            })
             .then((items) => dispatch(fetchDataSuccess(items)))
             .catch(() => dispatch(dataHasErrored(true)));
     };

@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import { translate_to_percentage, percentage_to_translation } from './translation_to_percentage';
+import { translate_to_percentage, percentage_to_translation } from '../services/translation_to_percentage';
 
 describe('convert between translation and percentage', () => {
 	let holderWidth, sliderWidth, translation, percentage, expectation;

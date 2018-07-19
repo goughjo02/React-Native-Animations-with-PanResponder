@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import { start_percentage_to_slice, end_percentage_to_slice } from './percentage_to_slice';
+import { start_percentage_to_slice, end_percentage_to_slice } from '../services/percentage_to_slice';
 
 describe('convert from percentages and slices', () => {
 	it('can convert from percentage to start slice 1', () => {

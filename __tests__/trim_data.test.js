@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import { range_selector, zoom_selector, combination_selector } from './trim_data';
+import { range_selector, zoom_selector, combination_selector } from '../services/trim_data';
 
 // arrays are zero indexed
 

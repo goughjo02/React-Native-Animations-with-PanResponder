@@ -3,7 +3,7 @@ import thunk from "redux-thunk";
 import fetchMock from "fetch-mock";
 import renderer from "react-test-renderer";
 
-import { fetchData } from "./fetch-data";
+import { fetchData } from "../services/fetch_data";
 import {
   dataHasErrored,
   dataIsLoading,

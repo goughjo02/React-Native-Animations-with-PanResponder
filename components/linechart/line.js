@@ -23,7 +23,7 @@ export class AnimShape extends React.Component {
   }
   computeNextState(nextProps) {
     const { d } = nextProps;
-    const { AnimationDurationMs } = this.props;
+    const { duration } = this.props;
     const graph = this.props.d();
     this.setState({
       path: graph.path
@@ -38,7 +38,7 @@ export class AnimShape extends React.Component {
       this.animating = null;
       LayoutAnimation.configureNext(
         LayoutAnimation.create(
-          AnimationDurationMs,
+          duration,
           LayoutAnimation.Types.easeInEaseOut,
           LayoutAnimation.Properties.opacity
         )
@@ -58,12 +58,12 @@ export class AnimShape extends React.Component {
     }
   }
   animate(start) {
-    const { AnimationDurationMs } = this.props
+    const { duration } = this.props
     this.animating = requestAnimationFrame(timestamp => {
       if (!start) {
         start = timestamp;
       }
-      const delta = (timestamp - start) / AnimationDurationMs;
+      const delta = (timestamp - start) / duration;
       if (delta > 1) {
         this.animating = null;
         this.setState({
@@ -138,6 +138,7 @@ class AnimLine extends React.Component {
 	};
 	render() {
 		const { height, width, color1, color2, color3 } = this.props;
+		var { ...other } = this.props;
 		const styles = StyleSheet.create({
 			surface: {
 				backgroundColor: 'white'
@@ -151,6 +152,7 @@ class AnimLine extends React.Component {
 				>
 					<Group x={20} y={20}>
 						<AnimShape
+						{ ...other }
 							color={color1}
 							d={() =>
 								this._createLine(
@@ -159,12 +161,14 @@ class AnimLine extends React.Component {
 							}
 						/>
 						<AnimShape
+						{ ...other }
 							color={color2}
 							d={() =>
 								this._createLine("used")
 							}
 						/>
 						<AnimShape
+						{ ...other }
 							color={color3}
 							d={() =>
 								this._createLine("sold")
@@ -179,7 +183,7 @@ class AnimLine extends React.Component {
 AnimLine.propTypes = {
 	height: PropTypes.number.isRequired,
 	width: PropTypes.number.isRequired,
-	AnimationDurationMs: PropTypes.number.isRequired,
+	duration: PropTypes.number.isRequired,
 	color1: PropTypes.string.isRequired,
 	color2: PropTypes.string.isRequired,
 	color3: PropTypes.string.isRequired,
@@ -197,7 +201,7 @@ AnimLine.propTypes = {
 AnimLine.defaultProps = {
 	height: 170,
 	width: 300,
-	AnimationDurationMs: 2000,
+	duration: 2000,
   	color1: "#ff0000",
   	color2: "#00ff00",
   	color3: "#0000ff"

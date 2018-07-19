@@ -1,7 +1,7 @@
 import redux from 'redux';
 import { dataHasErrored, dataIsLoading, fetchDataSuccess } from '../redux';
 
-function convertDateTime(dateString) {
+export function convertDateTime(dateString) {
     var datetime = dateString.split(" ");
     var date = datetime[0].split("-");
     var yyyy = date[0];
@@ -26,15 +26,6 @@ export function fetchData(url) {
                 return response;
             })
             .then((response) => response.json())
-            .then((items) => {
-                if (!!items[0].date) {
-                    return items.map((e) => {
-                    e.data = convertDateTime(e.date);
-                })
-                } else {
-                return items
-            }
-            })
             .then((items) => dispatch(fetchDataSuccess(items)))
             .catch(() => dispatch(dataHasErrored(true)));
     };

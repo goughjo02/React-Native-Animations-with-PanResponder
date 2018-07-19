@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import { Legend, Line, RadialChart } from './components';
 
 
@@ -18,8 +18,10 @@ function convertDateTime(dateString) {
 }
 
 export default class App extends React.Component {
-  render() {
-    var linedata = [
+  constructor(props) {
+    super(props);
+    this.state = {
+      linedata: [
     {
         "bought": 0,
         "date": "2012-05-01 00:00:00+00:00",
@@ -91,6 +93,64 @@ export default class App extends React.Component {
         "used": 42
     }
     ]
+    }
+  }
+  changeData = () => {
+    this.setState({
+      linedata: [
+    {
+        "bought": 0,
+        "date": "2012-05-01 00:00:00+00:00",
+        "produced": 65,
+        "sold": 28,
+        "used": 37
+    },
+    {
+        "bought": 6,
+        "date": "2012-05-01 01:00:00+00:00",
+        "produced": 4,
+        "sold": 0,
+        "used": 10
+    },
+    {
+        "bought": 2,
+        "date": "2012-05-01 02:00:00+00:00",
+        "produced": 8,
+        "sold": 0,
+        "used": 10
+    },
+    {
+        "bought": 5,
+        "date": "2012-05-01 03:00:00+00:00",
+        "produced": 4,
+        "sold": 0,
+        "used": 9
+    },
+    {
+        "bought": 3,
+        "date": "2012-05-01 04:00:00+00:00",
+        "produced": 7,
+        "sold": 0,
+        "used": 10
+    },
+    {
+        "bought": 0,
+        "date": "2012-05-01 05:00:00+00:00",
+        "produced": 9,
+        "sold": 2,
+        "used": 7
+    },
+    {
+        "bought": 0,
+        "date": "2012-05-01 06:00:00+00:00",
+        "produced": 67,
+        "sold": 61,
+        "used": 6
+    }
+    ]
+    })
+  }
+  render() {
     var data = [
     {
       name: "one",
@@ -104,12 +164,14 @@ export default class App extends React.Component {
       name: "one",
       value: 500
     }]
+    var { linedata } = this.state
     var dataline = linedata.map((e) => {
       e.date = convertDateTime(e.date)
       return e
     })
     return (
       <View style={styles.container}>
+      <Button title = " hello" onPress={this.changeData} />
         <Legend data={data} />
         <RadialChart data={data} />
         <Line data={dataline} />

@@ -3,6 +3,7 @@ import { Animated, ART, AppState, StyleSheet, View } from "react-native";
 const { Surface, Shape, Path, Group } = ART;
 import PropTypes from "prop-types";
 
+
 class RadialChart extends React.Component {
   state = { appState: AppState.currentState };
   componentDidMount = () =>

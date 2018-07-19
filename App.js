@@ -19,7 +19,7 @@ export default class App extends React.Component {
     }]
     return (
       <View style={styles.container}>
-        <Legend data={data} duration={2000} />
+        <Legend data={data} />
         <RadialChart data={data} />
       </View>
     );

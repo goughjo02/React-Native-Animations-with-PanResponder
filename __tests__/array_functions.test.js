@@ -2,7 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 
 import { convertDateTime } from "../services";
-import { getSum } from "../services";
+import { getSum, getMinMax } from "../services";
 
 let input;
 let key;
@@ -34,6 +34,20 @@ describe("array functions", () => {
 			}
 		];
 	});
+	it('can get minmax values of keys', () => {
+		key = "sold";
+		expectation = { "min": 0, "max": 28};
+		expect(getMinMax(input, key)).toEqual(expectation);
+		key = "produced";
+		expectation = {"min": 4, "max": 65};
+		expect(getMinMax(input, key)).toEqual(expectation);
+		key = "used";
+		expectation = {"min": 10, "max": 37};
+		expect(getMinMax(input, key)).toEqual(expectation);
+		key = "date";
+		expectation = {"min": convertDateTime("2012-05-01 00:00:00+00:00"), "max": convertDateTime("2012-05-01 02:00:00+00:00")};
+		expect(getMinMax(input, key)).toEqual(expectation);
+	})
 	it("can get sum of key in array", () => {
 		key = "sold";
 		expectation = 28;

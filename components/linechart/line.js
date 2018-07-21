@@ -6,7 +6,7 @@ import * as shape from "d3-shape";
 import * as scale from "d3-scale";
 const d3 = { scale, shape };
 import PropTypes from 'prop-types';
-import { getSum, getMinMax, getXScale, getYScale } from "../../services";
+import { getMinMax, getXScale, getYScale } from "../../services";
 
 
 export class AnimShape extends React.Component {

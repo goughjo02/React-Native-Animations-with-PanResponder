@@ -92,10 +92,36 @@ export default class App extends React.Component {
         "sold": 23,
         "used": 42
     }
-    ]
+    ],
+    data: [ 
+    {
+      name: "one",
+      value: 200
+    },
+    {
+      name: "one",
+      value: 400
+    },
+    {
+      name: "one",
+      value: 500
+    }]
     }
   }
   changeData = () => {
+    this.setState({data: [ 
+    {
+      name: "one",
+      value: 600
+    },
+    {
+      name: "one",
+      value: 200
+    },
+    {
+      name: "one",
+      value: 550
+    }]})
     this.setState({
       linedata: [
     {
@@ -150,21 +176,7 @@ export default class App extends React.Component {
     ]
     })
   }
-  render() {
-    var data = [
-    {
-      name: "one",
-      value: 200
-    },
-    {
-      name: "one",
-      value: 400
-    },
-    {
-      name: "one",
-      value: 500
-    }]
-    var { linedata } = this.state
+  render() {    var { linedata, data } = this.state
     var dataline = linedata.map((e) => {
       e.date = convertDateTime(e.date)
       return e

@@ -26,6 +26,12 @@ export function fetchData(url) {
                 return response;
             })
             .then((response) => response.json())
+            .then((items) => {
+                items.forEach((e) => {
+                    e.date = convertDateTime(e.date)
+                })
+                return items
+            })
             .then((items) => dispatch(fetchDataSuccess(items)))
             .catch(() => dispatch(dataHasErrored(true)));
     };

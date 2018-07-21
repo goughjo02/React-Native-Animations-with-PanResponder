@@ -26,12 +26,24 @@ describe("async actions", () => {
     fetchMock.getOnce("http_json", {
       status: 200,
       headers: { "content-type": "application/json" },
-      body: ["expect me"]
+      body: [{
+        "bought": 2,
+        "date": "2012-05-01 02:00:00+00:00",
+        "produced": 8,
+        "sold": 0,
+        "used": 10
+    }]
     });
     const expectations = [
       { type: LOADING, isloading: true },
       { type: LOADING, isloading: false },
-      { type: SUCCESS, data: ["expect me"] }
+      { type: SUCCESS, data: [{
+        "bought": 2,
+        "date": convertDateTime("2012-05-01 02:00:00+00:00"),
+        "produced": 8,
+        "sold": 0,
+        "used": 10
+    }] }
     ];
     const store = mockStore({ isloading: [], data: [] });
     return store.dispatch(fetchData("http_json")).then(() => {
@@ -54,5 +66,71 @@ describe("async actions", () => {
       expect(store.getActions()).toEqual(expectations);
     });
   });
+
+  it("convertDateTime() produces Date object", () => {
+    const arguement = "2012-05-01 00:00:00+00:00";
+    expect(typeof convertDateTime(arguement)).toEqual(typeof new Date);
+  });
+
+  it("parses incoming datetime strings into Date objects", () => {
+    fetchMock.getOnce("http_json", {
+      status: 200,
+      headers: { "content-type": "application/json" },
+      body: [
+      {
+        "bought": 0,
+        "date": "2012-05-01 00:00:00+00:00",
+        "produced": 65,
+        "sold": 28,
+        "used": 37
+    },
+    {
+        "bought": 6,
+        "date": "2012-05-01 01:00:00+00:00",
+        "produced": 4,
+        "sold": 0,
+        "used": 10
+    },
+    {
+        "bought": 2,
+        "date": "2012-05-01 02:00:00+00:00",
+        "produced": 8,
+        "sold": 0,
+        "used": 10
+    }
+    ]
+    });
+    const expectations = [
+      { type: LOADING, isloading: true },
+      { type: LOADING, isloading: false },
+      { type: SUCCESS, data: [
+      {
+        "bought": 0,
+        "date": convertDateTime("2012-05-01 00:00:00+00:00"),
+        "produced": 65,
+        "sold": 28,
+        "used": 37
+    },
+    {
+        "bought": 6,
+        "date": convertDateTime("2012-05-01 01:00:00+00:00"),
+        "produced": 4,
+        "sold": 0,
+        "used": 10
+    },
+    {
+        "bought": 2,
+        "date": convertDateTime("2012-05-01 02:00:00+00:00"),
+        "produced": 8,
+        "sold": 0,
+        "used": 10
+    }
+    ] }
+    ];
+    const store = mockStore({ isloading: [], data: [] });
+    return store.dispatch(fetchData("http_json")).then(() => {
+      expect(store.getActions()).toEqual(expectations);
+    });
+  })
 
 });

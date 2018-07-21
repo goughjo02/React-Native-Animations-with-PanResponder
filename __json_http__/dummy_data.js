@@ -1,4 +1,4 @@
-[
+export default const [
     {
         "bought": 0,
         "date": "2012-05-01 00:00:00+00:00",

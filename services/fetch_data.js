@@ -26,6 +26,9 @@ export function fetchData(url) {
                 return response;
             })
             .then((response) => response.json())
+            .then((response) => {
+                return response
+            })
             .then((items) => {
                 items.forEach((e) => {
                     e.date = convertDateTime(e.date)

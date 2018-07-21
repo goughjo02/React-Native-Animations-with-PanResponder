@@ -6,6 +6,7 @@ import * as shape from "d3-shape";
 import * as scale from "d3-scale";
 const d3 = { scale, shape };
 import PropTypes from 'prop-types';
+import { getSum, getMinMax, getXScale, getYScale } from "../../services";
 
 
 export class AnimShape extends React.Component {
@@ -88,47 +89,13 @@ class AnimLine extends React.Component {
 	constructor(props) {
 		super(props);
 	}
-	_getScalesXY = data => {
-		var { width, height } = this.props;
-		var minGroup = data.reduce((prev, curr) => { 
-			var minPrev = Math.min(prev.produced, prev.used, prev.sold);
-			var minCurr = Math.min(curr.produced, curr.used, curr.sold);
-			return minPrev < minCurr ? prev : curr;
-		});
-		var minValueY = Math.min(
-			minGroup.produced,
-			minGroup.used,
-			minGroup.sold
-		);
-		var maxGroup = data.reduce((prev, curr) => {
-			var maxPrev = Math.max(prev.produced, prev.used, prev.sold);
-			var maxCurr = Math.max(curr.produced, curr.used, curr.sold);
-			return maxPrev > maxCurr ? prev : curr;
-		});
-		var maxValueY = Math.max(
-			maxGroup.produced,
-			maxGroup.used,
-			maxGroup.sold
-		);
-		var maxTime = data.reduce((prev, curr) => {
-			return prev.date > curr.date ? prev : curr;
-		}).date;
-		var minTime = data.reduce((prev, curr) => {
-			return prev.date < curr.date ? prev : curr;
-		}).date;
-		var xScale = d3.scale
-			.scaleTime()
-			.domain([minTime, maxTime])
-			.range([0, width]);
-		var yScale = d3.scale
-			.scaleLinear()
-			.domain([minValueY, maxValueY])
-			.range([height, 0]);
-		return { xScale, yScale };
-	};
 	_createLine = (column) => {
-		var { data } = this.props;
-		var { xScale, yScale } = this._getScalesXY(data);
+		var { data, width, height } = this.props;
+		var time = getMinMax(data, "date");
+		var minValue = Math.min(getMinMax(data, "produced").min, getMinMax(data, "used").min, getMinMax(data, "sold").min);
+		var maxValue = Math.max(getMinMax(data, "produced").max, getMinMax(data, "used").max, getMinMax(data, "sold").max);
+		var xScale = getXScale(time.min, time.max, width);
+		var yScale = getYScale(minValue, maxValue, height);
 		const lineShape = d3.shape
 			.line()
 			.x(d => xScale(d["date"]))

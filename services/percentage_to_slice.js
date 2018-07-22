@@ -9,11 +9,11 @@ const end_percentage_to_slice = (datalength, percentage) => {
 	return result;
 };
 const start_slice_to_percentage = (datalength, slice) => {
-	var result = Math.max(0, ((slice/datalength) * 100 - 1));
+	var result = Math.round(Math.min( 99, Math.max(0, ((slice/datalength) * 100))));
 	return result;
 };
 const end_slice_to_percentage = (datalength, slice) => {
-	var result = Math.min(100, (slice/datalength) * 100);
+	var result = Math.round(Math.min(100, (slice/datalength) * 100));
 	return result;
 };
 

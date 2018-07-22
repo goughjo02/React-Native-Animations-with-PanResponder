@@ -51,13 +51,39 @@ describe('convert from percentages and slices', () => {
 		var end_slice = end_percentage_to_slice(datalength, percentage)
 		expect(end_slice).toEqual(expectation);
 	});
-	xit('can convert from start slice to percentage', () => {
-		var start_percentage = start_slice_to_percentage(datalength, slice)
-		expect(false).toEqual(true)
+	it('can convert from start slice to percentage', () => {
+		slice = 0;
+		datalength = 70;
+		expectation = 0;
+		start_percentage = start_slice_to_percentage(datalength, slice)
+		expect(start_percentage).toEqual(expectation)
+		slice = 7;
+		datalength = 70;
+		expectation = 10;
+		start_percentage = start_slice_to_percentage(datalength, slice)
+		expect(start_percentage).toEqual(expectation)
+		slice = 69;
+		datalength = 70;
+		expectation = 99;
+		start_percentage = start_slice_to_percentage(datalength, slice)
+		expect(start_percentage).toEqual(expectation)
 	});
-	xit('can convert from end slice to percentage', () => {
-		var end_percentage = end_slice_to_percentage(datalength, slice)
-		expect(true).toEqual(false)
+	it('can convert from end slice to percentage', () => {
+		slice = 1;
+		datalength = 70;
+		expectation = 1;
+		start_percentage = end_slice_to_percentage(datalength, slice)
+		expect(start_percentage).toEqual(expectation)
+		slice = 70;
+		datalength = 70;
+		expectation = 100;
+		start_percentage = end_slice_to_percentage(datalength, slice)
+		expect(start_percentage).toEqual(expectation)
+		slice = 35;
+		datalength = 70;
+		expectation = 50;
+		start_percentage = end_slice_to_percentage(datalength, slice)
+		expect(start_percentage).toEqual(expectation)
 	})
 
 })

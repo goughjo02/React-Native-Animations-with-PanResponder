@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { connect } from "react-redux";
 import { faux_data } from "../__json_http__/dummy_data";
-import { Legend, Line, RadialChart } from "../components";
+import { Legend, Line, RadialChart, ZoomSlider } from "../components";
 import { fetchData } from "../services";
 import { fetchDataSuccess } from "../redux";
 import { combination_selector, convertDateTime, getSum } from "../services";
@@ -41,6 +41,7 @@ class PageOne extends React.Component {
 						<Legend data={sumData} />
 					</View>
 					<Line data={data} />
+					<ZoomSlider dataLength={data.length} />
 				</React.Fragment>
 			);
 		}

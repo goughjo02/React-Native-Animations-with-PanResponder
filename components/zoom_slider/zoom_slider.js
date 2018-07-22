@@ -8,7 +8,7 @@ import {
 	View
 } from "react-native";
 import { connect } from "react-redux";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { debounce, throttle } from "lodash";
 
 import {
@@ -20,7 +20,6 @@ import {
 	end_slice_to_percentage
 } from "../../services";
 import { setStartZoom, setEndZoom } from "../../redux";
-
 
 class ZoomSlider extends React.Component {
 	constructor(props) {
@@ -34,13 +33,22 @@ class ZoomSlider extends React.Component {
 		this.getTransState();
 	}
 	getTransState = () => {
+		var { buttonWidth, dataLength, holderWidth } = this.props;
 		var { start, end } = this.props.zoom;
-		this.state.trans1.setOffset(
-			percentage_to_translation(start_slice_to_percentage(start))
+		var percentStart = start_slice_to_percentage(dataLength, start);
+		var percentEnd = end_slice_to_percentage(dataLength, end);
+		var translationStart = percentage_to_translation(
+			holderWidth,
+			buttonWidth,
+			percentStart
 		);
-		this.state.trans2.setOffset(
-			percentage_to_translation(end_slice_to_percentage(end))
+		var translationEnd = percentage_to_translation(
+			holderWidth,
+			buttonWidth,
+			percentEnd
 		);
+		this.state.trans1.setOffset(translationStart);
+		this.state.trans2.setOffset(translationEnd);
 		this.state.trans1.flattenOffset();
 		this.state.trans2.flattenOffset();
 		this.state.pan1.x.setOffset(this.state.trans1.__getValue());
@@ -138,7 +146,14 @@ class ZoomSlider extends React.Component {
 	};
 	render() {
 		let { trans1, trans2 } = this.state;
-		var { buttonWidth, buttonsHeight, margin, holderWidth } = this.props;
+		var {
+			color,
+			backgroundColor,
+			buttonWidth,
+			buttonsHeight,
+			margin,
+			holderWidth
+		} = this.props;
 		const styles = StyleSheet.create({
 			pan1: {
 				transform: [{ translateX: trans1 }]
@@ -151,12 +166,12 @@ class ZoomSlider extends React.Component {
 				height: buttonWidth,
 				width: buttonWidth,
 				borderRadius: buttonWidth / 2,
-				backgroundColor: this.props.colorsScheme.mid
+				backgroundColor: color
 			},
 			middleBar: {
 				height: 5,
 				width: holderWidth,
-				backgroundColor: this.props.colorsScheme.outer,
+				backgroundColor: backgroundColor,
 				position: "absolute",
 				top: buttonWidth / 2 - 2.5
 			},
@@ -192,19 +207,24 @@ class ZoomSlider extends React.Component {
 ZoomSlider.propTypes = {
 	buttonWidth: PropTypes.number.isRequired,
 	buttonsHeight: PropTypes.number.isRequired,
+	dataLength: PropTypes.number.isRequired,
 	holderWidth: PropTypes.number.isRequired,
 	margin: PropTypes.number.isRequired,
+	color: PropTypes.string.isRequired,
+	backgroundColor: PropTypes.string.isRequired,
 	zoom: PropTypes.shape({
-      start: PropTypes.number.isRequired,
-      end: PropTypes.number.isRequired
-    })
-}
+		start: PropTypes.number.isRequired,
+		end: PropTypes.number.isRequired
+	})
+};
 ZoomSlider.defaultProps = {
 	buttonWidth: 30,
 	buttonsHeight: 80,
 	holderWidth: Dimensions.get("window").width - 80,
-	margin: 8
-}
+	margin: 8,
+	color: "#ff0000",
+	backgroundColor: "#00ff00"
+};
 const mapStateToProps = state => {
 	return {
 		zoom: state.zoom

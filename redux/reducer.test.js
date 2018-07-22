@@ -113,7 +113,7 @@ describe("range selectors", () => {
 	it("returns initial state", () => {
 		const expectation = {
 			start: 0,
-			end: 0
+			end: 6000
 		};
 		expect(range_reducer(undefined, {})).toEqual(expectation);
 	});
@@ -121,11 +121,11 @@ describe("range selectors", () => {
 		const choice = 50;
 		const initial_state = {
 			start: 0,
-			end: 0
+			end: 6000
 		};
 		const expectation = {
 			start: choice,
-			end: 0
+			end: 6000
 		};
 		expect(range_reducer(initial_state, setStartRange(choice))).toEqual(
 			expectation

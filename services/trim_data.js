@@ -27,10 +27,12 @@ const combination_selector = (
 	var copy_data = JSON.parse(JSON.stringify(data));
 	var ranged = range_selector(copy_data, startRange, endRange);
 	var result = zoom_selector(ranged, startZoon, endZoom);
-	if ( result.length > 0) {
-		result.forEach(e => {
-			e.date = new Date(e.date);
-		});
+	if (result.length > 0) {
+		if (typeof result[0].date != "undefined" ) {
+			result.forEach(e => {
+				e.date = new Date(e.date);
+			});
+		}
 	}
 	return result;
 };

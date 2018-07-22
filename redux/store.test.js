@@ -24,7 +24,7 @@ describe("store", () => {
 		},
 		range: {
 			start: 0,
-			end: 0
+			end: 6000
 		},
 		zoom: {
 			start: 0,
@@ -47,7 +47,7 @@ describe("store", () => {
 			},
 			range: {
 				start: 0,
-				end: 0
+				end: 6000
 			},
 			zoom: {
 				start: 0,
@@ -66,7 +66,7 @@ describe("store", () => {
 			},
 			range: {
 				start: 0,
-				end: 0
+				end: 6000
 			},
 			zoom: {
 				start: 0,
@@ -85,7 +85,7 @@ describe("store", () => {
 			},
 			range: {
 				start: 0,
-				end: 0
+				end: 6000
 			},
 			zoom: {
 				start: 0,
@@ -107,7 +107,7 @@ describe("store", () => {
 			},
 			range: {
 				start: choice,
-				end: 0
+				end: 6000
 			},
 			zoom: {
 				start: 0,

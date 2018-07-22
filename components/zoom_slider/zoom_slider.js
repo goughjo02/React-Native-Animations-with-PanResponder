@@ -53,14 +53,20 @@ class ZoomSlider extends React.Component {
 		this.state.trans2.flattenOffset();
 		this.state.pan1.x.setOffset(this.state.trans1.__getValue());
 		this.state.pan2.x.setOffset(this.state.trans2.__getValue());
+		this.state.pan1.x.flattenOffset();
+		this.state.pan2.x.flattenOffset();
 	};
 	setTrans1State = start => {
-		var begin = translate_to_percentage(start_percentage_to_slice(start));
-		this.props.setStartZoom(begin);
+		var { buttonWidth, dataLength, holderWidth } = this.props;
+		var percent = translate_to_percentage(holderWidth, buttonWidth, start.__getValue());
+		var sliceStart = start_percentage_to_slice(dataLength, percent);
+		this.props.setStartZoom(sliceStart);
 	};
 	setTrans2State = end => {
-		var finish = translate_to_percentage(start_percentage_to_slice(end));
-		this.props.setEndZoom(finish);
+		var { buttonWidth, dataLength, holderWidth } = this.props;
+		var percent = translate_to_percentage(holderWidth, buttonWidth, end.__getValue());
+		var sliceEnd = end_percentage_to_slice(dataLength, percent);
+		this.props.setEndZoom(sliceEnd);
 	};
 	_panResponder1 = PanResponder.create({
 		onStartShouldSetPanResponder: () => true,

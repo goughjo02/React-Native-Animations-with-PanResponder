@@ -1,22 +1,45 @@
 import React from "react";
-import { Animated, Text, View } from "react-native";
+import { Animated, StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
 
 class Legend extends React.Component {
 	render() {
 		var names = this.props.data.map(e => e.name);
-		const { item1, item2, item3 } = this.props;
+		const { item1, item2, item3, color1, color2, color3 } = this.props;
+		var styles = StyleSheet.create({
+			color1: {
+				borderColor: color1,
+				borderWidth: 3,
+				borderStyle: "solid"
+			},
+			color2: {
+				borderColor: color2,
+				borderWidth: 3,
+				borderStyle: "solid"
+			},
+			color3: {
+				borderColor: color3,
+				borderWidth: 3,
+				borderStyle: "solid"
+			},
+			row: {
+				flexDirection: "row"
+			},
+			column: {
+				flexDirection: "column"
+			}
+		})
 		return (
 			<View>
-				<View>
+				<View style={[styles.row, styles.color1]}>
 					<Text>{names[0]}</Text>
 					<Text>{Math.round(item1)}</Text>
 				</View>
-				<View>
+				<View style={[styles.row, styles.color2]}>
 					<Text>{names[1]}</Text>
 					<Text>{Math.round(item2)}</Text>
 				</View>
-				<View>
+				<View style={[styles.row, styles.color3]}>
 					<Text>{names[2]}</Text>
 					<Text>{Math.round(item3)}</Text>
 				</View>
@@ -79,6 +102,9 @@ class AnimLegend extends React.Component {
 }
 
 AnimLegend.propTypes = {
+	color1: PropTypes.string.isRequired,
+	color2: PropTypes.string.isRequired,
+	color3: PropTypes.string.isRequired,
 	data: PropTypes.arrayOf(
 		PropTypes.shape({
 			name: PropTypes.string.isRequired,
@@ -89,6 +115,9 @@ AnimLegend.propTypes = {
 };
 
 AnimLegend.defaultProps = {
+	color1: "#ff0000",
+	color2: "#00ff00",
+	color3: "#0000ff",
 	duration: 2000
 };
 

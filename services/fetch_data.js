@@ -11,7 +11,8 @@ export function convertDateTime(dateString) {
     var h = time[0];
     var m = time[1];
     var s = parseInt(time[2]);
-    return new Date(yyyy, mm, dd, h, m, s);
+    var result = new Date(yyyy, mm, dd, h, m, s);
+    return result;
 }
 
 export function fetchData(url) {

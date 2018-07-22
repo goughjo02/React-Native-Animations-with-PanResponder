@@ -13,15 +13,15 @@ class PageOne extends React.Component {
 	}
 	componentDidMount() {
 		faux_data.forEach(e => {
-			e.date = convertDateTime(e.date);
-			console.log( typeof e.date)
+			var pdate = convertDateTime(e.date);
+			e.date = pdate;
 		});
 		this.props.dispatch(fetchDataSuccess(faux_data));
 	}
 	render() {
 		var { data } = this.props;
 		if (data.length > 0) {
-			console.log(typeof data[0].date);
+			return <Line data={data} />
 		}
 		return <Text>No data present</Text>;
 	}

@@ -21,6 +21,9 @@ const combination_selector = (data, startRange, endRange, startZoon, endZoom) =>
 	var copy_data = JSON.parse(JSON.stringify(data));
 	var ranged = range_selector(copy_data, startRange, endRange);
 	var result = zoom_selector(ranged, startZoon, endZoom)
+	result.forEach((e) => {
+		e.date = new Date(e.date)
+	})
 	return result;
 } 
 

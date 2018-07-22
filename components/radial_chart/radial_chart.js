@@ -21,14 +21,13 @@ class RadialChart extends React.Component {
       outerLength
     } = this.props;
     const {
-      maxAngle,
-      offsetFactor,
-      precent,
+      color1,
+      color2,
+      color3,
       radius,
       rotation,
       strokeWidth
     } = this.props;
-    const { color1, color2, color3 } = this.props;
     const styles = StyleSheet.create({
       circles: {
         alignSelf: "stretch",
@@ -55,12 +54,14 @@ class RadialChart extends React.Component {
               <Shape
                 d={middlePath}
                 stroke={color2}
+                strokeDash={[middleLength, 2 * Math.PI * middlePath.path[1]]}
                 strokeWidth={strokeWidth}
                 strokeCap="round"
               />
               <Shape
                 d={innerPath}
                 stroke={color3}
+                strokeDash={[innerLength, 2 * Math.PI * innerPath.path[1]]}
                 strokeWidth={strokeWidth}
                 strokeCap="round"
               />
@@ -152,56 +153,20 @@ class AnimRadialChart extends React.Component {
   }
 
   animateFill = () => {
-    var { ...other } = this.props;
-    var {
-      maxAngle,
-      offsetFactor,
-      precent,
-      radius,
-      rotation,
-      strokeWidth
-    } = this.props;
-    var offset = strokeWidth * offsetFactor;
-    var { color1, color2, color3 } = this.props;
     var data = this.props.data.map(e => e.value);
     var max = Math.max(data[0], data[1], data[2]);
-    var radiusInner = radius - strokeWidth / 2 - offset * 2;
-    var radiusMiddle = radius - strokeWidth / 2 - offset;
-    var radiusOuter = radius - strokeWidth / 2;
-    this.outerPath = this.circlePath(
-      radius,
-      radius,
-      radiusOuter,
-      0,
-      maxAngle * (data[0] / max)
-    );
-    this.middlePath = this.circlePath(
-      radius,
-      radius,
-      radiusMiddle,
-      0,
-      maxAngle * (data[1] / max)
-    );
-    this.innerPath = this.circlePath(
-      radius,
-      radius,
-      radiusInner,
-      0,
-      maxAngle * (data[2] / max)
-    );
     var { duration, maxAngle } = this.props;
-    var angleFactor = maxAngle / 360;
     Animated.parallel([
       Animated.timing(this.state.innerStroke, {
-        toValue: 2 * Math.PI * this.innerPath.path[1] * angleFactor,
+        toValue: (2 * Math.PI * this.innerPath.path[1] * data[0]) / max,
         duration: duration
       }),
       Animated.timing(this.state.middleStroke, {
-        toValue: 2 * Math.PI * this.middlePath.path[1] * angleFactor,
+        toValue: (2 * Math.PI * this.middlePath.path[1] * data[1]) / max,
         duration: duration
       }),
       Animated.timing(this.state.outerStroke, {
-        toValue: 2 * Math.PI * this.outerPath.path[1] * angleFactor,
+        toValue: (2 * Math.PI * this.outerPath.path[1] * data[2]) / max,
         duration: duration
       })
     ]).start();

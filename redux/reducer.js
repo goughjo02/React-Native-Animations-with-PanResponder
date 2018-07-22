@@ -37,7 +37,7 @@ export function http_data_reducer(state = initial_http_state, action) {
 
 const initial_range_state = {
   start: 0,
-  end: 0
+  end: 20
 }
 export function range_reducer(state=initial_range_state, action) {
   switch(action.type) {

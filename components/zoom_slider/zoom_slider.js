@@ -193,7 +193,11 @@ ZoomSlider.propTypes = {
 	buttonWidth: PropTypes.number.isRequired,
 	buttonsHeight: PropTypes.number.isRequired,
 	holderWidth: PropTypes.number.isRequired,
-	margin: PropTypes.number.isRequired
+	margin: PropTypes.number.isRequired,
+	zoom: PropTypes.shape({
+      start: PropTypes.number.isRequired,
+      end: PropTypes.number.isRequired
+    })
 }
 ZoomSlider.defaultProps = {
 	buttonWidth: 30,
@@ -207,9 +211,9 @@ const mapStateToProps = state => {
 	};
 };
 
-const ConnectedSlider = connect(
+const ConnectedZoomSlider = connect(
 	mapStateToProps,
 	{ setStartZoom, setEndZoom }
-)(DuoSlider);
+)(ZoomSlider);
 
-export { ConnectedSlider as ZoomSlider };
+export { ConnectedZoomSlider as ZoomSlider };

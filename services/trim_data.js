@@ -1,19 +1,13 @@
 import React from "react";
 
-const range_selector = (data, startRange, endRange) => {
-	var start = startRange > endRange ? endRange : startRange;
-	var range =
-		startRange > endRange ? startRange - endRange : endRange - startRange;
+const percent_selector = (data, startPercent, endPercent) => {
+	var start = startPercent < endPercent ? startPercent : endPercent;
+	var end = endPercent > startPercent ? endPercent : startPercent;
 	var copy_data = JSON.parse(JSON.stringify(data));
-	var result = copy_data.splice(start, range);
-	return result;
-};
-
-const zoom_selector = (data, startZoon, endZoom) => {
-	var start = startZoon > endZoom ? endZoom : startZoon;
-	var range = startZoon > endZoom ? startZoon - endZoom : endZoom - startZoon;
-	var copy_data = JSON.parse(JSON.stringify(data));
-	var result = copy_data.splice(start, range);
+	var indexStart = Math.round((copy_data.length * start) / 100);
+	var indexEnd = Math.round((copy_data.length * end) / 100);
+	var result = copy_data.slice(indexStart, indexEnd);
+	console.log(copy_data.length, end, indexEnd, copy_data.length*end, copy_data.length*end/100)
 	return result;
 };
 
@@ -21,14 +15,14 @@ const combination_selector = (
 	data,
 	startRange,
 	endRange,
-	startZoon,
-	endZoom
+	startPercent,
+	endPercent
 ) => {
 	var copy_data = JSON.parse(JSON.stringify(data));
-	var ranged = range_selector(copy_data, startRange, endRange);
-	var result = zoom_selector(ranged, startZoon, endZoom);
+	var ranged = percent_selector(copy_data, startRange, endRange);
+	var result = percent_selector(ranged, startPercent, endPercent);
 	if (result.length > 0) {
-		if (typeof result[0].date != "undefined" ) {
+		if (typeof result[0].date != "undefined") {
 			result.forEach(e => {
 				e.date = new Date(e.date);
 			});
@@ -37,4 +31,4 @@ const combination_selector = (
 	return result;
 };
 
-export { range_selector, zoom_selector, combination_selector };
+export { percent_selector, combination_selector };

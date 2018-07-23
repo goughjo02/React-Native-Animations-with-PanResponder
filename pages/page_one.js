@@ -27,8 +27,9 @@ class PageOne extends React.Component {
 				name: keys[i],
 				value: getSum(data, keys[i])
 			});
-		}
+		};
 		if (data.length > 0) {
+			console.log(data.length)
 			return (
 				<React.Fragment>
 					<View style={styles.one}>

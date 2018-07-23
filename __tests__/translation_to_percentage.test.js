@@ -9,7 +9,7 @@ describe('convert between translation and percentage', () => {
 		holderWidth = 100;
 		sliderWidth = 25;
 		translation = 50;
-		expectation = (translation/(holderWidth - sliderWidth)) * 100;
+		expectation = translation / (holderWidth - sliderWidth) * 100;
 		var result = translate_to_percentage(
 			holderWidth,
 			sliderWidth,

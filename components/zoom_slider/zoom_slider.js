@@ -35,17 +35,15 @@ class ZoomSlider extends React.Component {
 	getTransState = () => {
 		var { buttonWidth, dataLength, holderWidth } = this.props;
 		var { start, end } = this.props.zoom;
-		var percentStart = start_slice_to_percentage(dataLength, start);
-		var percentEnd = end_slice_to_percentage(dataLength, end);
 		var translationStart = percentage_to_translation(
 			holderWidth,
 			buttonWidth,
-			percentStart
+			start
 		);
 		var translationEnd = percentage_to_translation(
 			holderWidth,
 			buttonWidth,
-			percentEnd
+			end
 		);
 		this.state.trans1.setOffset(translationStart);
 		this.state.trans2.setOffset(translationEnd);

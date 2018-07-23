@@ -7,7 +7,6 @@ const percent_selector = (data, startPercent, endPercent) => {
 	var indexStart = Math.round((copy_data.length * start) / 100);
 	var indexEnd = Math.round((copy_data.length * end) / 100);
 	var result = copy_data.slice(indexStart, indexEnd);
-	console.log(copy_data.length, end, indexEnd, copy_data.length*end, copy_data.length*end/100)
 	return result;
 };
 

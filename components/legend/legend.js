@@ -7,39 +7,55 @@ class Legend extends React.Component {
 		var names = this.props.data.map(e => e.name);
 		const { item1, item2, item3, color1, color2, color3 } = this.props;
 		var styles = StyleSheet.create({
-			color1: {
-				borderColor: color1,
+			bordered: {
 				borderWidth: 3,
 				borderStyle: "solid"
 			},
-			color2: {
-				borderColor: color2,
-				borderWidth: 3,
-				borderStyle: "solid"
+			color1border: {
+				borderColor: color1
 			},
-			color3: {
-				borderColor: color3,
-				borderWidth: 3,
-				borderStyle: "solid"
+			color2border: {
+				borderColor: color2
+			},
+			color3border: {
+				borderColor: color3
+			},
+			spot: {
+				height: 16,
+				width: 16,
+				margin: 4
+			},
+			color1spot: {
+				backgroundColor: color1
+			},
+			color2spot: {
+				backgroundColor: color2
+			},
+			color3spot: {
+				backgroundColor: color3
 			},
 			row: {
-				flexDirection: "row"
+				flexDirection: "row",
+				alignItems: "center"
 			},
 			column: {
 				flexDirection: "column"
 			}
-		})
+		});
 		return (
 			<View>
-				<View style={[styles.row, styles.color1]}>
+				<View style={[styles.row]}>
+					<View style={[styles.color1spot, styles.spot]} />
 					<Text>{names[0]}</Text>
 					<Text>{Math.round(item1)}</Text>
 				</View>
-				<View style={[styles.row, styles.color2]}>
+				<View style={[styles.row]}>
+					<View style={[styles.color2spot, styles.spot]} />
 					<Text>{names[1]}</Text>
 					<Text>{Math.round(item2)}</Text>
 				</View>
 				<View style={[styles.row, styles.color3]}>
+					<View style={[styles.color3spot, styles.spot]} />
 					<Text>{names[2]}</Text>
 					<Text>{Math.round(item3)}</Text>
 				</View>

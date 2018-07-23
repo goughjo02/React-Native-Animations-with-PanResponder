@@ -66,6 +66,7 @@ class ZoomSlider extends React.Component {
 	};
 	_panResponder1 = PanResponder.create({
 		onStartShouldSetPanResponder: () => true,
+		onResponderTerminationRequest: (evt) => false,
 		onPanResponderGrant: (e, gestureState) => {
 			this.state.pan1.x.setOffset(this.state.trans1.__getValue());
 			this.setState({ isAddNewSession: true });
@@ -92,6 +93,7 @@ class ZoomSlider extends React.Component {
 	});
 	_panResponder2 = PanResponder.create({
 		onStartShouldSetPanResponder: () => true,
+		onResponderTerminationRequest: (evt) => false,
 		onPanResponderGrant: (e, gestureState) => {
 			this.state.pan2.x.setOffset(this.state.trans2.__getValue());
 			this.setState({ isAddNewSession: true });
@@ -141,10 +143,10 @@ class ZoomSlider extends React.Component {
 				extrapolateLeft: "clamp"
 			})
 		});
-		debounce(() => {
-			this.setTrans1State(this.state.trans1);
-			this.setTrans2State(this.state.trans2);
-		})();
+		// debounce(() => {
+		// 	this.setTrans1State(this.state.trans1);
+		// 	this.setTrans2State(this.state.trans2);
+		// })();
 	};
 	render() {
 		let { trans1, trans2 } = this.state;

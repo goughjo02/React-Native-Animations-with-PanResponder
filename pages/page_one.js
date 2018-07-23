@@ -2,10 +2,15 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { connect } from "react-redux";
 import { faux_data } from "../__json_http__/dummy_data";
+
+import {
+	combination_selector,
+	convertDateTime,
+	fetchData,
+	getSum
+} from "../services";
 import { Legend, Line, RadialChart, ZoomSlider } from "../components";
-import { fetchData } from "../services";
 import { fetchDataSuccess } from "../redux";
-import { combination_selector, convertDateTime, getSum } from "../services";
 
 class PageOne extends React.Component {
 	constructor(props) {
@@ -27,7 +32,7 @@ class PageOne extends React.Component {
 				name: keys[i],
 				value: getSum(data, keys[i])
 			});
-		};
+		}
 		if (data.length > 0) {
 			return (
 				<React.Fragment>

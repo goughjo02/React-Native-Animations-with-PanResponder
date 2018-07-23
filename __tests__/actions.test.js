@@ -8,9 +8,15 @@ import {
 	setStartRange,
 	setEndRange,
 	setStartZoom,
-	setEndZoom
-} from "./actions";
-import { ERROR, LOADING, SUCCESS, START_RANGE, END_RANGE, START_ZOOM, END_ZOOM } from './constants';
+	setEndZoom,
+	ERROR,
+	LOADING,
+	SUCCESS,
+	START_RANGE,
+	END_RANGE,
+	START_ZOOM,
+	END_ZOOM
+} from "../redux";
 
 describe("actions", () => {
 	it("should create an action to deliver an error", () => {
@@ -42,31 +48,31 @@ describe("actions", () => {
 		const expectedResult = {
 			type: START_RANGE,
 			index: 100
-		}
-		expect(setStartRange(data)).toEqual(expectedResult)
+		};
+		expect(setStartRange(data)).toEqual(expectedResult);
 	});
 	it("should create an action to set end range", () => {
 		const data = 200;
 		const expectedResult = {
 			type: END_RANGE,
 			index: 200
-		}
-		expect(setEndRange(data)).toEqual(expectedResult)
+		};
+		expect(setEndRange(data)).toEqual(expectedResult);
 	});
 	it("should create an action to set start zoom", () => {
 		const data = 25;
 		const expectedResult = {
 			type: START_ZOOM,
 			percent: 25
-		}
-		expect(setStartZoom(data)).toEqual(expectedResult)
+		};
+		expect(setStartZoom(data)).toEqual(expectedResult);
 	});
 	it("should create an action to set end zoom", () => {
 		const data = 75;
 		const expectedResult = {
 			type: END_ZOOM,
 			percent: 75
-		}
-		expect(setEndZoom(data)).toEqual(expectedResult)
+		};
+		expect(setEndZoom(data)).toEqual(expectedResult);
 	});
 });

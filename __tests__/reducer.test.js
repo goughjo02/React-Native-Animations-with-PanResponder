@@ -2,7 +2,6 @@ import React from "react";
 import deepFreeze from "deep-freeze";
 import renderer from "react-test-renderer";
 
-import { http_data_reducer, range_reducer, zoom_reducer } from "./reducer";
 import {
 	dataHasErrored,
 	dataIsLoading,
@@ -10,8 +9,11 @@ import {
 	setStartRange,
 	setEndRange,
 	setStartZoom,
-	setEndZoom
-} from "./actions";
+	setEndZoom,
+	http_data_reducer,
+	range_reducer,
+	zoom_reducer
+} from "../redux";
 
 describe("HTTP Reducer", () => {
 	it("produces default state", () => {
@@ -113,7 +115,7 @@ describe("range selectors", () => {
 	it("returns initial state", () => {
 		const expectation = {
 			start: 0,
-			end: 6000
+			end: 1
 		};
 		expect(range_reducer(undefined, {})).toEqual(expectation);
 	});
@@ -121,11 +123,11 @@ describe("range selectors", () => {
 		const choice = 50;
 		const initial_state = {
 			start: 0,
-			end: 6000
+			end: 1
 		};
 		const expectation = {
 			start: choice,
-			end: 6000
+			end: 1
 		};
 		expect(range_reducer(initial_state, setStartRange(choice))).toEqual(
 			expectation
@@ -152,7 +154,7 @@ describe("zoom selectors", () => {
 			start: 0,
 			end: 100
 		};
-		expect(zoom_reducer(undefined, {})).toEqual(expectation)
+		expect(zoom_reducer(undefined, {})).toEqual(expectation);
 	});
 	it("can set start zoom", () => {
 		const choice = 50;

@@ -56,17 +56,25 @@ class ZoomSlider extends React.Component {
 	};
 	setTrans1State = start => {
 		var { buttonWidth, dataLength, holderWidth } = this.props;
-		var percent = translate_to_percentage(holderWidth, buttonWidth, start.__getValue());
+		var percent = translate_to_percentage(
+			holderWidth,
+			buttonWidth,
+			start.__getValue()
+		);
 		this.props.setStartZoom(percent);
 	};
 	setTrans2State = end => {
 		var { buttonWidth, dataLength, holderWidth } = this.props;
-		var percent = translate_to_percentage(holderWidth, buttonWidth, end.__getValue());
+		var percent = translate_to_percentage(
+			holderWidth,
+			buttonWidth,
+			end.__getValue()
+		);
 		this.props.setEndZoom(percent);
 	};
 	_panResponder1 = PanResponder.create({
 		onStartShouldSetPanResponder: () => true,
-		onResponderTerminationRequest: (evt) => false,
+		onResponderTerminationRequest: evt => false,
 		onPanResponderGrant: (e, gestureState) => {
 			this.state.pan1.x.setOffset(this.state.trans1.__getValue());
 			this.setState({ isAddNewSession: true });
@@ -93,7 +101,7 @@ class ZoomSlider extends React.Component {
 	});
 	_panResponder2 = PanResponder.create({
 		onStartShouldSetPanResponder: () => true,
-		onResponderTerminationRequest: (evt) => false,
+		onResponderTerminationRequest: evt => false,
 		onPanResponderGrant: (e, gestureState) => {
 			this.state.pan2.x.setOffset(this.state.trans2.__getValue());
 			this.setState({ isAddNewSession: true });

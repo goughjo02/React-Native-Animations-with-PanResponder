@@ -2,8 +2,8 @@ import React from "react";
 import renderer from "react-test-renderer";
 import deepFreeze from "deep-freeze";
 
-import { configureStore } from "./store";
 import {
+	configureStore,
 	dataHasErrored,
 	dataIsLoading,
 	fetchDataSuccess,
@@ -11,7 +11,7 @@ import {
 	setEndRange,
 	setStartZoom,
 	setEndZoom
-} from "./actions";
+} from "../redux";
 
 describe("store", () => {
 	var store = configureStore();
@@ -24,7 +24,7 @@ describe("store", () => {
 		},
 		range: {
 			start: 0,
-			end: 6000
+			end: 1
 		},
 		zoom: {
 			start: 0,
@@ -47,7 +47,7 @@ describe("store", () => {
 			},
 			range: {
 				start: 0,
-				end: 6000
+				end: 1
 			},
 			zoom: {
 				start: 0,
@@ -66,7 +66,7 @@ describe("store", () => {
 			},
 			range: {
 				start: 0,
-				end: 6000
+				end: 1
 			},
 			zoom: {
 				start: 0,
@@ -85,7 +85,7 @@ describe("store", () => {
 			},
 			range: {
 				start: 0,
-				end: 6000
+				end: 1
 			},
 			zoom: {
 				start: 0,
@@ -95,7 +95,7 @@ describe("store", () => {
 		store.dispatch(dataHasErrored(true));
 		expect(store.getState()).toEqual(expected_state);
 		//RESET STATE
-		store.dispatch(fetchDataSuccess([]))
+		store.dispatch(fetchDataSuccess([]));
 	});
 	it("sets start range", () => {
 		const choice = 50;
@@ -107,7 +107,7 @@ describe("store", () => {
 			},
 			range: {
 				start: choice,
-				end: 6000
+				end: 1
 			},
 			zoom: {
 				start: 0,
@@ -137,7 +137,7 @@ describe("store", () => {
 		};
 		store.dispatch(setEndRange(choice));
 		expect(store.getState()).toEqual(expected_state);
-		store.dispatch(setEndRange(0))
+		store.dispatch(setEndRange(0));
 	});
 	it("sets start zoom", () => {
 		const choice = 50;

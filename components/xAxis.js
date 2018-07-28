@@ -1,14 +1,50 @@
-import React from 'react';
-import { ART } from 'react-native'
-const { Surface, Group, Shape } = ART;
+import React from "react";
+import { ART, StyleSheet } from "react-native";
+const { Group, Path, Shape, Surface } = ART;
+import {PropTypes } from 'prop-types';
 
 class XAxis extends React.Component {
 	constructor(props) {
 		super(props);
 	}
+	getPaths = () => {
+		return new Path().line(1000, 0).close();
+	};
 	render() {
+		var { height, width, color } = this.props;
+		const styles = StyleSheet.create({
+			main: {
+				borderStyle: "solid",
+				borderColor: color,
+				borderWidth: 3
+			}
+		});
 		return (
-			<Surface>
-			</Surface>)
+			<Surface style={styles.main} width={width} height={height}>
+				<Group x={0} y={0}>
+					<Shape
+						d={this.getPaths()}
+						fill={color}
+						stroke="#000"
+						strokeWidth={12}
+					/>
+				</Group>
+			</Surface>
+		);
 	}
 }
+
+XAxis.propTypes = {	
+	height: PropTypes.number.isRequired,
+	width: PropTypes.number.isRequired,
+	duration: PropTypes.number.isRequired,
+	color: PropTypes.string.isRequired
+}
+XAxis.defaultProps = {
+	height: 170,
+	width: 300,
+	duration: 2000,
+	color: "#000"
+};
+
+export { XAxis };

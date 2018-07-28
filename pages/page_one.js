@@ -9,7 +9,7 @@ import {
 	fetchData,
 	getSum
 } from "../services";
-import { Legend, Line, RadialChart, ZoomSlider } from "../components";
+import { Legend, Line, RadialChart, ZoomSlider, XAxis } from "../components";
 import { fetchDataSuccess } from "../redux";
 
 class PageOne extends React.Component {
@@ -47,6 +47,7 @@ class PageOne extends React.Component {
 						<Legend data={sumData} duration={duration} />
 					</View>
 					<Line data={data} duration={duration} />
+					<XAxis />
 					<ZoomSlider dataLength={data.length} />
 				</React.Fragment>
 			);

@@ -1,4 +1,4 @@
 export * from './legend';
 export * from './radial_chart';
-export * from './linechart';
+export * from './line';
 export * from './zoom_slider';

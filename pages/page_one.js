@@ -25,6 +25,7 @@ class PageOne extends React.Component {
 	}
 	render() {
 		var { data } = this.props;
+		var duration = 1000;
 		var sumData = [];
 		var keys = ["produced", "used", "sold"];
 		for (var i = keys.length - 1; i >= 0; i--) {
@@ -43,9 +44,9 @@ class PageOne extends React.Component {
 							strokeWidth={6}
 							offsetFactor={2}
 						/>
-						<Legend data={sumData} />
+						<Legend data={sumData} duration={duration} />
 					</View>
-					<Line data={data} />
+					<Line data={data} duration={duration} />
 					<ZoomSlider dataLength={data.length} />
 				</React.Fragment>
 			);

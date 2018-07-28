@@ -18,8 +18,8 @@ import {
 	end_percentage_to_slice,
 	start_slice_to_percentage,
 	end_slice_to_percentage
-} from "../../services";
-import { setStartZoom, setEndZoom } from "../../redux";
+} from "../services";
+import { setStartZoom, setEndZoom } from "../redux";
 
 class ZoomSlider extends React.Component {
 	constructor(props) {
@@ -151,10 +151,10 @@ class ZoomSlider extends React.Component {
 				extrapolateLeft: "clamp"
 			})
 		});
-		// debounce(() => {
-		// 	this.setTrans1State(this.state.trans1);
-		// 	this.setTrans2State(this.state.trans2);
-		// })();
+		this.props.debounce && debounce(() => {
+			this.setTrans1State(this.state.trans1);
+			this.setTrans2State(this.state.trans2);
+		})();
 	};
 	render() {
 		let { trans1, trans2 } = this.state;
@@ -217,6 +217,7 @@ class ZoomSlider extends React.Component {
 }
 
 ZoomSlider.propTypes = {
+	debounce: PropTypes.bool,
 	buttonWidth: PropTypes.number.isRequired,
 	buttonsHeight: PropTypes.number.isRequired,
 	dataLength: PropTypes.number.isRequired,
@@ -230,6 +231,7 @@ ZoomSlider.propTypes = {
 	})
 };
 ZoomSlider.defaultProps = {
+	debounce: false,
 	buttonWidth: 30,
 	buttonsHeight: 80,
 	holderWidth: Dimensions.get("window").width - 80,

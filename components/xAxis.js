@@ -9,17 +9,20 @@ class XAxis extends React.Component {
 		this.points = [];
 	}
 	getPaths = () => {
+		var { width } = this.props;
 		var path = new Path();
 		for (var i = this.points.length - 1; i >= 0; i--) {
-			path.line(0, this.points[i]);
-			path.line(0, - this.points[i]);
-			path.line(20, 0)
+			path.lineTo(this.points[i], 0);
+			path.line(0, 15);
+			path.line(0, - 15);
 		}
-		path.close()
+		path.lineTo(this.props.width, 0);
+		path.close();
 		return path;
 	};
 	scalePoints = () => {
 		var { xScale, yScale, dataPoints } = this.props;
+		this.points = [];
 		for (var i = dataPoints.length - 1; i >= 0; i--) {
 			this.points.push(xScale(dataPoints[i]));
 		}

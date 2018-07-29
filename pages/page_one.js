@@ -7,7 +7,8 @@ import {
 	combination_selector,
 	convertDateTime,
 	fetchData,
-	getSum
+	getSum,
+	get_x_axes_points
 } from "../services";
 import { Legend, Line, RadialChart, ZoomSlider, XAxis } from "../components";
 import { fetchDataSuccess } from "../redux";
@@ -35,6 +36,12 @@ class PageOne extends React.Component {
 			});
 		}
 		if (data.length > 0) {
+			var timedata = data.map(e => e.date);
+			var xAxisPoints = get_x_axes_points(40, 170, timedata);
+			var dateArray = []
+			xAxisPoints.forEach(e => {
+				dateArray.push(new Date(e))
+			});
 			return (
 				<React.Fragment>
 					<View style={styles.one}>
@@ -47,7 +54,7 @@ class PageOne extends React.Component {
 						<Legend data={sumData} duration={duration} />
 					</View>
 					<Line data={data} duration={duration} />
-					<XAxis />
+					<XAxis  dataPoints={dateArray}/>
 					<ZoomSlider dataLength={data.length} />
 				</React.Fragment>
 			);

@@ -131,8 +131,8 @@ class AnimLine extends React.Component {
 }
 
 AnimLine.propTypes = {
-	xScale: PropTypes.func,
-	yScale: PropTypes.func,
+	xScale: PropTypes.func.isRequired,
+	yScale: PropTypes.func.isRequired,
 	height: PropTypes.number.isRequired,
 	width: PropTypes.number.isRequired,
 	duration: PropTypes.number.isRequired,

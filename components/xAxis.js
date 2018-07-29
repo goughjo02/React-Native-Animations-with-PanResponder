@@ -6,10 +6,24 @@ import {PropTypes } from 'prop-types';
 class XAxis extends React.Component {
 	constructor(props) {
 		super(props);
+		this.points = [];
 	}
 	getPaths = () => {
-		return new Path().line(20, 0).line(0, 15).line(0, - 15).line(20, 0).close();
+		var path = new Path();
+		for (var i = this.points.length - 1; i >= 0; i--) {
+			path.line(0, this.points[i]);
+			path.line(0, - this.points[i]);
+			path.line(20, 0)
+		}
+		path.close()
+		return path;
 	};
+	scalePoints = () => {
+		var { xScale, yScale, dataPoints } = this.props;
+		for (var i = dataPoints.length - 1; i >= 0; i--) {
+			this.points.push(xScale(dataPoints[i]));
+		}
+	}
 	render() {
 		var { height, width, color, strokeWidth } = this.props;
 		const styles = StyleSheet.create({
@@ -19,6 +33,7 @@ class XAxis extends React.Component {
 				borderWidth: 3
 			}
 		});
+		this.scalePoints();
 		return (
 			<Surface style={styles.main} width={width} height={height}>
 				<Group x={0} y={0}>
@@ -35,6 +50,8 @@ class XAxis extends React.Component {
 }
 
 XAxis.propTypes = {	
+	xScale: PropTypes.func.isRequired,
+	yScale: PropTypes.func.isRequired,
 	height: PropTypes.number.isRequired,
 	width: PropTypes.number.isRequired,
 	duration: PropTypes.number.isRequired,

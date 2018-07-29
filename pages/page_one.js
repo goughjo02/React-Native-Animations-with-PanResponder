@@ -82,7 +82,11 @@ class PageOne extends React.Component {
 						data={data}
 						duration={duration}
 					/>
-					<XAxis dataPoints={dateArray} />
+					<XAxis
+						xScale={this.xScale}
+						yScale={this.yScale}
+						dataPoints={dateArray}
+					/>
 					<ZoomSlider dataLength={data.length} />
 				</React.Fragment>
 			);

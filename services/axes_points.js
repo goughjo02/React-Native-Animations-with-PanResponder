@@ -1,5 +1,5 @@
-export const get_no_x_points = (maxDist, width) => {
-	var noPoints = Math.floor(width / maxDist) + Math.ceil((width % maxDist) /maxDist);
+export const get_no_points = (maxDist, totalDist) => {
+	var noPoints = Math.floor(totalDist / maxDist) + Math.ceil((totalDist % maxDist) /maxDist);
 	return noPoints;
 };
 
@@ -24,14 +24,9 @@ export const get_x_points = (dataArray, noPoints) => {
 };
 
 export const get_x_axes_points = (maxDist, width, dataArray) => {
-	let noPoints = get_no_x_points(maxDist, width);
+	let noPoints = get_no_points(maxDist, width);
 	let x_points = get_x_points(dataArray, noPoints);
 	return x_points;
-}
-
-export const get_no_y_points = (maxDist, height) => {
-	var noPoints = Math.floor(height / maxDist) + Math.ceil((height % maxDist) /maxDist);
-	return noPoints;
 }
 
 export const get_y_points = ( dataArray, noPoints ) => {
@@ -55,7 +50,7 @@ export const get_y_points = ( dataArray, noPoints ) => {
 }
 
 export const get_y_axes_points = (maxDist, height, dataArray) => {
-	let noPoints = get_no_y_points(maxDist, height);
+	let noPoints = get_no_points(maxDist, height);
 	let y_points = get_y_points(dataArray, noPoints);
 	return y_points;
 }

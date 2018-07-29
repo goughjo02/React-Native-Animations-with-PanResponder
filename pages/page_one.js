@@ -47,6 +47,7 @@ class PageOne extends React.Component {
 		var duration = 1000;
 		var graphHeight = 170;
 		var graphWidth = 300;
+		var tickDist = 40;
 		var keys = ["produced", "used", "sold"];
 		var sumData = [];
 		for (var i = keys.length - 1; i >= 0; i--) {
@@ -58,7 +59,7 @@ class PageOne extends React.Component {
 		if (data.length > 0) {
 			this.getScales(graphHeight, graphWidth, data);
 			var timedata = data.map(e => e.date);
-			var xAxisPoints = get_x_axes_points(40, 170, timedata);
+			var xAxisPoints = get_x_axes_points(tickDist, graphWidth, timedata);
 			var dateArray = [];
 			xAxisPoints.forEach(e => {
 				dateArray.push(new Date(e));

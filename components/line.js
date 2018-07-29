@@ -6,7 +6,7 @@ import * as shape from "d3-shape";
 import * as scale from "d3-scale";
 const d3 = { scale, shape };
 import PropTypes from "prop-types";
-import { getMinMax, getXScale, getYScale } from "../services";
+import { getMinMax } from "../services";
 
 export class AnimShape extends React.Component {
 	constructor(props: Props) {
@@ -86,20 +86,7 @@ class AnimLine extends React.Component {
 		super(props);
 	}
 	_createLine = column => {
-		var { data, width, height } = this.props;
-		var time = getMinMax(data, "date");
-		var minValue = Math.min(
-			getMinMax(data, "produced").min,
-			getMinMax(data, "used").min,
-			getMinMax(data, "sold").min
-		);
-		var maxValue = Math.max(
-			getMinMax(data, "produced").max,
-			getMinMax(data, "used").max,
-			getMinMax(data, "sold").max
-		);
-		var xScale = getXScale(time.min, time.max, width);
-		var yScale = getYScale(minValue, maxValue, height);
+		var { data, xScale, yScale } = this.props;
 		const lineShape = d3.shape
 			.line()
 			.x(d => xScale(d["date"]))
@@ -144,6 +131,8 @@ class AnimLine extends React.Component {
 }
 
 AnimLine.propTypes = {
+	xScale: PropTypes.func,
+	yScale: PropTypes.func,
 	height: PropTypes.number.isRequired,
 	width: PropTypes.number.isRequired,
 	duration: PropTypes.number.isRequired,

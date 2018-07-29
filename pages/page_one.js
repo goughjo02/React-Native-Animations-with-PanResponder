@@ -8,7 +8,10 @@ import {
 	convertDateTime,
 	fetchData,
 	getSum,
-	get_x_axes_points
+	get_x_axes_points,
+	getMinMax,
+	getXScale,
+	getYScale
 } from "../services";
 import { Legend, Line, RadialChart, ZoomSlider, XAxis } from "../components";
 import { fetchDataSuccess } from "../redux";
@@ -24,11 +27,28 @@ class PageOne extends React.Component {
 		});
 		this.props.dispatch(fetchDataSuccess(faux_data));
 	}
+	getScales = (height, width, data) => {
+		var time = getMinMax(data, "date");
+		var minValue = Math.min(
+			getMinMax(data, "produced").min,
+			getMinMax(data, "used").min,
+			getMinMax(data, "sold").min
+		);
+		var maxValue = Math.max(
+			getMinMax(data, "produced").max,
+			getMinMax(data, "used").max,
+			getMinMax(data, "sold").max
+		);
+		this.xScale = getXScale(time.min, time.max, width);
+		this.yScale = getYScale(minValue, maxValue, height);
+	};
 	render() {
 		var { data } = this.props;
 		var duration = 1000;
-		var sumData = [];
+		var graphHeight = 170;
+		var graphWidth = 300;
 		var keys = ["produced", "used", "sold"];
+		var sumData = [];
 		for (var i = keys.length - 1; i >= 0; i--) {
 			sumData.push({
 				name: keys[i],
@@ -36,11 +56,12 @@ class PageOne extends React.Component {
 			});
 		}
 		if (data.length > 0) {
+			this.getScales(graphHeight, graphWidth, data);
 			var timedata = data.map(e => e.date);
 			var xAxisPoints = get_x_axes_points(40, 170, timedata);
-			var dateArray = []
+			var dateArray = [];
 			xAxisPoints.forEach(e => {
-				dateArray.push(new Date(e))
+				dateArray.push(new Date(e));
 			});
 			return (
 				<React.Fragment>
@@ -53,8 +74,15 @@ class PageOne extends React.Component {
 						/>
 						<Legend data={sumData} duration={duration} />
 					</View>
-					<Line data={data} duration={duration} />
-					<XAxis  dataPoints={dateArray}/>
+					<Line
+						height={graphHeight}
+						width={graphWidth}
+						xScale={this.xScale}
+						yScale={this.yScale}
+						data={data}
+						duration={duration}
+					/>
+					<XAxis dataPoints={dateArray} />
 					<ZoomSlider dataLength={data.length} />
 				</React.Fragment>
 			);

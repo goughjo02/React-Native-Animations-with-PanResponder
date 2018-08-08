@@ -77,7 +77,7 @@ describe("get_points", () => {
 			expect(result).toEqual(expectation);
 		});
 	});
-	xit("can get array of y points", () => {
+	it("can get array of y points", () => {
 		dataArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 		noPoints = 10;
 		expectation = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -106,7 +106,7 @@ describe("get_points", () => {
 			19
 		];
 		noPoints = 5;
-		expectation = [1, 6, 9, 14, 19];
+		expectation = [0, 4, 8, 12, 19];
 		result = get_y_points(dataArray, noPoints);
 		expect(result).toEqual(expectation);
 	});

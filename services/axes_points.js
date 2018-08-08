@@ -27,7 +27,6 @@ export const get_x_points = (dataArray, noPoints) => {
 			var pointDist = clonedArray.length / i;
 			for (var j = 0; j <= i - 1; j++) {
 				newArray.push(clonedArray[pointDist * j]);
-				console.log(newArray)
 			}
 			break;
 		}

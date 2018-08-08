@@ -1,5 +1,15 @@
 import { cloneDeep } from "lodash";
 
+function isPrime(num) {
+	if (num <= 1) return false;
+	if (num === 2) return true;
+	var sqrt = Math.sqrt(num);
+	for (var i = 2; i <= sqrt; i++) {
+		if (num % i === 0) return false;
+	}
+	return true;
+}
+
 export const get_no_points = (minDist, totalDist) => {
 	var divider = Math.floor(totalDist / minDist);
 	var noPoints = divider + 1;
@@ -9,12 +19,15 @@ export const get_no_points = (minDist, totalDist) => {
 export const get_x_points = (dataArray, noPoints) => {
 	let newArray = [];
 	var clonedArray = cloneDeep(dataArray);
-	newArray.push(clonedArray[0]);
+	if(isPrime(clonedArray.length)) {
+		clonedArray.splice(0,1)
+	}
 	for (var i = noPoints; i >= 0; i--) {
-		if (dataArray.length % i == 0) {
-			var pointDist = dataArray.length / i;
-			for (var j = 1; j <= i - 2; j++) {
-				newArray.push(dataArray[pointDist * j]);
+		if (clonedArray.length % i == 0) {
+			var pointDist = clonedArray.length / i;
+			for (var j = 0; j <= i - 1; j++) {
+				newArray.push(clonedArray[pointDist * j]);
+				console.log(newArray)
 			}
 			break;
 		}

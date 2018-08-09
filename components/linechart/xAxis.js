@@ -3,6 +3,8 @@ import { ART, StyleSheet } from "react-native";
 const { Group, Path, Shape, Surface, Text } = ART;
 import { PropTypes } from "prop-types";
 
+import { AnimShape } from './anim_shape';
+
 class XAxis extends React.Component {
 	constructor(props) {
 		super(props);
@@ -18,7 +20,7 @@ class XAxis extends React.Component {
 		}
 		path.lineTo(this.props.width, 0);
 		path.close();
-		return path;
+		return path ;
 	};
 	getLabels = () => {
 		var { dataPoints } = this.props;

@@ -7,13 +7,9 @@ import {
 	combination_selector,
 	convertDateTime,
 	fetchData,
-	getSum,
-	get_x_axes_points,
-	getMinMax,
-	getXScale,
-	getYScale
+	getSum
 } from "../services";
-import { Legend, Line, RadialChart, ZoomSlider, XAxis } from "../components";
+import { Legend, LineChart, RadialChart, ZoomSlider } from "../components";
 import { fetchDataSuccess } from "../redux";
 
 class PageOne extends React.Component {
@@ -27,27 +23,9 @@ class PageOne extends React.Component {
 		});
 		this.props.dispatch(fetchDataSuccess(faux_data));
 	}
-	getScales = (height, width, data) => {
-		var time = getMinMax(data, "date");
-		var minValue = Math.min(
-			getMinMax(data, "produced").min,
-			getMinMax(data, "used").min,
-			getMinMax(data, "sold").min
-		);
-		var maxValue = Math.max(
-			getMinMax(data, "produced").max,
-			getMinMax(data, "used").max,
-			getMinMax(data, "sold").max
-		);
-		this.xScale = getXScale(time.min, time.max, width);
-		this.yScale = getYScale(minValue, maxValue, height);
-	};
 	render() {
-		var { data } = this.props;
 		var duration = 1000;
-		var graphHeight = 170;
-		var graphWidth = 300;
-		var tickDist = 40;
+		var { data } = this.props;
 		var keys = ["produced", "used", "sold"];
 		var sumData = [];
 		for (var i = keys.length - 1; i >= 0; i--) {
@@ -57,13 +35,6 @@ class PageOne extends React.Component {
 			});
 		}
 		if (data.length > 0) {
-			this.getScales(graphHeight, graphWidth, data);
-			var timedata = data.map(e => e.date);
-			var xAxisPoints = get_x_axes_points(tickDist, graphWidth, timedata);
-			var dateArray = [];
-			xAxisPoints.forEach(e => {
-				dateArray.push(new Date(e));
-			});
 			return (
 				<React.Fragment>
 					<View style={styles.one}>
@@ -75,18 +46,8 @@ class PageOne extends React.Component {
 						/>
 						<Legend data={sumData} duration={duration} />
 					</View>
-					<Line
-						height={graphHeight}
-						width={graphWidth}
-						xScale={this.xScale}
-						yScale={this.yScale}
+					<LineChart
 						data={data}
-						duration={duration}
-					/>
-					<XAxis
-						xScale={this.xScale}
-						yScale={this.yScale}
-						dataPoints={dateArray}
 					/>
 					<ZoomSlider dataLength={data.length} />
 				</React.Fragment>

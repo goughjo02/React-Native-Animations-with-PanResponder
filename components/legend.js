@@ -134,7 +134,7 @@ AnimLegend.defaultProps = {
 	color1: "#ff0000",
 	color2: "#00ff00",
 	color3: "#0000ff",
-	duration: 2000
+	duration: 1000
 };
 
 export { AnimLegend as Legend };

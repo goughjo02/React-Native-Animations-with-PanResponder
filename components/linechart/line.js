@@ -1,85 +1,12 @@
 import React from "react";
-import { ART, LayoutAnimation, StyleSheet } from "react-native";
-const { Group, Shape, Surface } = ART;
-import Morph from "art/morph/path";
+import { ART, StyleSheet } from "react-native";
+const { Group, Surface } = ART;
 import * as shape from "d3-shape";
-import * as scale from "d3-scale";
-const d3 = { scale, shape };
+const d3 = { shape };
 import PropTypes from "prop-types";
-import { getMinMax } from "../services";
 
-export class AnimShape extends React.Component {
-	constructor(props: Props) {
-		super(props);
-		this.state = {
-			path: ""
-		};
-	}
-	componentWillMount() {
-		this.computeNextState(this.props);
-	}
-	componentWillReceiveProps(nextProps) {
-		this.computeNextState(nextProps);
-	}
-	computeNextState(nextProps) {
-		const { d } = nextProps;
-		const { duration } = this.props;
-		const graph = this.props.d();
-		this.setState({
-			path: graph.path
-		});
-		if (!this.previousGraph) {
-			this.previousGraph = graph;
-		}
-		if (this.props !== nextProps) {
-			const pathFrom = this.previousGraph.path;
-			const pathTo = graph.path;
-			cancelAnimationFrame(this.animating);
-			this.animating = null;
-			LayoutAnimation.configureNext(
-				LayoutAnimation.create(
-					duration,
-					LayoutAnimation.Types.easeInEaseOut,
-					LayoutAnimation.Properties.opacity
-				)
-			);
-			this.setState(
-				{
-					path: Morph.Tween(pathFrom, pathTo)
-				},
-				() => {
-					this.animate();
-				}
-			);
-			this.previousGraph = graph;
-		}
-	}
-	animate(start) {
-		const { duration } = this.props;
-		this.animating = requestAnimationFrame(timestamp => {
-			if (!start) {
-				start = timestamp;
-			}
-			const delta = (timestamp - start) / duration;
-			if (delta > 1) {
-				this.animating = null;
-				this.setState({
-					path: this.previousGraph.path
-				});
-				return;
-			}
-			this.state.path.tween(delta);
-			this.setState(this.state, () => {
-				this.animate(start);
-			});
-		});
-	}
-	render() {
-		const path = this.state.path;
-		const { color } = this.props;
-		return <Shape d={path} strokeWidth={3} stroke={color} />;
-	}
-}
+import { AnimShape } from './anim_shape';
+
 
 class AnimLine extends React.Component {
 	constructor(props) {

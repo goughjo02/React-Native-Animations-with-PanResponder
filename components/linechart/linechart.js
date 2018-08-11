@@ -58,7 +58,12 @@ class LineChart extends React.Component {
 					data={data}
 					duration={duration}
 				/>
-				<XAxis xScale={this.xScale} yScale={this.yScale} dataPoints={dateArray} />
+				<XAxis
+					xScale={this.xScale}
+					yScale={this.yScale}
+					dataPoints={dateArray}
+					duration={duration}
+				/>
 			</React.Fragment>
 		);
 	}

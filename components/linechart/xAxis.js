@@ -83,7 +83,7 @@ XAxis.defaultProps = {
 	outerTick: 15,
 	innerTick: 0,
 	duration: 2000,
-	color: "#111",
+	color: 'rgba(0, 0, 0, 0.5)',
 	strokeWidth: 1,
 	strokeJoin: "round"
 };

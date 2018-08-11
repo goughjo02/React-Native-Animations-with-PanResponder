@@ -13,6 +13,20 @@ class XAxis extends React.Component {
 	getPath = () => {
 		var { width } = this.props;
 		var path = "";
+<<<<<<< HEAD
+=======
+		for (var i = 0; i <= this.points.length - 1; i++) {
+			path = path + `H${this.points[i]}`;
+			path = path + "v15";
+			path = path + "v-15";
+		}
+		path = path + `H${this.props.width}`
+		return {path: path} ;
+	};
+	getPathOld = () => {
+		var { width } = this.props;
+		var path = new Path();
+>>>>>>> a5abbed5aff571695dea85cb54427d4d7f106630
 		for (var i = 0; i <= this.points.length - 1; i++) {
 			path = path + `H${this.points[i]}`;
 			path = path + "v15";
@@ -49,6 +63,7 @@ class XAxis extends React.Component {
 		this.scalePoints();
 		var { ...other } = this.props;
 		return (
+<<<<<<< HEAD
 			<AnimShape
 				{...other}
 				d={() => this.getPath()}
@@ -56,6 +71,29 @@ class XAxis extends React.Component {
 				stroke="#000"
 				strokeWidth={strokeWidth}
 			/>
+=======
+			<Surface style={styles.main} width={width} height={height}>
+				<Group x={0} y={0}>
+					<AnimShape
+						{...other}
+						d={() => this.getPath()}
+						fill={color}
+						stroke="#000"
+						strokeWidth={strokeWidth}
+					/>
+					{this.getLabels()}
+					<Text
+						y={30}
+						x={100}
+						font={`10px "Helvetica Neue", "Helvetica", Arial`}
+						fill="#000000"
+						alignment="center"
+					>
+						hello world
+					</Text>
+				</Group>
+			</Surface>
+>>>>>>> a5abbed5aff571695dea85cb54427d4d7f106630
 		);
 	}
 }

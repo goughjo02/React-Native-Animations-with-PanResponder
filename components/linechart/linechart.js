@@ -68,6 +68,13 @@ class LineChart extends React.Component {
 					width={graphWidth}
 					height={graphHeight}
 				>
+					<Group x={graphWidth - linesWidth} y={linesHeight + curveOffsetBottom}>
+						<XAxis
+							xScale={this.xScale}
+							yScale={this.yScale}
+							dataPoints={dateArray}
+						/>
+					</Group>
 					<Group x={graphWidth - linesWidth} y={curveOffsetTop}>
 						<Line
 							height={linesHeight}
@@ -76,13 +83,6 @@ class LineChart extends React.Component {
 							yScale={this.yScale}
 							data={data}
 							duration={duration}
-						/>
-					</Group>
-					<Group x={graphWidth - linesWidth} y={linesHeight + curveOffsetBottom}>
-						<XAxis
-							xScale={this.xScale}
-							yScale={this.yScale}
-							dataPoints={dateArray}
 						/>
 					</Group>
 				</Surface>

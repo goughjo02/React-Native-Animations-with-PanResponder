@@ -17,7 +17,7 @@ class AnimLine extends React.Component {
 			.line()
 			.x(d => xScale(d["date"]))
 			.y(d => yScale(d[column]))
-			.curve(d3.shape.curveNatural);
+			.curve(d3.shape.curveMonotoneX);
 		return { path: lineShape(data) };
 	};
 	render() {

@@ -30,12 +30,7 @@ class AnimLine extends React.Component {
 			}
 		});
 		return (
-			<Surface
-				style={styles.surface}
-				width={width + 40}
-				height={height + 40}
-			>
-				<Group x={20} y={20}>
+			<React.Fragment>
 					<AnimShape
 						{...other}
 						color={color1}
@@ -51,8 +46,7 @@ class AnimLine extends React.Component {
 						color={color3}
 						d={() => this._createLine("sold")}
 					/>
-				</Group>
-			</Surface>
+					</React.Fragment>
 		);
 	}
 }

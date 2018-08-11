@@ -1,4 +1,6 @@
 import React from "react";
+import { ART, StyleSheet } from "react-native";
+const { Group, Path, Shape, Surface, Text } = ART;
 import PropTypes from "prop-types";
 
 import {
@@ -34,6 +36,10 @@ class LineChart extends React.Component {
 		var {
 			graphWidth,
 			graphHeight,
+			linesWidth,
+			linesHeight,
+			curveOffsetTop,
+			curveOffsetBottom,
 			xScale,
 			yScale,
 			data,
@@ -41,24 +47,45 @@ class LineChart extends React.Component {
 			xTickDist,
 			yTickDist
 		} = this.props;
-		this.getScales(graphHeight, graphWidth, data);
+		this.getScales(linesHeight, linesWidth, data);
 		var timedata = data.map(e => e.date);
-		var xAxisPoints = get_x_axes_points(xTickDist, graphWidth, timedata);
+		var xAxisPoints = get_x_axes_points(xTickDist, linesWidth, timedata);
 		var dateArray = [];
 		xAxisPoints.forEach(e => {
 			dateArray.push(new Date(e));
 		});
+		const styles = StyleSheet.create({
+			main: {
+				borderStyle: "solid",
+				borderColor: "black",
+				borderWidth: 3
+			}
+		});
 		return (
 			<React.Fragment>
-				<Line
-					height={graphHeight}
+				<Surface
+					style={styles.main}
 					width={graphWidth}
-					xScale={this.xScale}
-					yScale={this.yScale}
-					data={data}
-					duration={duration}
-				/>
-				<XAxis xScale={this.xScale} yScale={this.yScale} dataPoints={dateArray} />
+					height={graphHeight}
+				>
+					<Group x={graphWidth - linesWidth} y={curveOffsetTop}>
+						<Line
+							height={linesHeight}
+							width={linesWidth}
+							xScale={this.xScale}
+							yScale={this.yScale}
+							data={data}
+							duration={duration}
+						/>
+					</Group>
+					<Group x={graphWidth - linesWidth} y={linesHeight + curveOffsetBottom}>
+						<XAxis
+							xScale={this.xScale}
+							yScale={this.yScale}
+							dataPoints={dateArray}
+						/>
+					</Group>
+				</Surface>
 			</React.Fragment>
 		);
 	}
@@ -66,10 +93,12 @@ class LineChart extends React.Component {
 
 LineChart.propTypes = {
 	duration: PropTypes.number.isRequired,
-	height: PropTypes.number.isRequired,
-	width: PropTypes.number.isRequired,
+	linesHeight: PropTypes.number.isRequired,
+	linesWidth: PropTypes.number.isRequired,
 	graphHeight: PropTypes.number.isRequired,
 	graphWidth: PropTypes.number.isRequired,
+	curveOffsetTop: PropTypes.number.isRequired,
+	curveOffsetBottom: PropTypes.number.isRequired,
 	xTickDist: PropTypes.number.isRequired,
 	yTickDist: PropTypes.number.isRequired,
 	color1: PropTypes.string.isRequired,
@@ -86,11 +115,13 @@ LineChart.propTypes = {
 	)
 };
 LineChart.defaultProps = {
-	height: 200,
-	width: 300,
-	graphHeight: 170,
-	graphWidth: 260,
+	linesHeight: 240,
+	linesWidth: 260,
+	graphHeight: 330,
+	graphWidth: 300,
 	duration: 2000,
+	curveOffsetBottom: 60,
+	curveOffsetTop: 20,
 	xTickDist: 40,
 	yTickDist: 40,
 	color1: "#ff0000",

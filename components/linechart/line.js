@@ -5,8 +5,7 @@ import * as shape from "d3-shape";
 const d3 = { shape };
 import PropTypes from "prop-types";
 
-import { AnimShape } from './anim_shape';
-
+import { AnimShape } from "./anim_shape";
 
 class AnimLine extends React.Component {
 	constructor(props) {
@@ -31,22 +30,22 @@ class AnimLine extends React.Component {
 		});
 		return (
 			<React.Fragment>
-					<AnimShape
-						{...other}
-						color={color1}
-						d={() => this._createLine("produced")}
-					/>
-					<AnimShape
-						{...other}
-						color={color2}
-						d={() => this._createLine("used")}
-					/>
-					<AnimShape
-						{...other}
-						color={color3}
-						d={() => this._createLine("sold")}
-					/>
-					</React.Fragment>
+				<AnimShape
+					{...other}
+					color={color1}
+					d={() => this._createLine("produced")}
+				/>
+				<AnimShape
+					{...other}
+					color={color2}
+					d={() => this._createLine("used")}
+				/>
+				<AnimShape
+					{...other}
+					color={color3}
+					d={() => this._createLine("sold")}
+				/>
+			</React.Fragment>
 		);
 	}
 }

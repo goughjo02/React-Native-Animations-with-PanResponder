@@ -28,25 +28,28 @@ class YAxis extends React.Component {
 		return {path: path} ;
 	};
 	getLabels = () => {
-		for (var i = this.points.length - 1; i >= 0; i--) {
+		var { dataPoints, outerTick, fontSize } = this.props;
+		return dataPoints.map((e, i) => {
 			return (
 				<Text
-					y={30}
-					x={this.points[i]}
-					font={`10px "Helvetica Neue", "Helvetica", Arial`}
-					fill="#000000"
-					alignment="center"
+					y={this.points[i]}
+					x={ - outerTick * 1.3}
+					font={`${fontSize}px "Helvetica Neue", "Helvetica", Arial`}
+					fill="#000"
+					alignment="right"
+					key={`yLabel${this.points[i]}`}
 				>
-					... {this.points[i]}
+					{Math.round(e)}KWh
 				</Text>
 			);
-		}
+		});
 	};
 	render() {
 		var { color, strokeWidth, strokeJoin } = this.props;
 		this.scalePoints();
 		var { ...other } = this.props;
 		return (
+			<React.Fragment>
 			<Shape
 				{...other}
 				d={this.getPath().path}
@@ -55,6 +58,8 @@ class YAxis extends React.Component {
 				strokeWidth={strokeWidth}
 				strokeJoin={strokeJoin}
 			/>
+			{this.getLabels()}
+			</React.Fragment>
 		);
 	}
 }
@@ -65,6 +70,9 @@ YAxis.propTypes = {
 	width: PropTypes.number.isRequired,
 	outerTick: PropTypes.number.isRequired,
 	innerTick: PropTypes.number.isRequired,
+	graphWidth: PropTypes.number.isRequired,
+	linesWidth: PropTypes.number.isRequired,
+	fontSize: PropTypes.number.isRequired,
 	duration: PropTypes.number.isRequired,
 	color: PropTypes.string.isRequired,
 	strokeWidth: PropTypes.number.isRequired,
@@ -77,6 +85,7 @@ YAxis.defaultProps = {
 	width: 30,
 	outerTick: 15,
 	innerTick: 0,
+	fontSize: 8,
 	duration: 2000,
 	color: 'rgba(0, 0, 0, 0.5)',
 	strokeWidth: 1,

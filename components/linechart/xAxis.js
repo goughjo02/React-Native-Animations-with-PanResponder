@@ -25,13 +25,13 @@ class XAxis extends React.Component {
 		return { path: path };
 	};
 	getLabels = () => {
-		var { dataPoints } = this.props;
+		var { dataPoints, fontSize } = this.props;
 		return dataPoints.map((e, i) => {
 			return (
 				<Text
 					y={15}
 					x={this.points[i]}
-					font={`10px "Helvetica Neue", "Helvetica", Arial`}
+					font={`${fontSize}px "Helvetica Neue", "Helvetica", Arial`}
 					fill="#000"
 					alignment="center"
 					key={`xLabel${this.points[i]}`}
@@ -76,6 +76,7 @@ XAxis.propTypes = {
 	innerTick: PropTypes.number.isRequired,
 	duration: PropTypes.number.isRequired,
 	color: PropTypes.string.isRequired,
+	fontSize: PropTypes.number.isRequired,
 	strokeWidth: PropTypes.number.isRequired,
 	strokeJoin: PropTypes.string.isRequired,
 	dataPoints: PropTypes.arrayOf(PropTypes.instanceOf(Date).isRequired)
@@ -86,6 +87,7 @@ XAxis.defaultProps = {
 	width: 300,
 	outerTick: 15,
 	innerTick: 0,
+	fontSize: 8,
 	duration: 2000,
 	color: "#000",
 	strokeWidth: 1,

@@ -21,7 +21,7 @@ class AnimLine extends React.Component {
 		return { path: lineShape(data) };
 	};
 	render() {
-		const { height, width, color1, color2, color3 } = this.props;
+		const { height, width, color1, color2, color3, strokeWidth } = this.props;
 		var { ...other } = this.props;
 		const styles = StyleSheet.create({
 			surface: {
@@ -34,19 +34,19 @@ class AnimLine extends React.Component {
 					{...other}
 					color={color1}
 					d={() => this._createLine("produced")}
-					strokeWidth={3}
+					strokeWidth={strokeWidth}
 				/>
 				<AnimShape
 					{...other}
 					color={color2}
 					d={() => this._createLine("used")}
-					strokeWidth={3}
+					strokeWidth={strokeWidth}
 				/>
 				<AnimShape
 					{...other}
 					color={color3}
 					d={() => this._createLine("sold")}
-					strokeWidth={3}
+					strokeWidth={strokeWidth}
 				/>
 			</React.Fragment>
 		);
@@ -62,6 +62,7 @@ AnimLine.propTypes = {
 	color1: PropTypes.string.isRequired,
 	color2: PropTypes.string.isRequired,
 	color3: PropTypes.string.isRequired,
+	strokeWidth: PropTypes.number.isRequired,
 	data: PropTypes.arrayOf(
 		PropTypes.shape({
 			bought: PropTypes.number.isRequired,
@@ -76,6 +77,7 @@ AnimLine.defaultProps = {
 	height: 170,
 	width: 300,
 	duration: 2000,
+	strokeWidth: 3,
 	color1: "#ff0000",
 	color2: "#00ff00",
 	color3: "#0000ff"

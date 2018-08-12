@@ -36,6 +36,9 @@ class LineChart extends React.Component {
 	};
 	render() {
 		var {
+			lineStrokeWidth,
+			xStrokeWidth,
+			yStrokeWidth,
 			graphWidth,
 			graphHeight,
 			linesWidth,
@@ -47,12 +50,23 @@ class LineChart extends React.Component {
 			data,
 			duration,
 			xTickDist,
-			yTickDist
+			yTickDist,
+			xInnerTick,
+			xOuterTick,
+			yInnerTick,
+			yOuterTick,
+			yFontSize,
+			xFontSize
 		} = this.props;
 		this.getScales(linesHeight, linesWidth, data);
 		var timedata = data.map(e => e.date);
 		var xAxisPoints = get_x_axes_points(xTickDist, linesWidth, timedata);
-		var yAxisPoints = get_y_axes_points(this.minValue, this.maxValue, yTickDist, linesHeight);
+		var yAxisPoints = get_y_axes_points(
+			this.minValue,
+			this.maxValue,
+			yTickDist,
+			linesHeight
+		);
 		var dateArray = [];
 		xAxisPoints.forEach(e => {
 			dateArray.push(new Date(e));
@@ -71,16 +85,29 @@ class LineChart extends React.Component {
 					width={graphWidth}
 					height={graphHeight}
 				>
-					<Group x={graphWidth - linesWidth} y={linesHeight + curveOffsetBottom}>
+					<Group
+						x={graphWidth - linesWidth}
+						y={linesHeight + curveOffsetBottom}
+					>
 						<XAxis
 							xScale={this.xScale}
 							dataPoints={dateArray}
+							innerTick={xInnerTick}
+							outerTick={xOuterTick}
+							fontSize={xFontSize}
+							strokeWidth={xStrokeWidth}
 						/>
 					</Group>
-					<Group x={graphWidth - linesWidth - 20} y={curveOffsetTop}>
+					<Group x={graphWidth - linesWidth - 5} y={curveOffsetTop}>
 						<YAxis
 							yScale={this.yScale}
 							dataPoints={yAxisPoints}
+							graphWidth={graphWidth}
+							linesWidth={linesWidth}
+							innerTick={yInnerTick}
+							outerTick={yOuterTick}
+							fontSize={yFontSize}
+							strokeWidth={yStrokeWidth}
 						/>
 					</Group>
 					<Group x={graphWidth - linesWidth} y={curveOffsetTop}>
@@ -91,6 +118,7 @@ class LineChart extends React.Component {
 							yScale={this.yScale}
 							data={data}
 							duration={duration}
+							strokeWidth={lineStrokeWidth}
 						/>
 					</Group>
 				</Surface>
@@ -101,6 +129,9 @@ class LineChart extends React.Component {
 
 LineChart.propTypes = {
 	duration: PropTypes.number.isRequired,
+	lineStrokeWidth: PropTypes.number.isRequired,
+	xStrokeWidth: PropTypes.number.isRequired,
+	yStrokeWidth: PropTypes.number.isRequired,
 	linesHeight: PropTypes.number.isRequired,
 	linesWidth: PropTypes.number.isRequired,
 	graphHeight: PropTypes.number.isRequired,
@@ -109,6 +140,12 @@ LineChart.propTypes = {
 	curveOffsetBottom: PropTypes.number.isRequired,
 	xTickDist: PropTypes.number.isRequired,
 	yTickDist: PropTypes.number.isRequired,
+	xInnerTick: PropTypes.number.isRequired,
+	xOuterTick: PropTypes.number.isRequired,
+	yInnerTick: PropTypes.number.isRequired,
+	yOuterTick: PropTypes.number.isRequired,
+	xFontSize: PropTypes.number.isRequired,
+	yFontSize: PropTypes.number.isRequired,
 	color1: PropTypes.string.isRequired,
 	color2: PropTypes.string.isRequired,
 	color3: PropTypes.string.isRequired,
@@ -123,15 +160,24 @@ LineChart.propTypes = {
 	)
 };
 LineChart.defaultProps = {
-	linesHeight: 240,
-	linesWidth: 260,
-	graphHeight: 300,
-	graphWidth: 300,
+	lineStrokeWidth: 1,
+	xStrokeWidth: 0.5,
+	yStrokeWidth: 0.5,
+	linesHeight: 180,
+	linesWidth: 220,
+	graphHeight: 260,
+	graphWidth: 280,
 	duration: 2000,
-	curveOffsetBottom: 20,
+	curveOffsetBottom: 10,
 	curveOffsetTop: 0,
 	xTickDist: 40,
+	xInnerTick: 0,
+	xOuterTick: 10,
 	yTickDist: 40,
+	yInnerTick: 0,
+	yOuterTick: 7,
+	xFontSize: 8,
+	yFontSize: 8,
 	color1: "#ff0000",
 	color2: "#00ff00",
 	color3: "#0000ff"

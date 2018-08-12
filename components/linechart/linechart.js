@@ -76,8 +76,7 @@ class LineChart extends React.Component {
 			main: {
 				borderStyle: "solid",
 				borderColor: "#000",
-				borderWidth: 3,
-				backgroundColor: '#666'
+				borderWidth: 3
 			}
 		});
 		return (

@@ -59,7 +59,7 @@ class PageOne extends React.Component {
 						/>
 					</View>
 					<View style={styles.three}>
-						<ZoomSlider dataLength={data.length} />
+						<ZoomSlider dataLength={data.length} backgroundColor={"#ccc"} color={"#666"} />
 					</View>
 				</React.Fragment>
 			);

@@ -71,7 +71,7 @@ export class AnimShape extends React.Component {
 	}
 	render() {
 		const path = this.state.path;
-		const { color } = this.props;
-		return <Shape d={path} strokeWidth={3} stroke={color} />;
+		const { color, strokeWidth } = this.props;
+		return <Shape d={path} strokeWidth={strokeWidth} stroke={color} />;
 	}
 }

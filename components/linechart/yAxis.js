@@ -76,7 +76,7 @@ YAxis.defaultProps = {
 	height: 240,
 	width: 30,
 	outerTick: 15,
-	innerTick: 300,
+	innerTick: 0,
 	duration: 2000,
 	color: 'rgba(0, 0, 0, 0.5)',
 	strokeWidth: 1,

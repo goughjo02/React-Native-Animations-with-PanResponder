@@ -34,16 +34,19 @@ class AnimLine extends React.Component {
 					{...other}
 					color={color1}
 					d={() => this._createLine("produced")}
+					strokeWidth={3}
 				/>
 				<AnimShape
 					{...other}
 					color={color2}
 					d={() => this._createLine("used")}
+					strokeWidth={3}
 				/>
 				<AnimShape
 					{...other}
 					color={color3}
 					d={() => this._createLine("sold")}
+					strokeWidth={3}
 				/>
 			</React.Fragment>
 		);

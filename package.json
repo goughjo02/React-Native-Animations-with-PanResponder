@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "axios-mock-adapter": "^1.15.0",
     "deep-freeze": "^0.0.1",
     "fetch-mock": "^6.5.2",
     "jest-expo": "~27.0.0",

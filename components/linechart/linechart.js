@@ -21,18 +21,18 @@ class LineChart extends React.Component {
 	}
 	getScales = (height, width, data) => {
 		var time = getMinMax(data, "date");
-		var minValue = Math.min(
+		this.minValue = Math.min(
 			getMinMax(data, "produced").min,
 			getMinMax(data, "used").min,
 			getMinMax(data, "sold").min
 		);
-		var maxValue = Math.max(
+		this.maxValue = Math.max(
 			getMinMax(data, "produced").max,
 			getMinMax(data, "used").max,
 			getMinMax(data, "sold").max
 		);
 		this.xScale = getXScale(time.min, time.max, width);
-		this.yScale = getYScale(minValue, maxValue, height);
+		this.yScale = getYScale(this.minValue, this.maxValue, height);
 	};
 	render() {
 		var {
@@ -52,7 +52,7 @@ class LineChart extends React.Component {
 		this.getScales(linesHeight, linesWidth, data);
 		var timedata = data.map(e => e.date);
 		var xAxisPoints = get_x_axes_points(xTickDist, linesWidth, timedata);
-		var yAxisPoints = get_y_axes_points(minValue, maxValue, yTickDist, linesHeight);
+		var yAxisPoints = get_y_axes_points(this.minValue, this.maxValue, yTickDist, linesHeight);
 		var dateArray = [];
 		xAxisPoints.forEach(e => {
 			dateArray.push(new Date(e));
@@ -77,7 +77,7 @@ class LineChart extends React.Component {
 							dataPoints={dateArray}
 						/>
 					</Group>
-					<Group x={0} y={curveOffsetTop}>
+					<Group x={graphWidth - linesWidth - 20} y={curveOffsetTop}>
 						<YAxis
 							yScale={this.yScale}
 							dataPoints={yAxisPoints}

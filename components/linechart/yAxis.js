@@ -3,29 +3,32 @@ import { ART } from "react-native";
 const { Shape, Text } = ART;
 import { PropTypes } from "prop-types";
 
-import { AnimShape } from "./anim_shape";
 
 class YAxis extends React.Component {
 	constructor(props) {
 		super(props);
 		this.points = [];
 	}
+	scalePoints = () => {
+		var { yScale, dataPoints } = this.props;
+		for (var i = 0; i <= dataPoints.length - 1; i++) {
+			this.points.push(yScale(dataPoints[i]))
+		}
+	};
 	getPath = () => {
-		var { width, outerTick, innerTick } = this.props;
+		var { outerTick, innerTick } = this.props;
 		var path = "";
 		for (var i = 0; i <= this.points.length - 1; i++) {
-			path = path + `V${this.points[i]}, 0`;
-			path = path + `h${outerTick}`;
+			path = path + `V${this.points[i]}`;
 			path = path + `h-${outerTick}`;
-			path = path + `h-${innerTick}`;
+			path = path + `h${outerTick}`;
 			path = path + `h${innerTick}`;
+			path = path + `h-${innerTick}`;
 		}
-		path = path + `V${this.props.height}`
 		return {path: path} ;
 	};
 	getLabels = () => {
-		var { dataPoints } = this.props;
-		for (var i = 0; i <= dataPoints.length - 1; i++) {
+		for (var i = this.points.length - 1; i >= 0; i--) {
 			return (
 				<Text
 					y={30}
@@ -34,26 +37,19 @@ class YAxis extends React.Component {
 					fill="#000000"
 					alignment="center"
 				>
-					... {dataPoints[i]}
+					... {this.points[i]}
 				</Text>
 			);
 		}
 	};
-	scalePoints = () => {
-		var { yScale, dataPoints } = this.props;
-		this.points = [];
-		for (var i = 0; i <= dataPoints.length - 1; i++) {
-			this.points.push(yScale(dataPoints[i]));
-		}
-	};
 	render() {
-		var { height, width, color, strokeWidth, strokeJoin } = this.props;
+		var { color, strokeWidth, strokeJoin } = this.props;
 		this.scalePoints();
 		var { ...other } = this.props;
 		return (
 			<Shape
 				{...other}
-				d={"V100"}
+				d={this.getPath().path}
 				fill={color}
 				stroke="#000"
 				strokeWidth={strokeWidth}
@@ -73,7 +69,7 @@ YAxis.propTypes = {
 	color: PropTypes.string.isRequired,
 	strokeWidth: PropTypes.number.isRequired,
 	strokeJoin: PropTypes.string.isRequired,
-	dataPoints: PropTypes.arrayOf(PropTypes.instanceOf(Date).isRequired)
+	dataPoints: PropTypes.arrayOf(PropTypes.number.isRequired)
 		.isRequired
 };
 YAxis.defaultProps = {

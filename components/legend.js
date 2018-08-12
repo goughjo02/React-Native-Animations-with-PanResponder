@@ -7,6 +7,10 @@ class Legend extends React.Component {
 		var names = this.props.data.map(e => e.name);
 		const { item1, item2, item3, color1, color2, color3 } = this.props;
 		var styles = StyleSheet.create({
+			fixedWidth: {
+				width: 50,
+				textAlign: "right"
+			},
 			bordered: {
 				borderWidth: 3,
 				borderStyle: "solid"
@@ -23,6 +27,7 @@ class Legend extends React.Component {
 			spot: {
 				height: 16,
 				width: 16,
+				borderRadius: 8,
 				margin: 4
 			},
 			color1spot: {
@@ -45,19 +50,19 @@ class Legend extends React.Component {
 		return (
 			<View>
 				<View style={[styles.row]}>
+					<Text style={[styles.fixedWidth]}>{Math.round(item1)}</Text>
 					<View style={[styles.color1spot, styles.spot]} />
-					<Text>{names[0]}</Text>
-					<Text>{Math.round(item1)}</Text>
+					<Text>{names[0]} {"\n"}</Text>
 				</View>
 				<View style={[styles.row]}>
+					<Text style={[styles.fixedWidth]}>{Math.round(item2)}</Text>
 					<View style={[styles.color2spot, styles.spot]} />
-					<Text>{names[1]}</Text>
-					<Text>{Math.round(item2)}</Text>
+					<Text>{names[1]} {"\n"}</Text>
 				</View>
 				<View style={[styles.row, styles.color3]}>
+					<Text style={[styles.fixedWidth]}>{Math.round(item3)}</Text>
 					<View style={[styles.color3spot, styles.spot]} />
-					<Text>{names[2]}</Text>
-					<Text>{Math.round(item3)}</Text>
+					<Text>{names[2]} {"\n"}</Text>
 				</View>
 			</View>
 		);

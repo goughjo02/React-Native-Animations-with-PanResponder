@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 import { connect } from "react-redux";
 import { faux_data } from "../__json_http__/dummy_data";
 
@@ -34,6 +34,8 @@ class PageOne extends React.Component {
 				value: getSum(data, keys[i])
 			});
 		}
+		var windowWidth = Dimensions.get("window").width;
+		var linesWidth = windowWidth - 60;
 		if (data.length > 0) {
 			return (
 				<React.Fragment>
@@ -41,15 +43,24 @@ class PageOne extends React.Component {
 						<RadialChart
 							data={sumData}
 							radius={45}
-							strokeWidth={6}
-							offsetFactor={2}
+							strokeWidth={4}
+							offsetFactor={2.5}
+							maxAngle={360}
 						/>
 						<Legend data={sumData} duration={duration} />
 					</View>
-					<LineChart
-						data={data}
-					/>
-					<ZoomSlider dataLength={data.length} />
+					<View style={styles.two}>
+						<LineChart
+							data={data}
+							backgroundColor={"#fff"}
+							graphWidth={windowWidth}
+							linesWidth={linesWidth}
+							yInnerTick={linesWidth}
+						/>
+					</View>
+					<View style={styles.three}>
+						<ZoomSlider dataLength={data.length} />
+					</View>
 				</React.Fragment>
 			);
 		}
@@ -59,6 +70,18 @@ class PageOne extends React.Component {
 
 const styles = StyleSheet.create({
 	one: {
+		flex: 1,
+		flexDirection: "row",
+		flexWrap: "nowrap",
+		alignItems: "center",
+		alignSelf: "stretch",
+		justifyContent: "space-around"
+	},
+	two: {
+		flex: 1
+	},
+	three: {
+		height: 180,
 		flexDirection: "row",
 		flexWrap: "nowrap",
 		alignItems: "center",

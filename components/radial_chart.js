@@ -213,7 +213,7 @@ AnimRadialChart.defaultProps = {
   offsetFactor: 1.3,
   radius: 75,
   rotation: -135,
-  strokeWidth: 12,
+  strokeWidth: 5,
   color1: "#ff0000",
   color2: "#00ff00",
   color3: "#0000ff"

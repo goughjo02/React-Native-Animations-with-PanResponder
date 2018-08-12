@@ -36,6 +36,7 @@ class LineChart extends React.Component {
 	};
 	render() {
 		var {
+			backgroundColor,
 			lineStrokeWidth,
 			xStrokeWidth,
 			yStrokeWidth,
@@ -76,7 +77,8 @@ class LineChart extends React.Component {
 			main: {
 				borderStyle: "solid",
 				borderColor: "#000",
-				borderWidth: 3
+				borderWidth: 3,
+				backgroundColor: backgroundColor
 			}
 		});
 		return (
@@ -150,6 +152,7 @@ LineChart.propTypes = {
 	yOuterTick: PropTypes.number.isRequired,
 	xFontSize: PropTypes.number.isRequired,
 	yFontSize: PropTypes.number.isRequired,
+	backgroundColor: PropTypes.string.isRequired,
 	color1: PropTypes.string.isRequired,
 	color2: PropTypes.string.isRequired,
 	color3: PropTypes.string.isRequired,
@@ -183,6 +186,7 @@ LineChart.defaultProps = {
 	yOuterTick: 7,
 	xFontSize: 8,
 	yFontSize: 8,
+	backgroundColor: "#fff",
 	color1: "#ff0000",
 	color2: "#00ff00",
 	color3: "#0000ff"

@@ -45,6 +45,7 @@ class LineChart extends React.Component {
 			linesHeight,
 			curveOffsetTop,
 			curveOffsetBottom,
+			curveOffsetRight,
 			xScale,
 			yScale,
 			data,
@@ -87,7 +88,7 @@ class LineChart extends React.Component {
 					height={graphHeight}
 				>
 					<Group
-						x={graphWidth - linesWidth}
+						x={graphWidth - linesWidth - curveOffsetRight}
 						y={linesHeight + curveOffsetBottom}
 					>
 						<XAxis
@@ -110,9 +111,10 @@ class LineChart extends React.Component {
 							outerTick={yOuterTick}
 							fontSize={yFontSize}
 							strokeWidth={yStrokeWidth}
+							curveOffsetRight={curveOffsetRight}
 						/>
 					</Group>
-					<Group x={graphWidth - linesWidth} y={curveOffsetTop}>
+					<Group x={graphWidth - linesWidth - curveOffsetRight} y={curveOffsetTop}>
 						<Line
 							height={linesHeight}
 							width={linesWidth}
@@ -140,6 +142,7 @@ LineChart.propTypes = {
 	graphWidth: PropTypes.number.isRequired,
 	curveOffsetTop: PropTypes.number.isRequired,
 	curveOffsetBottom: PropTypes.number.isRequired,
+	curveOffsetRight: PropTypes.number.isRequired,
 	xTickDist: PropTypes.number.isRequired,
 	yTickDist: PropTypes.number.isRequired,
 	xInnerTick: PropTypes.number.isRequired,
@@ -172,6 +175,7 @@ LineChart.defaultProps = {
 	duration: 2000,
 	curveOffsetBottom: 10,
 	curveOffsetTop: 20,
+	curveOffsetRight: 10,
 	xTickDist: 40,
 	xInnerTick: 0,
 	xOuterTick: 10,

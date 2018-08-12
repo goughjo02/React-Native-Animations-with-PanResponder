@@ -16,8 +16,8 @@ class YAxis extends React.Component {
 		}
 	};
 	getPath = () => {
-		var { outerTick, innerTick } = this.props;
-		var path = "";
+		var { curveOffsetRight, outerTick, innerTick } = this.props;
+		var path = `M-${curveOffsetRight}, 0`;
 		for (var i = 0; i <= this.points.length - 1; i++) {
 			path = path + `V${this.points[i]}`;
 			path = path + `h-${outerTick}`;
@@ -28,18 +28,18 @@ class YAxis extends React.Component {
 		return {path: path} ;
 	};
 	getLabels = () => {
-		var { dataPoints, outerTick, fontSize } = this.props;
+		var { curveOffsetRight, dataPoints, outerTick, fontSize } = this.props;
 		return dataPoints.map((e, i) => {
 			return (
 				<Text
 					y={this.points[i]}
-					x={ - outerTick * 1.3}
+					x={ - curveOffsetRight - outerTick * 1.3}
 					font={`${fontSize}px "Helvetica Neue", "Helvetica", Arial`}
 					fill="#000"
 					alignment="right"
 					key={`yLabel${this.points[i]}`}
 				>
-					{Math.round(e)}KWh
+					{Math.round(e)} KWh
 				</Text>
 			);
 		});
@@ -77,6 +77,7 @@ YAxis.propTypes = {
 	color: PropTypes.string.isRequired,
 	strokeWidth: PropTypes.number.isRequired,
 	strokeJoin: PropTypes.string.isRequired,
+	curveOffsetRight: PropTypes.number.isRequired,
 	dataPoints: PropTypes.arrayOf(PropTypes.number.isRequired)
 		.isRequired
 };
@@ -87,6 +88,7 @@ YAxis.defaultProps = {
 	innerTick: 0,
 	fontSize: 8,
 	duration: 2000,
+	curveOffsetRight: 10,
 	color: 'rgba(0, 0, 0, 0.5)',
 	strokeWidth: 1,
 	strokeJoin: "round"

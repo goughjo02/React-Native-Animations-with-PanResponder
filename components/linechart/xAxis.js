@@ -12,8 +12,8 @@ class XAxis extends React.Component {
 		this.points = [];
 	}
 	getPath = () => {
-		var { width, outerTick, innerTick } = this.props;
-		var path = "";
+		var { curveOffsetTop, width, outerTick, innerTick } = this.props;
+		var path = `M0,${curveOffsetTop}`;
 		for (var i = 0; i <= this.points.length - 1; i++) {
 			path = path + `H${this.points[i]}`;
 			path = path + `v${outerTick}`;
@@ -25,11 +25,11 @@ class XAxis extends React.Component {
 		return { path: path };
 	};
 	getLabels = () => {
-		var { dataPoints, fontSize } = this.props;
+		var { dataPoints, fontSize, curveOffsetTop } = this.props;
 		return dataPoints.map((e, i) => {
 			return (
 				<Text
-					y={15}
+					y={15 + curveOffsetTop}
 					x={this.points[i]}
 					font={`${fontSize}px "Helvetica Neue", "Helvetica", Arial`}
 					fill="#000"
@@ -69,6 +69,7 @@ class XAxis extends React.Component {
 }
 
 XAxis.propTypes = {
+	curveOffsetTop: PropTypes.number.isRequired,
 	xScale: PropTypes.func.isRequired,
 	height: PropTypes.number.isRequired,
 	width: PropTypes.number.isRequired,
@@ -83,6 +84,7 @@ XAxis.propTypes = {
 		.isRequired
 };
 XAxis.defaultProps = {
+	curveOffsetTop: 0,
 	height: 30,
 	width: 300,
 	outerTick: 15,

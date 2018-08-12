@@ -74,8 +74,9 @@ class LineChart extends React.Component {
 		const styles = StyleSheet.create({
 			main: {
 				borderStyle: "solid",
-				borderColor: "black",
-				borderWidth: 3
+				borderColor: "#000",
+				borderWidth: 3,
+				backgroundColor: '#666'
 			}
 		});
 		return (
@@ -96,6 +97,7 @@ class LineChart extends React.Component {
 							outerTick={xOuterTick}
 							fontSize={xFontSize}
 							strokeWidth={xStrokeWidth}
+							curveOffsetTop={curveOffsetTop}
 						/>
 					</Group>
 					<Group x={graphWidth - linesWidth - 5} y={curveOffsetTop}>
@@ -169,7 +171,7 @@ LineChart.defaultProps = {
 	graphWidth: 280,
 	duration: 2000,
 	curveOffsetBottom: 10,
-	curveOffsetTop: 0,
+	curveOffsetTop: 20,
 	xTickDist: 40,
 	xInnerTick: 0,
 	xOuterTick: 10,

@@ -164,9 +164,9 @@ LineChart.propTypes = {
 	)
 };
 LineChart.defaultProps = {
-	lineStrokeWidth: 1,
-	xStrokeWidth: 0.5,
-	yStrokeWidth: 0.5,
+	lineStrokeWidth: 1.2,
+	xStrokeWidth: 0.8,
+	yStrokeWidth: 0.8,
 	linesHeight: 200,
 	linesWidth: 270,
 	graphHeight: 250,

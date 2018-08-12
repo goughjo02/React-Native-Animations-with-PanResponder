@@ -112,58 +112,28 @@ describe("get_points", () => {
 		});
 	});
 	describe("y axis", () => {
-		xit("can get array of y points", () => {
-			dataArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+		it("can array of y points 1", () => {
+			minValue = 0;
+			maxValue = 9;
 			noPoints = 10;
 			expectation = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-			result = get_y_points(dataArray, noPoints);
+			result = get_y_points(minValue, maxValue, noPoints);
 			expect(result).toEqual(expectation);
-			dataArray = [
-				0,
-				1,
-				2,
-				3,
-				4,
-				5,
-				6,
-				7,
-				8,
-				9,
-				10,
-				11,
-				12,
-				13,
-				14,
-				15,
-				16,
-				17,
-				18,
-				19,
-				20,
-				21,
-				22,
-				23,
-				24,
-				25,
-				26,
-				27,
-				38,
-				39,
-				30,
-				31,
-				32,
-				33,
-				34,
-				35,
-				36,
-				37,
-				38,
-				39,
-				40
-			];
+		});
+		it("can array of y points 2", () => {
+			minValue = 0;
+			maxValue = 40
 			noPoints = 5;
-			expectation = [0, 4, 8, 12, 19];
-			result = get_y_points(dataArray, noPoints);
+			expectation = [0, 10, 20, 30, 40];
+			result = get_y_points(minValue, maxValue, noPoints);
+			expect(result).toEqual(expectation);
+		});
+		it("can deal with prime numbers", () => {
+			minValue = 0;
+			maxValue = 19;
+			noPoints = 4;
+			expectation = [0, (maxValue / (noPoints - 1)) * 1, (maxValue / (noPoints - 1)) * 2, (maxValue / (noPoints - 3)) * 1];
+			result = get_y_points(minValue, maxValue, noPoints);
 			expect(result).toEqual(expectation);
 		});
 	});

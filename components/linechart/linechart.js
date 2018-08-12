@@ -52,7 +52,7 @@ class LineChart extends React.Component {
 		this.getScales(linesHeight, linesWidth, data);
 		var timedata = data.map(e => e.date);
 		var xAxisPoints = get_x_axes_points(xTickDist, linesWidth, timedata);
-		var yAxisPoints = get_y_axes_points(yTickDist, linesHeight, timedata);
+		var yAxisPoints = get_y_axes_points(minValue, maxValue, yTickDist, linesHeight);
 		var dateArray = [];
 		xAxisPoints.forEach(e => {
 			dateArray.push(new Date(e));

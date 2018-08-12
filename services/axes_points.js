@@ -40,27 +40,17 @@ export const get_x_axes_points = (maxDist, width, dataArray) => {
 	return x_points;
 };
 
-export const get_y_points = (dataArray, noPoints) => {
+export const get_y_points = (minValue, maxValue, noPoints) => {
 	let newArray = [];
-	var clonedArray = cloneDeep(dataArray);
-	if (isPrime(clonedArray.length)) {
-		clonedArray.splice(0, 1);
+	var difference = maxValue - minValue;
+	for (var i = 0; i <= noPoints - 1; i++) {
+		newArray.push(minValue + ((difference / (noPoints - 1) * i)))
 	}
-	for (var i = noPoints; i >= 0; i--) {
-		if (clonedArray.length % i == 0) {
-			var pointDist = clonedArray.length / i;
-			for (var j = 0; j <= i - 1; j++) {
-				newArray.push(clonedArray[pointDist * j]);
-			}
-			break;
-		}
-	}
-	newArray.push(clonedArray[clonedArray.length - 1]);
 	return newArray;
 };
 
-export const get_y_axes_points = (maxDist, height, dataArray) => {
-	let noPoints = get_no_points(maxDist, height);
-	let y_points = get_y_points(dataArray, noPoints);
+export const get_y_axes_points = (minValue, maxValue, tickDist, height) => {
+	let noPoints = get_no_points(tickDist, height);
+	let y_points = get_y_points(minValue, maxValue, noPoints);
 	return y_points;
 };

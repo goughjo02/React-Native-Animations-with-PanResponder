@@ -26,50 +26,14 @@ describe("get_points", () => {
 		expect(noPoints).toEqual(expectation);
 	});
 	describe("x axis", () => {
-		xit("always gets head and tail", () => {
-			noPoints = 10;
-			head = 0;
-			tail = 50;
-			dataArray = [head, 1, 2, 3, 4, 5, 6, 7, 8, tail];
-			result = get_x_points(dataArray, noPoints);
-			expect(result[0]).toEqual(head);
-			expect(result[result.length - 1]).toEqual(tail);
-			dataArray = [head, 1, 7, 2, 3, 4, 5, 6, 7, tail];
-			result = get_x_points(dataArray, noPoints);
-			expect(result[0]).toEqual(head);
-			expect(result[result.length - 1]).toEqual(tail);
-			dataArray = [
-				head,
-				1,
-				2,
-				3,
-				2,
-				2,
-				2,
-				2,
-				2,
-				2,
-				2,
-				2,
-				4,
-				5,
-				6,
-				7,
-				8,
-				tail
-			];
-			result = get_x_points(dataArray, noPoints);
-			expect(result[0]).toEqual(head);
-			expect(result[result.length - 1]).toEqual(tail);
-		});
-		xit('gets exact number points', () => {
+		it("gets exact number points", () => {
 			dataArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 			noPoints = 10;
 			expectation = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 			result = get_x_points(dataArray, noPoints);
 			expect(result).toEqual(expectation);
-		})
-		xit("can extract set of x points", () => {
+		});
+		it("can deal with prime numbers", () => {
 			dataArray = [
 				0,
 				1,
@@ -93,7 +57,7 @@ describe("get_points", () => {
 				19
 			];
 			noPoints = 6;
-			expectation = [0, 4, 8, 12, 19];
+			expectation = [1, 7, 13, 19];
 			result = get_x_points(dataArray, noPoints);
 			expect(result).toEqual(expectation);
 		});
@@ -142,63 +106,65 @@ describe("get_points", () => {
 				40
 			];
 			noPoints = 5;
-			expectation = [1, 9, 17, 25, 33, 40];
+			expectation = [0, 10, 20, 30, 40];
 			result = get_x_points(dataArray, noPoints);
 			expect(result).toEqual(expectation);
 		});
 	});
-	xit("can get array of y points", () => {
-		dataArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-		noPoints = 10;
-		expectation = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-		result = get_y_points(dataArray, noPoints);
-		expect(result).toEqual(expectation);
-		dataArray = [
-			0,
-			1,
-			2,
-			3,
-			4,
-			5,
-			6,
-			7,
-			8,
-			9,
-			10,
-			11,
-			12,
-			13,
-			14,
-			15,
-			16,
-			17,
-			18,
-			19,
-			20,
-			21,
-			22,
-			23,
-			24,
-			25,
-			26,
-			27,
-			38,
-			39,
-			30,
-			31,
-			32,
-			33,
-			34,
-			35,
-			36,
-			37,
-			38,
-			39,
-			40
-		];
-		noPoints = 5;
-		expectation = [0, 4, 8, 12, 19];
-		result = get_y_points(dataArray, noPoints);
-		expect(result).toEqual(expectation);
+	describe("y axis", () => {
+		xit("can get array of y points", () => {
+			dataArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+			noPoints = 10;
+			expectation = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+			result = get_y_points(dataArray, noPoints);
+			expect(result).toEqual(expectation);
+			dataArray = [
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				13,
+				14,
+				15,
+				16,
+				17,
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25,
+				26,
+				27,
+				38,
+				39,
+				30,
+				31,
+				32,
+				33,
+				34,
+				35,
+				36,
+				37,
+				38,
+				39,
+				40
+			];
+			noPoints = 5;
+			expectation = [0, 4, 8, 12, 19];
+			result = get_y_points(dataArray, noPoints);
+			expect(result).toEqual(expectation);
+		});
 	});
 });

@@ -6,12 +6,14 @@ import PropTypes from "prop-types";
 import {
 	convertDateTime,
 	get_x_axes_points,
+	get_y_axes_points,
 	getMinMax,
 	getXScale,
 	getYScale
 } from "../../services";
 import { Line } from "./line";
 import { XAxis } from "./xAxis";
+import { YAxis } from "./yAxis";
 
 class LineChart extends React.Component {
 	constructor(props) {
@@ -50,6 +52,7 @@ class LineChart extends React.Component {
 		this.getScales(linesHeight, linesWidth, data);
 		var timedata = data.map(e => e.date);
 		var xAxisPoints = get_x_axes_points(xTickDist, linesWidth, timedata);
+		var yAxisPoints = get_y_axes_points(yTickDist, linesHeight, timedata);
 		var dateArray = [];
 		xAxisPoints.forEach(e => {
 			dateArray.push(new Date(e));
@@ -71,8 +74,13 @@ class LineChart extends React.Component {
 					<Group x={graphWidth - linesWidth} y={linesHeight + curveOffsetBottom}>
 						<XAxis
 							xScale={this.xScale}
-							yScale={this.yScale}
 							dataPoints={dateArray}
+						/>
+					</Group>
+					<Group x={0} y={curveOffsetTop}>
+						<YAxis
+							yScale={this.yScale}
+							dataPoints={yAxisPoints}
 						/>
 					</Group>
 					<Group x={graphWidth - linesWidth} y={curveOffsetTop}>

@@ -1,11 +1,11 @@
 import React from "react";
 import { ART } from "react-native";
-const { Text } = ART;
+const { Shape, Text } = ART;
 import { PropTypes } from "prop-types";
 
 import { AnimShape } from "./anim_shape";
 
-class XAxis extends React.Component {
+class YAxis extends React.Component {
 	constructor(props) {
 		super(props);
 		this.points = [];
@@ -14,13 +14,13 @@ class XAxis extends React.Component {
 		var { width, outerTick, innerTick } = this.props;
 		var path = "";
 		for (var i = 0; i <= this.points.length - 1; i++) {
-			path = path + `H${this.points[i]}`;
-			path = path + `v${outerTick}`;
-			path = path + `v-${outerTick}`;
-			path = path + `v-${innerTick}`;
-			path = path + `v${innerTick}`;
+			path = path + `V${this.points[i]}, 0`;
+			path = path + `h${outerTick}`;
+			path = path + `h-${outerTick}`;
+			path = path + `h-${innerTick}`;
+			path = path + `h${innerTick}`;
 		}
-		path = path + `H${this.props.width}`
+		path = path + `V${this.props.height}`
 		return {path: path} ;
 	};
 	getLabels = () => {
@@ -40,10 +40,10 @@ class XAxis extends React.Component {
 		}
 	};
 	scalePoints = () => {
-		var { xScale, dataPoints } = this.props;
+		var { yScale, dataPoints } = this.props;
 		this.points = [];
 		for (var i = 0; i <= dataPoints.length - 1; i++) {
-			this.points.push(xScale(dataPoints[i]));
+			this.points.push(yScale(dataPoints[i]));
 		}
 	};
 	render() {
@@ -51,9 +51,9 @@ class XAxis extends React.Component {
 		this.scalePoints();
 		var { ...other } = this.props;
 		return (
-			<AnimShape
+			<Shape
 				{...other}
-				d={() => this.getPath()}
+				d={"V100"}
 				fill={color}
 				stroke="#000"
 				strokeWidth={strokeWidth}
@@ -63,8 +63,8 @@ class XAxis extends React.Component {
 	}
 }
 
-XAxis.propTypes = {
-	xScale: PropTypes.func.isRequired,
+YAxis.propTypes = {
+	yScale: PropTypes.func.isRequired,
 	height: PropTypes.number.isRequired,
 	width: PropTypes.number.isRequired,
 	outerTick: PropTypes.number.isRequired,
@@ -76,15 +76,15 @@ XAxis.propTypes = {
 	dataPoints: PropTypes.arrayOf(PropTypes.instanceOf(Date).isRequired)
 		.isRequired
 };
-XAxis.defaultProps = {
-	height: 30,
-	width: 300,
+YAxis.defaultProps = {
+	height: 240,
+	width: 30,
 	outerTick: 15,
-	innerTick: 0,
+	innerTick: 300,
 	duration: 2000,
 	color: 'rgba(0, 0, 0, 0.5)',
 	strokeWidth: 1,
 	strokeJoin: "round"
 };
 
-export { XAxis };
+export { YAxis };

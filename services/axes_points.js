@@ -19,19 +19,18 @@ export const get_no_points = (minDist, totalDist) => {
 export const get_x_points = (dataArray, noPoints) => {
 	let newArray = [];
 	var clonedArray = cloneDeep(dataArray);
-	if(isPrime(clonedArray.length)) {
-		clonedArray.splice(0,1)
+	if (isPrime(clonedArray.length - 1)) {
+		clonedArray.splice(0, 1);
 	}
 	for (var i = noPoints; i >= 0; i--) {
-		if (clonedArray.length % i == 0) {
-			var pointDist = clonedArray.length / i;
+		if ((clonedArray.length - 1) % (i - 1) == 0) {
+			var pointDist = (clonedArray.length - 1) / (i - 1);
 			for (var j = 0; j <= i - 1; j++) {
 				newArray.push(clonedArray[pointDist * j]);
 			}
 			break;
 		}
 	}
-	newArray.push(clonedArray[clonedArray.length - 1]);
 	return newArray;
 };
 
@@ -44,12 +43,14 @@ export const get_x_axes_points = (maxDist, width, dataArray) => {
 export const get_y_points = (dataArray, noPoints) => {
 	let newArray = [];
 	var clonedArray = cloneDeep(dataArray);
-	newArray.push(clonedArray[0]);
+	if (isPrime(clonedArray.length)) {
+		clonedArray.splice(0, 1);
+	}
 	for (var i = noPoints; i >= 0; i--) {
-		if (dataArray.length % i == 0) {
-			var pointDist = dataArray.length / i;
-			for (var j = 1; j <= i - 2; j++) {
-				newArray.push(dataArray[pointDist * j]);
+		if (clonedArray.length % i == 0) {
+			var pointDist = clonedArray.length / i;
+			for (var j = 0; j <= i - 1; j++) {
+				newArray.push(clonedArray[pointDist * j]);
 			}
 			break;
 		}

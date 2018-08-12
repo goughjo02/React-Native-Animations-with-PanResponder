@@ -2,6 +2,7 @@ import React from "react";
 import { ART } from "react-native";
 const { Text } = ART;
 import { PropTypes } from "prop-types";
+import { debounce } from "lodash";
 
 import { AnimShape } from "./anim_shape";
 
@@ -20,24 +21,25 @@ class XAxis extends React.Component {
 			path = path + `v-${innerTick}`;
 			path = path + `v${innerTick}`;
 		}
-		path = path + `H${this.props.width}`
-		return {path: path} ;
+		path = path + `H${this.props.width}`;
+		return { path: path };
 	};
 	getLabels = () => {
 		var { dataPoints } = this.props;
-		for (var i = 0; i <= dataPoints.length - 1; i++) {
+		return dataPoints.map((e, i) => {
 			return (
 				<Text
-					y={30}
+					y={15}
 					x={this.points[i]}
 					font={`10px "Helvetica Neue", "Helvetica", Arial`}
-					fill="#000000"
+					fill="#000"
 					alignment="center"
+					key={`xLabel${this.points[i]}`}
 				>
-					... {dataPoints[i]}
+					{e.getHours()}H
 				</Text>
 			);
-		}
+		});
 	};
 	scalePoints = () => {
 		var { xScale, dataPoints } = this.props;
@@ -51,14 +53,17 @@ class XAxis extends React.Component {
 		this.scalePoints();
 		var { ...other } = this.props;
 		return (
-			<AnimShape
-				{...other}
-				d={() => this.getPath()}
-				fill={color}
-				stroke="#000"
-				strokeWidth={strokeWidth}
-				strokeJoin={strokeJoin}
-			/>
+			<React.Fragment>
+				<AnimShape
+					{...other}
+					d={() => this.getPath()}
+					fill={color}
+					stroke="#000"
+					strokeWidth={strokeWidth}
+					strokeJoin={strokeJoin}
+				/>
+				{this.getLabels()}
+			</React.Fragment>
 		);
 	}
 }
@@ -82,7 +87,7 @@ XAxis.defaultProps = {
 	outerTick: 15,
 	innerTick: 0,
 	duration: 2000,
-	color: '#000',
+	color: "#000",
 	strokeWidth: 1,
 	strokeJoin: "round"
 };

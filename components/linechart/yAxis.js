@@ -32,7 +32,7 @@ class YAxis extends React.Component {
 		return dataPoints.map((e, i) => {
 			return (
 				<Text
-					y={this.points[i]}
+					y={this.points[i] - (fontSize / 2)}
 					x={ - curveOffsetRight - outerTick * 1.3}
 					font={`${fontSize}px "Helvetica Neue", "Helvetica", Arial`}
 					fill="#000"

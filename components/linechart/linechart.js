@@ -100,7 +100,7 @@ class LineChart extends React.Component {
 							curveOffsetTop={curveOffsetTop}
 						/>
 					</Group>
-					<Group x={graphWidth - linesWidth - 5} y={curveOffsetTop}>
+					<Group x={graphWidth - linesWidth} y={curveOffsetTop}>
 						<YAxis
 							yScale={this.yScale}
 							dataPoints={yAxisPoints}
@@ -167,19 +167,19 @@ LineChart.defaultProps = {
 	lineStrokeWidth: 1,
 	xStrokeWidth: 0.5,
 	yStrokeWidth: 0.5,
-	linesHeight: 180,
-	linesWidth: 220,
+	linesHeight: 200,
+	linesWidth: 270,
 	graphHeight: 250,
-	graphWidth: 280,
+	graphWidth: 320,
 	duration: 2000,
-	curveOffsetBottom: 10,
+	curveOffsetBottom: 0,
 	curveOffsetTop: 20,
 	curveOffsetRight: 10,
 	xTickDist: 40,
-	xInnerTick: 0,
-	xOuterTick: 10,
 	yTickDist: 40,
-	yInnerTick: 0,
+	xInnerTick: 200,
+	xOuterTick: 10,
+	yInnerTick: 270,
 	yOuterTick: 7,
 	xFontSize: 8,
 	yFontSize: 8,

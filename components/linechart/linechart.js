@@ -170,7 +170,7 @@ LineChart.defaultProps = {
 	yStrokeWidth: 0.5,
 	linesHeight: 180,
 	linesWidth: 220,
-	graphHeight: 260,
+	graphHeight: 250,
 	graphWidth: 280,
 	duration: 2000,
 	curveOffsetBottom: 10,

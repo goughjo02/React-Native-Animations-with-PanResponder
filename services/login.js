@@ -12,8 +12,7 @@ export const login = (user, password, api = loginUrl) => {
       }
     },)
     .then((response) => {
-    	console.log("RESOPNSE")
-    	console.log(response)
+    	storage.setItem(JWTTOKEN,response.data.JWTTOKEN)
     	return response
     })
     .catch((error) => {

@@ -27,8 +27,6 @@ describe("Login fetch", () => {
 	let token = "JWTTOKEN";
 
 	afterEach(() => {
-		console.log("aftereach")
-		console.log(storage.getItem(JWTTOKEN))
 		storage.removeItem(JWTTOKEN);
 	})
 
@@ -38,20 +36,13 @@ describe("Login fetch", () => {
 		expect(value).toBe(token);
 	});
 
-	it("creates a post request", () => {
+	it("sets JWT on status 200", async () => {
+  		expect.assertions(1);
 		mockApi.onPost(loginUrl).reply(config => {
 			return [200, {JWTTOKEN: token}]
 		});
-		login(user, password)
-			.then(async response => {
-				await storage.getItem(JWTTOKEN)
-				return response
-			})
-			.then(res => {
-				console.log("login test")
-				console.log(res, token);
-				expect(true).toEqual(false);
-				expect(res).toEqual(token);
-			});
+		await login(user, password);
+		const test = await storage.getItem(JWTTOKEN);
+		expect(test).toEqual(token);
 	});
 });

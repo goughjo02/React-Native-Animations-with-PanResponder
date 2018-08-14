@@ -1,22 +1,23 @@
 import "react-native";
-import MockAsyncStorage from "mock-async-storage";
-import thunk from "redux-thunk";
-import configureMockStore from "redux-mock-store";
-import axios from "axios";
-import MockAdapter from "axios-mock-adapter";
 import React from "react";
-
-// Note: test renderer must be required after react-native.
-import renderer from "react-test-renderer";
 
 import { login } from "../services";
 import { JWTTOKEN, loginUrl } from "../config";
 import { LOGIN_ERROR, LOGIN_LOADING, LOGIN_SUCCESS } from "../redux";
 
+import MockAsyncStorage from "mock-async-storage";
+import axios from "axios";
+import MockAdapter from "axios-mock-adapter";
+const mockApi = new MockAdapter(axios);
+
+
+import thunk from "redux-thunk";
+import configureMockStore from "redux-mock-store";
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-const mockApi = new MockAdapter(axios);
+// Note: test renderer must be required after react-native.
+import renderer from "react-test-renderer";
 
 const mock = () => {
 	const mockImpl = new MockAsyncStorage();

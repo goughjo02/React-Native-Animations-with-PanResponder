@@ -28,18 +28,19 @@ describe("Login fetch", () => {
 
 	afterEach(() => {
 		storage.removeItem(JWTTOKEN);
-	})
+	});
 
 	it("Mock Async Storage working", async () => {
+		expect.assertions(1);
 		await storage.setItem(JWTTOKEN, token);
 		const value = await storage.getItem(JWTTOKEN);
 		expect(value).toBe(token);
 	});
 
 	it("sets JWT on status 200", async () => {
-  		expect.assertions(1);
+		expect.assertions(1);
 		mockApi.onPost(loginUrl).reply(config => {
-			return [200, {JWTTOKEN: token}]
+			return [200, { JWTTOKEN: token }];
 		});
 		await login(user, password);
 		const test = await storage.getItem(JWTTOKEN);

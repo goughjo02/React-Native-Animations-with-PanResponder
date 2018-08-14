@@ -2,6 +2,9 @@ import React from "react";
 import renderer from "react-test-renderer";
 
 import {
+	loginError,
+	loginLoading,
+	loginSuccess,
 	dataHasErrored,
 	dataIsLoading,
 	fetchDataSuccess,
@@ -9,6 +12,9 @@ import {
 	setEndRange,
 	setStartZoom,
 	setEndZoom,
+	LOGIN_ERROR,
+	LOGIN_LOADING,
+	LOGIN_SUCCESS,
 	ERROR,
 	LOADING,
 	SUCCESS,
@@ -19,6 +25,33 @@ import {
 } from "../redux";
 
 describe("actions", () => {
+	it('should create an action to show that login is loading', () => {
+		expect.assertions(1);
+		const loading = true;
+		const expectedResult = {
+			type: LOGIN_LOADING,
+			isloading: loading
+		};
+		expect(loginLoading(loading)).toEqual(expectedResult);
+	})
+	it('should create an action to show that login is successful', () => {
+		expect.assertions(1);
+		const success = true;
+		const expectedResult = {
+			type: LOGIN_SUCCESS,
+			data: success
+		};
+		expect(loginSuccess(success)).toEqual(expectedResult);
+	})
+	it('should create an action to show that login is error', () => {
+		expect.assertions(1);
+		const error = true;
+		const expectedResult = {
+			type: LOGIN_ERROR,
+			iserror: error
+		};
+		expect(loginError(error)).toEqual(expectedResult);
+	})
 	it("should create an action to deliver an error", () => {
 		const error = true;
 		const expectedResult = {

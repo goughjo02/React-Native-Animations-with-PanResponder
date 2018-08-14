@@ -1,4 +1,24 @@
-import { ERROR, LOADING, SUCCESS, START_RANGE, END_RANGE, START_ZOOM, END_ZOOM } from './constants';
+import { LOGIN_ERROR, LOGIN_SUCCESS, LOGIN_LOADING, ERROR, LOADING, SUCCESS, START_RANGE, END_RANGE, START_ZOOM, END_ZOOM } from './constants';
+
+
+export function loginLoading(bool) {
+    return {
+        type: LOGIN_LOADING,
+        isloading: bool
+    };
+}
+export function loginError(bool) {
+    return {
+        type: LOGIN_ERROR,
+        iserror: bool
+    };
+}
+export function loginSuccess(data) {
+    return {
+        type: LOGIN_SUCCESS,
+        data: data
+    };
+}
 
 export function dataIsLoading(bool) {
     return {

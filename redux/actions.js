@@ -16,7 +16,7 @@ export function loginError(bool) {
 export function loginSuccess(data) {
     return {
         type: LOGIN_SUCCESS,
-        data: data
+        user: data
     };
 }
 

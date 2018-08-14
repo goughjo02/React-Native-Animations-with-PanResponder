@@ -36,10 +36,10 @@ describe("actions", () => {
 	})
 	it('should create an action to show that login is successful', () => {
 		expect.assertions(1);
-		const success = true;
+		const success = "sam";
 		const expectedResult = {
 			type: LOGIN_SUCCESS,
-			data: success
+			user: success
 		};
 		expect(loginSuccess(success)).toEqual(expectedResult);
 	})

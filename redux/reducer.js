@@ -1,35 +1,66 @@
 import React from 'react';
 import { combineReducers, } from 'redux';
 
-import { ERROR, LOADING, SUCCESS, START_RANGE, END_RANGE, START_ZOOM, END_ZOOM } from './constants';
+import { LOGIN_ERROR, LOGIN_SUCCESS, LOGIN_LOADING, ERROR, LOADING, SUCCESS, START_RANGE, END_RANGE, START_ZOOM, END_ZOOM } from './constants';
 
+
+const initial_login_state = {
+  user: "",
+  isloading: false,
+  iserror: false
+}
+
+export function login_reducer(state = initial_login_state, action) {
+  switch (action.type) {
+    case LOGIN_SUCCESS:
+      return {
+        user: action.user,
+        isloading: false,
+        iserror: false
+      }
+  case LOGIN_LOADING:
+    return {
+        user: "",
+        isloading: action.isloading,
+        iserror: false
+    }
+  case LOGIN_ERROR:
+    return {
+      user: "",
+      isloading: false,
+      iserror: action.iserror
+    }
+    default:
+      return state
+  }
+}
 
 const initial_http_state = {
-	data: [],
-	isloading: false,
-	iserror: false
+  data: [],
+  isloading: false,
+  iserror: false
 }
 
 export function http_data_reducer(state = initial_http_state, action) {
   switch (action.type) {
     case SUCCESS:
       return {
-      	data: action.data,
-      	isloading: false,
-      	iserror: false
+        data: action.data,
+        isloading: false,
+        iserror: false
       }
-	case LOADING:
-		return {
+  case LOADING:
+    return {
         data: [],
         isloading: action.isloading,
         iserror: false
     }
-	case ERROR:
-		return {
-			data: [],
-			isloading: false,
-			iserror: action.iserror
-		}
+  case ERROR:
+    return {
+      data: [],
+      isloading: false,
+      iserror: action.iserror
+    }
     default:
       return state
   }

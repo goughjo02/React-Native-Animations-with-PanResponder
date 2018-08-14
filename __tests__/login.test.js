@@ -1,5 +1,7 @@
 import "react-native";
 import MockAsyncStorage from "mock-async-storage";
+import thunk from "redux-thunk";
+import configureMockStore from "redux-mock-store";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import React from "react";
@@ -9,6 +11,10 @@ import renderer from "react-test-renderer";
 
 import { login } from "../services";
 import { JWTTOKEN, loginUrl } from "../config";
+import { LOGIN_ERROR, LOGIN_LOADING, LOGIN_SUCCESS } from "../redux";
+
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 
 const mockApi = new MockAdapter(axios);
 
@@ -25,6 +31,11 @@ describe("Login fetch", () => {
 	let user = "joe";
 	let password = "password";
 	let token = "JWTTOKEN";
+	let store;
+
+	beforeEach(() => {
+		store = mockStore({ isloading: [], data: [] });
+	});
 
 	afterEach(() => {
 		storage.removeItem(JWTTOKEN);
@@ -42,8 +53,42 @@ describe("Login fetch", () => {
 		mockApi.onPost(loginUrl).reply(config => {
 			return [200, { JWTTOKEN: token }];
 		});
-		await login(user, password);
+		await store.dispatch(login(user, password));
 		const test = await storage.getItem(JWTTOKEN);
 		expect(test).toEqual(token);
+	});
+
+	it("creates SUCCESS when login is successful", () => {
+		expect.assertions(1);
+		mockApi.onPost(loginUrl).reply(config => {
+			return [200, { JWTTOKEN: token, user: "test" }];
+		});
+		const expectations = [
+			{ type: LOGIN_LOADING, isloading: true },
+			{ type: LOGIN_LOADING, isloading: false },
+			{
+				type: LOGIN_SUCCESS,
+				user: "test"
+			}
+		];
+		const store = mockStore({ isloading: [], user: [] });
+		return store.dispatch(login("test", "password")).then(() => {
+			expect(store.getActions()).toEqual(expectations);
+		});
+	});
+
+	it("creates ERROR when login errs", () => {
+		expect.assertions(1);
+		mockApi.onPost(loginUrl).reply(config => {
+			return [401, { body: "test" }];
+		});
+		const expectations = [
+			{ type: LOGIN_LOADING, isloading: true },
+			{ type: LOGIN_ERROR, iserror: true }
+		];
+		const store = mockStore({ isloading: [], iserror: [] });
+		return store.dispatch(login("http_json", "password")).then(() => {
+			expect(store.getActions()).toEqual(expectations);
+		});
 	});
 });

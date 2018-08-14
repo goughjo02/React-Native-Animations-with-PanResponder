@@ -4,6 +4,9 @@ import deepFreeze from "deep-freeze";
 
 import {
 	configureStore,
+	loginError,
+	loginLoading,
+	loginSuccess,
 	dataHasErrored,
 	dataIsLoading,
 	fetchDataSuccess,
@@ -19,6 +22,11 @@ describe("store", () => {
 	var default_state = {
 		data: {
 			data: [],
+			isloading: false,
+			iserror: false
+		},
+		login: {
+			user: "",
 			isloading: false,
 			iserror: false
 		},
@@ -38,10 +46,91 @@ describe("store", () => {
 	it("initialises default state", () => {
 		expect(store.getState()).toEqual(default_state);
 	});
+	it("responds to login success", () => {
+		const expected_state = {
+			data: {
+				data: [],
+				isloading: false,
+				iserror: false
+			},
+			login: {
+				user: "test",
+				isloading: false,
+				iserror: false
+			},
+			range: {
+				start: 0,
+				end: 1
+			},
+			zoom: {
+				start: 0,
+				end: 100
+			}
+		};
+		store.dispatch(loginSuccess("test"));
+		expect(store.getState()).toEqual(expected_state);
+		store.dispatch(loginSuccess(""));
+	});
+	it("sets login loading to true", () => {
+		const expected_state = {
+			data: {
+				data: [],
+				isloading: false,
+				iserror: false
+			},
+			login: {
+				user: "",
+				isloading: true,
+				iserror: false
+			},
+			range: {
+				start: 0,
+				end: 1
+			},
+			zoom: {
+				start: 0,
+				end: 100
+			}
+		};
+		store.dispatch(loginLoading(true));
+		expect(store.getState()).toEqual(expected_state);
+		store.dispatch(loginSuccess(""));
+	});
+	it("sets login error to true", () => {
+		const expected_state = {
+			data: {
+				data: [],
+				isloading: false,
+				iserror: false
+			},
+			login: {
+				user: "",
+				isloading: false,
+				iserror: true
+			},
+			range: {
+				start: 0,
+				end: 1
+			},
+			zoom: {
+				start: 0,
+				end: 100
+			}
+		};
+		store.dispatch(loginError(true));
+		expect(store.getState()).toEqual(expected_state);
+		//RESET STATE
+		store.dispatch(loginSuccess(""));
+	});
 	it("responds to data success", () => {
 		const expected_state = {
 			data: {
 				data: ["test"],
+				isloading: false,
+				iserror: false
+			},
+			login: {
+				user: "",
 				isloading: false,
 				iserror: false
 			},
@@ -57,11 +146,16 @@ describe("store", () => {
 		store.dispatch(fetchDataSuccess(["test"]));
 		expect(store.getState()).toEqual(expected_state);
 	});
-	it("sets loading to true", () => {
+	it("sets data loading to true", () => {
 		const expected_state = {
 			data: {
 				data: [],
 				isloading: true,
+				iserror: false
+			},
+			login: {
+				user: "",
+				isloading: false,
 				iserror: false
 			},
 			range: {
@@ -76,12 +170,17 @@ describe("store", () => {
 		store.dispatch(dataIsLoading(true));
 		expect(store.getState()).toEqual(expected_state);
 	});
-	it("sets error to true", () => {
+	it("sets data error to true", () => {
 		const expected_state = {
 			data: {
 				data: [],
 				isloading: false,
 				iserror: true
+			},
+			login: {
+				user: "",
+				isloading: false,
+				iserror: false
 			},
 			range: {
 				start: 0,
@@ -102,6 +201,11 @@ describe("store", () => {
 		const expected_state = {
 			data: {
 				data: [],
+				isloading: false,
+				iserror: false
+			},
+			login: {
+				user: "",
 				isloading: false,
 				iserror: false
 			},
@@ -126,6 +230,11 @@ describe("store", () => {
 				isloading: false,
 				iserror: false
 			},
+			login: {
+				user: "",
+				isloading: false,
+				iserror: false
+			},
 			range: {
 				start: 0,
 				end: choice
@@ -147,6 +256,11 @@ describe("store", () => {
 				isloading: false,
 				iserror: false
 			},
+			login: {
+				user: "",
+				isloading: false,
+				iserror: false
+			},
 			range: {
 				start: 0,
 				end: 0
@@ -165,6 +279,11 @@ describe("store", () => {
 		const expected_state = {
 			data: {
 				data: [],
+				isloading: false,
+				iserror: false
+			},
+			login: {
+				user: "",
 				isloading: false,
 				iserror: false
 			},

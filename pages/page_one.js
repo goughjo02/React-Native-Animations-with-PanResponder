@@ -36,6 +36,7 @@ class PageOne extends React.Component {
 		}
 		var windowWidth = Dimensions.get("window").width;
 		var linesWidth = windowWidth - 60;
+		console.log("main app screen")
 		if (data.length > 0) {
 			return (
 				<React.Fragment>

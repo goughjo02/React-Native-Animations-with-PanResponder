@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 
 import { login } from "../services";
 
@@ -13,8 +13,10 @@ export class SignInScreen extends React.Component {
 	};
 
 	render() {
+		console.log("sign in screen")
 		return (
 			<View style={styles.container}>
+				<Text>hello</Text>
 				<Button title="Sign in!" onPress={this._signInAsync} />
 			</View>
 		);
@@ -26,3 +28,13 @@ export class SignInScreen extends React.Component {
 		this.props.navigation.navigate("AuthLoading");
 	};
 }
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#666",
+    alignItems: "center",
+    justifyContent: "space-around"
+  }
+});

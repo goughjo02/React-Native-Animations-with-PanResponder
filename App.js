@@ -1,11 +1,11 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
-import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
+import { createSwitchNavigator, createStackNavigator } from "react-navigation";
 import { root_reducer } from "./redux";
-import { PageOne, AuthLoadingScreen } from "./pages";
+import { PageOne, AuthLoadingScreen, SignInScreen } from "./pages";
 
 const store = createStore(root_reducer, applyMiddleware(thunk));
 
@@ -16,10 +16,10 @@ const RootStack = createSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,
     App: AppStack,
-    Auth: AuthStack,
+    Auth: AuthStack
   },
   {
-    initialRouteName: AuthLoading,
+    initialRouteName: "AuthLoading"
   }
 );
 
@@ -30,9 +30,7 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={styles.container}>
           <RootStack />
-        </View>
       </Provider>
     );
   }

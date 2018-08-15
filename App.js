@@ -3,10 +3,25 @@ import { StyleSheet, View } from "react-native";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
+import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
 import { root_reducer } from "./redux";
-import { PageOne } from "./pages";
+import { PageOne, AuthLoadingScreen } from "./pages";
 
 const store = createStore(root_reducer, applyMiddleware(thunk));
+
+const AppStack = createStackNavigator({ Home: PageOne });
+const AuthStack = createStackNavigator({ SignIn: SignInScreen });
+
+const RootStack = createSwitchNavigator(
+  {
+    AuthLoading: AuthLoadingScreen,
+    App: AppStack,
+    Auth: AuthStack,
+  },
+  {
+    initialRouteName: AuthLoading,
+  }
+);
 
 export default class App extends React.Component {
   constructor(props) {
@@ -16,7 +31,7 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <View style={styles.container}>
-          <PageOne />
+          <RootStack />
         </View>
       </Provider>
     );

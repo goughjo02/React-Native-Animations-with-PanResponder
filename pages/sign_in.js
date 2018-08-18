@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 
 import { login, saveJwt, loadJwt } from "../services";
-import { Logo } from '../components';
+import { Logo } from "../components";
 
 //FAKE BACKEND
 import axios from "axios";
@@ -11,34 +11,79 @@ import MockAdapter from "axios-mock-adapter";
 import { AuthApi, AuthConstants } from "../config";
 const mockApi = new MockAdapter(axios);
 mockApi.onPost(AuthApi.loginUrl()).reply(config => {
-	return [
-		200,
-		{ [AuthConstants.localStateKey()]: "tester token", user: "test" }
+	let parsed = JSON.parse(config.data);
+	// console.log("fake backend sign in")
+	// console.log(parsed)
+	var users = [
+		{
+			id: 1,
+			username: "joe",
+			password: "password"
+		}
 	];
+	var reqUser = parsed.username;
+	var reqPassword = parsed.password;
+	let filteredUsers = users.filter(user => {
+		// console.log(user.username === reqUser && user.password === reqPassword)
+		// console.log(user.username, user, user.password, password)
+		return (
+			user.username.toLowerCase() === reqUser.toLowerCase() &&
+			user.password.toLowerCase() === reqPassword.toLowerCase()
+		);
+	});
+	// console.log(filteredUsers)
+	if (filteredUsers.length) {
+		let user = filteredUsers[0].username;
+		return [
+			200,
+			{ [AuthConstants.localStateKey()]: "tester token", user: user }
+		];
+	} else return [401, { text: "user not recognised" }];
 });
 /////////////
 
 class SignInScreen extends React.Component {
 	state = {
-		user: "",
+		username: "",
 		password: ""
 	};
 	static navigationOptions = {
 		title: "Please sign in"
 	};
-
 	render() {
 		return (
 			<View style={styles.container}>
 				<Logo />
+				<View>
+					<TextInput
+						style={{
+							height: 40,
+							width: 200,
+							borderColor: "gray",
+							borderWidth: 1
+						}}
+						onChangeText={text => this.setState({ username: text })}
+						value={this.state.username}
+					/>
+					<TextInput
+						style={{
+							height: 40,
+							width: 200,
+							borderColor: "gray",
+							borderWidth: 1
+						}}
+						onChangeText={text => this.setState({ password: text })}
+						value={this.state.password}
+					/>
+				</View>
 				<Button title="Sign in!" onPress={this._signInAsync} />
 			</View>
 		);
 	}
 
 	_signInAsync = async () => {
-		const { user, password } = this.props;
-		await this.props.login(user, password);
+		const { username, password } = this.state;
+		await this.props.login(username, password);
 		this.props.navigation.navigate("AuthLoading");
 	};
 }
@@ -59,8 +104,8 @@ const mapStateToProps = state => {
 };
 const mapDisPatchToProps = dispatch => {
 	return {
-		login: async (user, password) => {
-			await dispatch(login(user, password));
+		login: async (username, password) => {
+			await dispatch(login(username, password));
 		}
 	};
 };

@@ -88,7 +88,8 @@ class ZoomSlider extends React.Component {
 					}
 				],
 				{
-					listener: this.onMove
+					listener: this.onMove,
+					useNativeDriver: true,
 				}
 			)(evt, gestureState);
 		},
@@ -115,7 +116,8 @@ class ZoomSlider extends React.Component {
 					}
 				],
 				{
-					listener: this.onMove
+					listener: this.onMove,
+					useNativeDriver: true,
 				}
 			)(evt, gestureState);
 		},

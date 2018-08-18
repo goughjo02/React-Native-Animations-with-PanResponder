@@ -9,7 +9,7 @@ import throttle from "lodash/throttle";
 
 import { root_reducer } from "./redux";
 import { PageOne, AuthLoadingScreen, SignInScreen } from "./pages";
-import { loadJwt, saveJwt } from "./services";
+import { loadJwt, saveJwt, NavigationService } from "./services";
 
 const AppStack = createStackNavigator({ Home: { screen: PageOne } });
 const AuthStack = createStackNavigator({ SignIn: { screen: SignInScreen } });
@@ -45,9 +45,14 @@ export default class App extends React.Component {
     // );
   }
   render() {
+    // console.log(NavigationService)
     return (
       <Provider store={store}>
-        <RootStack />
+        <RootStack
+          ref={navigatorRef => {
+            NavigationService.setTopLevelNavigator(navigatorRef);
+          }}
+        />
       </Provider>
     );
   }

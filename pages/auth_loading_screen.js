@@ -17,8 +17,8 @@ export class AuthLoadingScreen extends React.Component {
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
     const userToken = await loadJwt();
-    console.log("auth loading screen checking for jwt")
-    console.log("JWT: ", userToken);
+    // console.log("auth loading screen checking for jwt")
+    // console.log("JWT: ", userToken);
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
     this.props.navigation.navigate(userToken ? "App" : "Auth");

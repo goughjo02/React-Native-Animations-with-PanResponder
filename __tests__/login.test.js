@@ -23,6 +23,8 @@ const mock = () => {
 };
 
 mock();
+// jest.setTimeout(30000);
+
 
 import { AsyncStorage as storage } from "react-native";
 
@@ -33,7 +35,7 @@ describe("Login fetch", () => {
 	let store;
 
 	beforeEach(() => {
-		store = mockStore({ isloading: [], data: [] });
+		store = mockStore({ isloading: [], data: [], [AuthConstants.localStateKey()]: "" });
 	});
 
 	afterEach(() => {
@@ -61,7 +63,9 @@ describe("Login fetch", () => {
 	});
 
 	it("creates SUCCESS when login is successful", async done => {
-		expect.assertions(1);
+		expect.assertions(3);
+		expect(store).toBeDefined();
+		expect(login).toBeDefined();
 		mockApi.onPost(AuthApi.loginUrl()).reply(config => {
 			return [
 				200,
@@ -73,13 +77,12 @@ describe("Login fetch", () => {
 			{ type: LOGIN_LOADING, isloading: false },
 			{
 				type: LOGIN_SUCCESS,
-				[AuthConstants.localStateKey()]: "test"
+				[AuthConstants.localStateKey()]: token
 			}
 		];
-		const store = mockStore({ isloading: [], user: [] });
-		await store.dispatch(login("test", "password"));
-		console.log("store")
-		console.log(store.getActions())
+		await store.dispatch(login(user, password));
+		// console.log("store")
+		// console.log(store.getActions())
 		expect(store.getActions()).toEqual(expectations);
 		done();
 	});

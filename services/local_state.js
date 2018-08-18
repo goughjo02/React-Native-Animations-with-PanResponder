@@ -15,7 +15,7 @@ export const loadJwt = async () => {
 				}
 			});
 	} catch (error) {
-		console.log("Load State ERROR", error);
+		console.log("Load jwt ERROR", error);
 		return undefined;
 	}
 };
@@ -24,7 +24,10 @@ export const saveJwt = async state => {
 	try {
 		const serializedState = JSON.stringify(state);
 		await storage.setItem(AuthConstants.localStateKey(), serializedState);
-	} catch (err) {}
+		// console.log(storage.getItem(AuthConstants.localStateKey()))
+	} catch (err) {
+		console.log("save jwt error: ", err)
+	}
 };
 
 export const deleteJwt = async () => {

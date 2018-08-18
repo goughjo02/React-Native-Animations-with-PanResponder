@@ -38,7 +38,7 @@ class SignInScreen extends React.Component {
 	_signInAsync = async () => {
 		const { user, password } = this.props;
 		await this.props.login(user, password);
-		!!this.props.jwt && this.props.navigation.navigate("AuthLoading")
+		// !!this.props.jwt && this.props.navigation.navigate("AuthLoading")
 	};
 }
 

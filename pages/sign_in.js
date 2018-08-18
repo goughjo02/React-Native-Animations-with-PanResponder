@@ -9,7 +9,7 @@ import { Logo } from "../components";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { AuthApi, AuthConstants } from "../config";
-const mockApi = new MockAdapter(axios);
+const mockApi = new MockAdapter(axios, { delayResponse: 2000 });
 mockApi.onPost(AuthApi.loginUrl()).reply(config => {
 	let parsed = JSON.parse(config.data);
 	// console.log("fake backend sign in")

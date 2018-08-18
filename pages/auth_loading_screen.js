@@ -33,7 +33,7 @@ export class AuthLoadingScreen extends React.Component {
   render() {
     return (
       <View style={styles.loading}>
-        <ActivityIndicator />
+        <ActivityIndicator size="large" color="#0000ff"/>
         <StatusBar barStyle="default" />
       </View>
     );

@@ -4,3 +4,5 @@ export * from './translation_to_percentage';
 export * from './array_functions';
 export * from './axes_points';
 export * from './login';
+export * from './fake_backend';
+export * from './local_state';

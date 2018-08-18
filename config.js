@@ -1,2 +1,10 @@
-export const loginUrl = "loginUrl";
-export const JWTTOKEN = "JWTTOKEN";
+export class AuthApi {
+	static loginUrl() {
+		return "login url";
+	};
+}
+export class AuthConstants {
+	static localStateKey() { 
+		return "local state"; 
+	}
+}

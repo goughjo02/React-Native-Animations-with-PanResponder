@@ -3,6 +3,19 @@ import { Button, StyleSheet, Text, View } from "react-native";
 
 import { login } from "../services";
 
+//FAKE BACKEND
+import axios from "axios";
+import MockAdapter from "axios-mock-adapter";
+import { JWTTOKEN, loginUrl } from "../config";
+const mockApi = new MockAdapter(axios);
+		//FAKE BACKEND
+		mockApi.onPost(loginUrl).reply(config => {
+			console.log("fake login post");
+			return [200, { JWTTOKEN: "tester token", user: "test" }];
+		});
+		/////////////
+/////////////
+
 export class SignInScreen extends React.Component {
 	state = {
 		user: "",
@@ -13,7 +26,7 @@ export class SignInScreen extends React.Component {
 	};
 
 	render() {
-		console.log("sign in screen")
+		console.log("sign in screen");
 		return (
 			<View style={styles.container}>
 				<Text>hello</Text>
@@ -29,12 +42,11 @@ export class SignInScreen extends React.Component {
 	};
 }
 
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#666",
-    alignItems: "center",
-    justifyContent: "space-around"
-  }
+	container: {
+		flex: 1,
+		backgroundColor: "#fff",
+		alignItems: "center",
+		justifyContent: "space-around"
+	}
 });

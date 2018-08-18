@@ -1,28 +1,32 @@
 import React from "react";
 import redux from "redux";
 import axios from "axios";
-import { AsyncStorage as storage } from "react-native";
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web and AsyncStorage for react-native
 
-import { JWTTOKEN, loginUrl } from "../config";
+import { AuthApi, AuthConstants } from "../config";
 import { loginError, loginLoading, loginSuccess } from "../redux";
 
-export const login = (user, password, api = loginUrl) => {
+
+export const login = (username, password) => {
 	return dispatch => {
 		dispatch(loginLoading(true));
 		return axios
-			.post(loginUrl, {
-				user: {
-					user: user,
+			.post(AuthApi.loginUrl(), {
+				body: {
+					username: username,
 					password: password
 				}
 			})
 			.then(response => {
-				storage.setItem(JWTTOKEN, response.data.JWTTOKEN);
+				// console.log("reponse: ", response);
+				storage.setItem(AuthConstants.localStateKey(), response.data[AuthConstants.localStateKey()]);
 				dispatch(loginLoading(false));
-				dispatch(loginSuccess(response.data.user));
+				dispatch(loginSuccess(response.data.username));
 				return response;
 			})
 			.catch(error => {
+				// console.log("error: ", error);
 				dispatch(loginError(true));
 			});
 	};

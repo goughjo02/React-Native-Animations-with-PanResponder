@@ -2,9 +2,8 @@ import "react-native";
 import React from "react";
 
 import { login } from "../services";
-import { JWTTOKEN, loginUrl } from "../config";
+import { AuthApi, AuthConstants } from "../config";
 import { LOGIN_ERROR, LOGIN_LOADING, LOGIN_SUCCESS } from "../redux";
-
 import MockAsyncStorage from "mock-async-storage";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
@@ -39,30 +38,32 @@ describe("Login fetch", () => {
 	});
 
 	afterEach(() => {
-		storage.removeItem(JWTTOKEN);
+		storage.removeItem(AuthConstants.localStateKey());
 	});
 
 	it("Mock Async Storage working", async () => {
 		expect.assertions(1);
-		await storage.setItem(JWTTOKEN, token);
-		const value = await storage.getItem(JWTTOKEN);
+		await storage.setItem(AuthConstants.localStateKey(), token);
+		const value = await storage.getItem(AuthConstants.localStateKey());
 		expect(value).toBe(token);
 	});
 
 	it("sets JWT on status 200", async () => {
 		expect.assertions(1);
-		mockApi.onPost(loginUrl).reply(config => {
-			return [200, { JWTTOKEN: token }];
+		mockApi.onPost(AuthApi.loginUrl()).reply(config => {
+			return [200, { [AuthConstants.localStateKey()]: token }];
 		});
-		await store.dispatch(login(user, password));
-		const test = await storage.getItem(JWTTOKEN);
-		expect(test).toEqual(token);
+		store.dispatch(login(user, password)).then(() => {
+			storage.getItem(AuthConstants.localStateKey()).then(res => {
+				expect(res).toEqual(token)
+			})
+		})
 	});
 
 	it("creates SUCCESS when login is successful", () => {
 		expect.assertions(1);
-		mockApi.onPost(loginUrl).reply(config => {
-			return [200, { JWTTOKEN: token, user: "test" }];
+		mockApi.onPost(AuthApi.loginUrl()).reply(config => {
+			return [200, { [AuthConstants.localStateKey()]: token, username: "test" }];
 		});
 		const expectations = [
 			{ type: LOGIN_LOADING, isloading: true },
@@ -80,7 +81,7 @@ describe("Login fetch", () => {
 
 	it("creates ERROR when login errs", () => {
 		expect.assertions(1);
-		mockApi.onPost(loginUrl).reply(config => {
+		mockApi.onPost(AuthApi.loginUrl()).reply(config => {
 			return [401, { body: "test" }];
 		});
 		const expectations = [

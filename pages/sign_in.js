@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Button, StyleSheet, Text, View } from "react-native";
 
 import { login, saveJwt, loadJwt } from "../services";
@@ -6,17 +7,17 @@ import { login, saveJwt, loadJwt } from "../services";
 //FAKE BACKEND
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
-import { JWTTOKEN, loginUrl } from "../config";
+import { AuthApi, AuthConstants } from "../config";
 const mockApi = new MockAdapter(axios);
-		//FAKE BACKEND
-		mockApi.onPost(loginUrl).reply(config => {
-			console.log("fake login post");
-			return [200, { JWTTOKEN: "tester token", user: "test" }];
-		});
-		/////////////
+mockApi.onPost(AuthApi.loginUrl()).reply(config => {
+	return [
+		200,
+		{ [AuthConstants.localStateKey()]: "tester token", user: "test" }
+	];
+});
 /////////////
 
-export class SignInScreen extends React.Component {
+class SignInScreen extends React.Component {
 	state = {
 		user: "",
 		password: ""
@@ -36,7 +37,8 @@ export class SignInScreen extends React.Component {
 
 	_signInAsync = async () => {
 		const { user, password } = this.props;
-		await saveJwt("test");
+		// await saveJwt("test");
+		await this.props.login(user, password);
 		this.props.navigation.navigate("AuthLoading");
 	};
 }
@@ -49,3 +51,17 @@ const styles = StyleSheet.create({
 		justifyContent: "space-around"
 	}
 });
+
+const mapDisPatchToProps = dispatch => {
+	return {
+		login: async (user, password) => {
+			await dispatch(login(user, password));
+		}
+	};
+};
+const connectedSignIn = connect(
+	null,
+	mapDisPatchToProps
+)(SignInScreen);
+
+export { connectedSignIn as SignInScreen };

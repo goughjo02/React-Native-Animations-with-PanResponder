@@ -1,14 +1,14 @@
 import React from "react";
 import redux from "redux";
 import axios from "axios";
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage' // defaults to localStorage for web and AsyncStorage for react-native
-
+import { persistStore, persistReducer } from "redux-persist";
+import { AsyncStorage as storage } from "react-native";
+import { saveJwt } from "../services";
 import { AuthApi, AuthConstants } from "../config";
 import { loginError, loginLoading, loginSuccess } from "../redux";
 
-
 export const login = (username, password) => {
+	console.log("logging in");
 	return dispatch => {
 		dispatch(loginLoading(true));
 		return axios
@@ -19,14 +19,13 @@ export const login = (username, password) => {
 				}
 			})
 			.then(response => {
-				// console.log("reponse: ", response);
-				storage.setItem(AuthConstants.localStateKey(), response.data[AuthConstants.localStateKey()]);
+				console.log("reponse: ", response);
+				saveJwt(response.data[AuthConstants.localStateKey()]);
 				dispatch(loginLoading(false));
 				dispatch(loginSuccess(response.data.username));
-				return response;
 			})
 			.catch(error => {
-				// console.log("error: ", error);
+				console.log("error: ", error);
 				dispatch(loginError(true));
 			});
 	};

@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native';
 import { JWTTOKEN } from "../config";
+import { loadJwt, saveJwt } from '../services';
 
 export class AuthLoadingScreen extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ export class AuthLoadingScreen extends React.Component {
 
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
-    const userToken = await AsyncStorage.getItem(JWTTOKEN);
+    const userToken = await loadJwt();
     console.log("user token on loading screen: ", userToken);
 
     // This will switch to the App screen or Auth screen and this loading

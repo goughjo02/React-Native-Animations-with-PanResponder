@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
 
-import { login } from "../services";
+import { login, saveJwt, loadJwt } from "../services";
 
 //FAKE BACKEND
 import axios from "axios";
@@ -37,7 +37,7 @@ export class SignInScreen extends React.Component {
 
 	_signInAsync = async () => {
 		const { user, password } = this.props;
-		await login(user, password);
+		await saveJwt("test");
 		this.props.navigation.navigate("AuthLoading");
 	};
 }

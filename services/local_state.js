@@ -26,3 +26,11 @@ export const saveJwt = async state => {
 		await storage.setItem(AuthConstants.localStateKey(), serializedState);
 	} catch (err) {}
 };
+
+export const deleteJwt = async () => {
+	try {
+		await storage.removeItem(AuthConstants.localStateKey())
+	} catch (err) {
+		console.log(err)
+	}
+}

@@ -9,7 +9,7 @@ import throttle from "lodash/throttle";
 
 import { root_reducer } from "./redux";
 import { PageOne, AuthLoadingScreen, SignInScreen } from "./pages";
-import { loadState, saveState } from "./services";
+import { loadJwt, saveJwt } from "./services";
 
 
 
@@ -23,32 +23,35 @@ const RootStack = createSwitchNavigator(
     Auth: AuthStack
   },
   {
-    initialRouteName: "App"
+    initialRouteName: "AuthLoading"
   }
 );
 
+let store = createStore(
+      root_reducer,
+      applyMiddleware(thunk)
+    );
 export default class App extends React.Component {
   constructor(props) {
     super(props);
   }
   componentWillMount() {
-    let persistedState = loadState();
-    this.store = createStore(
-      root_reducer,
-      persistedState,
-      applyMiddleware(thunk)
-    );
+    // let persistedState = loadJwt();
+    // this.store = createStore(
+    //   root_reducer,
+    //   applyMiddleware(thunk)
+    // );
   }
   componentDidMount() {
-    this.store.subscribe(
-      throttle(() => {
-        saveState(this.store.getState());
-      }, 1000)
-    );
+    // this.store.subscribe(
+    //   throttle(() => {
+    //     saveJwt(this.store.getState());
+    //   }, 1000)
+    // );
   }
   render() {
     return (
-      <Provider store={this.store}>
+      <Provider store={store}>
         <RootStack />
       </Provider>
     );

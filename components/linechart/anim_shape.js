@@ -77,7 +77,10 @@ export class AnimShape extends React.Component {
 			this.state.path.tween(delta);
 			if (mounted) {
 				this.setState(this.state, () => {
-					this.animate(start);
+					let { mounted } = this.state;
+					if (mounted) {
+						this.animate(start);
+					}
 				});
 			}
 		});

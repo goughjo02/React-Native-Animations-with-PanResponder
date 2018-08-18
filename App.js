@@ -4,17 +4,15 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { createSwitchNavigator, createStackNavigator } from "react-navigation";
-import storage from 'redux-persist/lib/storage' // defaults to localStorage for web and AsyncStorage for react-native
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web and AsyncStorage for react-native
 import throttle from "lodash/throttle";
 
 import { root_reducer } from "./redux";
 import { PageOne, AuthLoadingScreen, SignInScreen } from "./pages";
 import { loadJwt, saveJwt } from "./services";
 
-
-
-const AppStack = createStackNavigator({ Home: PageOne });
-const AuthStack = createStackNavigator({ SignIn: SignInScreen });
+const AppStack = createStackNavigator({ Home: { screen: PageOne } });
+const AuthStack = createStackNavigator({ SignIn: { screen: SignInScreen } });
 
 const RootStack = createSwitchNavigator(
   {
@@ -27,10 +25,7 @@ const RootStack = createSwitchNavigator(
   }
 );
 
-let store = createStore(
-      root_reducer,
-      applyMiddleware(thunk)
-    );
+let store = createStore(root_reducer, applyMiddleware(thunk));
 export default class App extends React.Component {
   constructor(props) {
     super(props);

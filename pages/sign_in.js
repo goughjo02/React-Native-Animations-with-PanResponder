@@ -26,7 +26,6 @@ export class SignInScreen extends React.Component {
 	};
 
 	render() {
-		console.log("sign in screen");
 		return (
 			<View style={styles.container}>
 				<Text>hello</Text>

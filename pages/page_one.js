@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { Button, Dimensions, StyleSheet, Text, View } from "react-native";
 import { connect } from "react-redux";
 import { faux_data } from "../__json_http__/dummy_data";
 
@@ -7,16 +7,37 @@ import {
 	combination_selector,
 	convertDateTime,
 	fetchData,
-	getSum
+	getSum,
+	deleteJwt
 } from "../services";
 import { Legend, LineChart, RadialChart, ZoomSlider } from "../components";
 import { fetchDataSuccess } from "../redux";
 
 class PageOne extends React.Component {
+	static navigationOptions = ({ navigation }) => {
+		return {
+			title: "Dashboard",
+			headerRight: navigation.state.params && navigation.state.params.headerRight
+		};
+	};
+	logout() {
+		deleteJwt();
+		this.props.navigation.navigate("Auth");
+	};
 	constructor(props) {
 		super(props);
+		this.logout = this.logout.bind(this)
 	}
 	componentDidMount() {
+		this.props.navigation.setParams({
+            headerRight: (
+					<Button
+						onPress={this.logout}
+						title="Log out"
+						color="#000"
+					/>
+					)
+     })
 		faux_data.forEach(e => {
 			var pdate = convertDateTime(e.date);
 			e.date = pdate;
@@ -24,6 +45,7 @@ class PageOne extends React.Component {
 		this.props.dispatch(fetchDataSuccess(faux_data));
 	}
 	render() {
+		// console.log(this.props.navigation);
 		var duration = 1000;
 		var { data } = this.props;
 		var keys = ["produced", "used", "sold"];
@@ -36,7 +58,6 @@ class PageOne extends React.Component {
 		}
 		var windowWidth = Dimensions.get("window").width;
 		var linesWidth = windowWidth - 60;
-		console.log("main app screen")
 		if (data.length > 0) {
 			return (
 				<React.Fragment>
@@ -60,7 +81,11 @@ class PageOne extends React.Component {
 						/>
 					</View>
 					<View style={styles.three}>
-						<ZoomSlider dataLength={data.length} backgroundColor={"#ccc"} color={"#666"} />
+						<ZoomSlider
+							dataLength={data.length}
+							backgroundColor={"#ccc"}
+							color={"#666"}
+						/>
 					</View>
 				</React.Fragment>
 			);

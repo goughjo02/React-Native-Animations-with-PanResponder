@@ -17,8 +17,6 @@ export class AuthLoadingScreen extends React.Component {
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
     const userToken = await loadJwt();
-    console.log("user token on loading screen: ", userToken);
-
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
     this.props.navigation.navigate(userToken ? "App" : "Auth");
@@ -26,13 +24,20 @@ export class AuthLoadingScreen extends React.Component {
 
   // Render any loading content that you like here
   render() {
-    console.log("auth loading screen")
     this._bootstrapAsync();
     return (
-      <View>
+      <View style={styles.loading}>
         <ActivityIndicator />
         <StatusBar barStyle="default" />
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  loading: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  }
+})

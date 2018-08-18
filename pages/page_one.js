@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Dimensions, StyleSheet, Text, View } from "react-native";
 import { connect } from "react-redux";
+
 import { faux_data } from "../__json_http__/dummy_data";
 
 import {

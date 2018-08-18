@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Button, StyleSheet, Text, View } from "react-native";
 
 import { login, saveJwt, loadJwt } from "../services";
+import { Logo } from '../components';
 
 //FAKE BACKEND
 import axios from "axios";
@@ -29,7 +30,7 @@ class SignInScreen extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text>hello</Text>
+				<Logo />
 				<Button title="Sign in!" onPress={this._signInAsync} />
 			</View>
 		);
@@ -38,7 +39,7 @@ class SignInScreen extends React.Component {
 	_signInAsync = async () => {
 		const { user, password } = this.props;
 		await this.props.login(user, password);
-		this.props.navigation.navigate("AuthLoading")
+		this.props.navigation.navigate("AuthLoading");
 	};
 }
 
@@ -54,8 +55,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
 	return {
 		jwt: state.login[AuthConstants.localStateKey()]
-	}
-}
+	};
+};
 const mapDisPatchToProps = dispatch => {
 	return {
 		login: async (user, password) => {

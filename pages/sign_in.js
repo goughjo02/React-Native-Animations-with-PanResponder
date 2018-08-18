@@ -37,9 +37,8 @@ class SignInScreen extends React.Component {
 
 	_signInAsync = async () => {
 		const { user, password } = this.props;
-		// await saveJwt("test");
 		await this.props.login(user, password);
-		this.props.navigation.navigate("AuthLoading");
+		!!this.props.jwt && this.props.navigation.navigate("AuthLoading")
 	};
 }
 
@@ -52,6 +51,11 @@ const styles = StyleSheet.create({
 	}
 });
 
+const mapStateToProps = state => {
+	return {
+		jwt: state.login[AuthConstants.localStateKey()]
+	}
+}
 const mapDisPatchToProps = dispatch => {
 	return {
 		login: async (user, password) => {
@@ -60,7 +64,7 @@ const mapDisPatchToProps = dispatch => {
 	};
 };
 const connectedSignIn = connect(
-	null,
+	mapStateToProps,
 	mapDisPatchToProps
 )(SignInScreen);
 

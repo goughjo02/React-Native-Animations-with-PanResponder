@@ -15,6 +15,7 @@ import {
 	setStartZoom,
 	setEndZoom
 } from "../redux";
+import { AuthConstants } from '../config';
 
 describe("store", () => {
 	var store = configureStore();
@@ -26,7 +27,7 @@ describe("store", () => {
 			iserror: false
 		},
 		login: {
-			user: "",
+			[AuthConstants.localStateKey()]: "",
 			isloading: false,
 			iserror: false
 		},
@@ -54,7 +55,7 @@ describe("store", () => {
 				iserror: false
 			},
 			login: {
-				user: "test",
+				[AuthConstants.localStateKey()]: "test",
 				isloading: false,
 				iserror: false
 			},
@@ -79,7 +80,7 @@ describe("store", () => {
 				iserror: false
 			},
 			login: {
-				user: "",
+				[AuthConstants.localStateKey()]: "",
 				isloading: true,
 				iserror: false
 			},
@@ -104,7 +105,7 @@ describe("store", () => {
 				iserror: false
 			},
 			login: {
-				user: "",
+				[AuthConstants.localStateKey()]: "",
 				isloading: false,
 				iserror: true
 			},
@@ -130,7 +131,7 @@ describe("store", () => {
 				iserror: false
 			},
 			login: {
-				user: "",
+				[AuthConstants.localStateKey()]: "",
 				isloading: false,
 				iserror: false
 			},
@@ -154,7 +155,7 @@ describe("store", () => {
 				iserror: false
 			},
 			login: {
-				user: "",
+				[AuthConstants.localStateKey()]: "",
 				isloading: false,
 				iserror: false
 			},
@@ -178,7 +179,7 @@ describe("store", () => {
 				iserror: true
 			},
 			login: {
-				user: "",
+				[AuthConstants.localStateKey()]: "",
 				isloading: false,
 				iserror: false
 			},
@@ -205,7 +206,7 @@ describe("store", () => {
 				iserror: false
 			},
 			login: {
-				user: "",
+				[AuthConstants.localStateKey()]: "",
 				isloading: false,
 				iserror: false
 			},
@@ -231,7 +232,7 @@ describe("store", () => {
 				iserror: false
 			},
 			login: {
-				user: "",
+				[AuthConstants.localStateKey()]: "",
 				isloading: false,
 				iserror: false
 			},
@@ -257,7 +258,7 @@ describe("store", () => {
 				iserror: false
 			},
 			login: {
-				user: "",
+				[AuthConstants.localStateKey()]: "",
 				isloading: false,
 				iserror: false
 			},
@@ -283,7 +284,7 @@ describe("store", () => {
 				iserror: false
 			},
 			login: {
-				user: "",
+				[AuthConstants.localStateKey()]: "",
 				isloading: false,
 				iserror: false
 			},

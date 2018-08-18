@@ -73,11 +73,13 @@ describe("Login fetch", () => {
 			{ type: LOGIN_LOADING, isloading: false },
 			{
 				type: LOGIN_SUCCESS,
-				user: "test"
+				[AuthConstants.localStateKey()]: "test"
 			}
 		];
 		const store = mockStore({ isloading: [], user: [] });
 		await store.dispatch(login("test", "password"));
+		console.log("store")
+		console.log(store.getActions())
 		expect(store.getActions()).toEqual(expectations);
 		done();
 	});

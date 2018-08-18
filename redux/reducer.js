@@ -2,10 +2,10 @@ import React from 'react';
 import { combineReducers, } from 'redux';
 
 import { LOGIN_ERROR, LOGIN_SUCCESS, LOGIN_LOADING, ERROR, LOADING, SUCCESS, START_RANGE, END_RANGE, START_ZOOM, END_ZOOM } from './constants';
-
+import { AuthApi, AuthConstants } from '../config';
 
 const initial_login_state = {
-  user: "",
+  [AuthConstants.localStateKey()]: "",
   isloading: false,
   iserror: false
 }
@@ -14,19 +14,19 @@ export function login_reducer(state = initial_login_state, action) {
   switch (action.type) {
     case LOGIN_SUCCESS:
       return {
-        user: action.user,
+        [AuthConstants.localStateKey()]: action[AuthConstants.localStateKey()],
         isloading: false,
         iserror: false
       }
   case LOGIN_LOADING:
     return {
-        user: "",
+        [AuthConstants.localStateKey()]: "",
         isloading: action.isloading,
         iserror: false
     }
   case LOGIN_ERROR:
     return {
-      user: "",
+      [AuthConstants.localStateKey()]: "",
       isloading: false,
       iserror: action.iserror
     }

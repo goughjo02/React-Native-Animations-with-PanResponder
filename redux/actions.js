@@ -1,5 +1,5 @@
 import { LOGIN_ERROR, LOGIN_SUCCESS, LOGIN_LOADING, ERROR, LOADING, SUCCESS, START_RANGE, END_RANGE, START_ZOOM, END_ZOOM } from './constants';
-
+import { AuthConstants } from '../config';
 
 export function loginLoading(bool) {
     return {
@@ -16,7 +16,7 @@ export function loginError(bool) {
 export function loginSuccess(data) {
     return {
         type: LOGIN_SUCCESS,
-        user: data
+        [AuthConstants.localStateKey()]: data
     };
 }
 

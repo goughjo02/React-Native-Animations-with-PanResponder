@@ -5,6 +5,6 @@ export class AuthApi {
 }
 export class AuthConstants {
 	static localStateKey() { 
-		return "local state"; 
+		return "jsonWebToken"; 
 	}
 }

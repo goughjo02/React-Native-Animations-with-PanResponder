@@ -23,6 +23,7 @@ import {
 	START_ZOOM,
 	END_ZOOM
 } from "../redux";
+import { AuthConstants } from '../config';
 
 describe("actions", () => {
 	it('should create an action to show that login is loading', () => {
@@ -39,7 +40,7 @@ describe("actions", () => {
 		const success = "sam";
 		const expectedResult = {
 			type: LOGIN_SUCCESS,
-			user: success
+			[AuthConstants.localStateKey()]: success
 		};
 		expect(loginSuccess(success)).toEqual(expectedResult);
 	})

@@ -18,26 +18,27 @@ import {
 	range_reducer,
 	zoom_reducer
 } from "../redux";
+import { AuthConstants } from '../config';
 
 
 describe("login Reducer", () => {
 	it("produces default state", () => {
 		const expected_result = {
-			user: "",
+			[AuthConstants.localStateKey()]: "",
 			isloading: false,
 			iserror: false
 		};
 		expect(login_reducer(undefined, {})).toEqual(expected_result);
 	});
 
-	it("adds user when successful", () => {
+	it("adds jwt when successful", () => {
 		const state_before = {
-			user: "",
+			[AuthConstants.localStateKey()]: "",
 			isloading: false,
 			iserror: false
 		};
 		const expected_result = {
-			user: "test",
+			[AuthConstants.localStateKey()]: "test",
 			isloading: false,
 			iserror: false
 		};
@@ -49,12 +50,12 @@ describe("login Reducer", () => {
 
 	it("toggle is loading true", () => {
 		const state_before = {
-			user: "",
+			[AuthConstants.localStateKey()]: "",
 			isloading: false,
 			iserror: false
 		};
 		const expected_result = {
-			user: "",
+			[AuthConstants.localStateKey()]: "",
 			isloading: true,
 			iserror: false
 		};
@@ -66,12 +67,12 @@ describe("login Reducer", () => {
 
 	it("toggle is loading false", () => {
 		const state_before = {
-			user: "",
+			[AuthConstants.localStateKey()]: "",
 			isloading: true,
 			iserror: false
 		};
 		const expected_result = {
-			user: "",
+			[AuthConstants.localStateKey()]: "",
 			isloading: false,
 			iserror: false
 		};
@@ -83,12 +84,12 @@ describe("login Reducer", () => {
 
 	it("toggle is error true", () => {
 		const state_before = {
-			user: "",
+			[AuthConstants.localStateKey()]: "",
 			isloading: false,
 			iserror: false
 		};
 		const expected_result = {
-			user: "",
+			[AuthConstants.localStateKey()]: "",
 			isloading: false,
 			iserror: true
 		};
@@ -100,12 +101,12 @@ describe("login Reducer", () => {
 
 	it("toggle is error false", () => {
 		const state_before = {
-			user: "",
+			[AuthConstants.localStateKey()]: "",
 			isloading: false,
 			iserror: true
 		};
 		const expected_result = {
-			user: "",
+			[AuthConstants.localStateKey()]: "",
 			isloading: false,
 			iserror: false
 		};

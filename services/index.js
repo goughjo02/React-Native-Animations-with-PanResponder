@@ -6,4 +6,3 @@ export * from './axes_points';
 export * from './login';
 export * from './fake_backend';
 export * from './local_state';
-export * from './navigation_service';

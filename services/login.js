@@ -4,7 +4,7 @@ import axios from "axios";
 import { persistStore, persistReducer } from "redux-persist";
 import { AsyncStorage as storage } from "react-native";
 
-import { NavigationService, saveJwt } from "../services";
+import { saveJwt } from "../services";
 import { AuthApi, AuthConstants } from "../config";
 import { loginError, loginLoading, loginSuccess } from "../redux";
 
@@ -24,7 +24,6 @@ export const login = (username, password) => {
 					await saveJwt(jwt);
 					dispatch(loginLoading(false));
 					dispatch(loginSuccess(jwt));
-					// NavigationService.navigate("App");
 				} catch (error) {
 					console.log("login error: ", error);
 				}

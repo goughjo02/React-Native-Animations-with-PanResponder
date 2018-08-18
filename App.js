@@ -48,11 +48,7 @@ export default class App extends React.Component {
     // console.log(NavigationService)
     return (
       <Provider store={store}>
-        <RootStack
-          ref={navigatorRef => {
-            NavigationService.setTopLevelNavigator(navigatorRef);
-          }}
-        />
+        <RootStack />
       </Provider>
     );
   }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { ART, LayoutAnimation } from "react-native";
 const { Shape } = ART;
 import Morph from "art/morph/path";
@@ -7,11 +7,18 @@ export class AnimShape extends React.Component {
 	constructor(props: Props) {
 		super(props);
 		this.state = {
-			path: ""
+			path: "",
+			mounted: false
 		};
 	}
 	componentWillMount() {
 		this.computeNextState(this.props);
+	}
+	componentDidMount() {
+		this.setState({ mounted: true });
+	}
+	componentWillUnmount() {
+		this.setState({ mounted: false });
 	}
 	componentWillReceiveProps(nextProps) {
 		this.computeNextState(nextProps);
@@ -19,6 +26,7 @@ export class AnimShape extends React.Component {
 	computeNextState(nextProps) {
 		const { d } = nextProps;
 		const { duration } = this.props;
+		let { mounted } = this.state;
 		const graph = this.props.d();
 		this.setState({
 			path: graph.path
@@ -26,7 +34,7 @@ export class AnimShape extends React.Component {
 		if (!this.previousGraph) {
 			this.previousGraph = graph;
 		}
-		if (this.props !== nextProps) {
+		if (this.props !== nextProps && mounted) {
 			const pathFrom = this.previousGraph.path;
 			const pathTo = graph.path;
 			cancelAnimationFrame(this.animating);
@@ -38,25 +46,28 @@ export class AnimShape extends React.Component {
 					LayoutAnimation.Properties.opacity
 				)
 			);
-			this.setState(
-				{
-					path: Morph.Tween(pathFrom, pathTo)
-				},
-				() => {
-					this.animate();
-				}
-			);
-			this.previousGraph = graph;
+			if (mounted) {
+				this.setState(
+					{
+						path: Morph.Tween(pathFrom, pathTo)
+					},
+					() => {
+						this.animate();
+					}
+				);
+				this.previousGraph = graph;
+			}
 		}
 	}
 	animate(start) {
 		const { duration } = this.props;
+		let { mounted } = this.state;
 		this.animating = requestAnimationFrame(timestamp => {
 			if (!start) {
 				start = timestamp;
 			}
 			const delta = (timestamp - start) / duration;
-			if (delta > 1) {
+			if (delta > 1 && mounted) {
 				this.animating = null;
 				this.setState({
 					path: this.previousGraph.path
@@ -64,9 +75,11 @@ export class AnimShape extends React.Component {
 				return;
 			}
 			this.state.path.tween(delta);
-			this.setState(this.state, () => {
-				this.animate(start);
-			});
+			if (mounted) {
+				this.setState(this.state, () => {
+					this.animate(start);
+				});
+			}
 		});
 	}
 	render() {

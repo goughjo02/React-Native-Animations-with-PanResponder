@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 import {
   ActivityIndicator,
   AsyncStorage,
   StatusBar,
   StyleSheet,
-  View,
-} from 'react-native';
+  View
+} from "react-native";
 import { JWTTOKEN } from "../config";
-import { loadJwt, saveJwt } from '../services';
+import { loadJwt, saveJwt } from "../services";
 
 export class AuthLoadingScreen extends React.Component {
   constructor(props) {
@@ -17,14 +17,18 @@ export class AuthLoadingScreen extends React.Component {
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
     const userToken = await loadJwt();
+    console.log("JWT: ", userToken);
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
     this.props.navigation.navigate(userToken ? "App" : "Auth");
   };
+  componentDidMount() {
+    console.log("component did mount")
+    this._bootstrapAsync();
+  }
 
   // Render any loading content that you like here
   render() {
-    this._bootstrapAsync();
     return (
       <View style={styles.loading}>
         <ActivityIndicator />
@@ -40,4 +44,4 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   }
-})
+});

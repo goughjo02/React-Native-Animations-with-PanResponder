@@ -17,31 +17,30 @@ class PageOne extends React.Component {
 	static navigationOptions = ({ navigation }) => {
 		return {
 			title: "Dashboard",
-			headerRight: navigation.state.params && navigation.state.params.headerRight
+			headerRight:
+				navigation.state.params && navigation.state.params.headerRight
 		};
 	};
 	logout() {
 		deleteJwt();
-		this.props.navigation.navigate("Auth");
-	};
+		this.props.navigation.navigate("AuthLoading");
+	}
 	constructor(props) {
 		super(props);
-		this.logout = this.logout.bind(this)
+		this.logout = this.logout.bind(this);
 	}
 	componentDidMount() {
 		this.props.navigation.setParams({
-            headerRight: (
-					<Button
-						onPress={this.logout}
-						title="Log out"
-						color="#000"
-					/>
-					)
-     })
-		faux_data.forEach(e => {
-			var pdate = convertDateTime(e.date);
-			e.date = pdate;
+			headerRight: (
+				<Button onPress={this.logout} title="Log out" color="#000" />
+			)
 		});
+		if (typeof faux_data[0].date !== typeof new Date()) {
+			faux_data.forEach(e => {
+				var pdate = convertDateTime(e.date);
+				e.date = pdate;
+			});
+		}
 		this.props.dispatch(fetchDataSuccess(faux_data));
 	}
 	render() {

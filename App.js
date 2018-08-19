@@ -3,9 +3,12 @@ import { StyleSheet, Text, View } from "react-native";
 import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/integration/react'
 
-import { RootStack } from './services';
+import { configureFakBackend, RootStack } from './services';
 import { configureStore } from "./redux";
 let { store, persistor } = configureStore()
+
+configureFakBackend();
+
 
 export default class App extends React.Component {
   constructor(props) {

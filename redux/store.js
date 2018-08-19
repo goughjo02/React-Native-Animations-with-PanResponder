@@ -10,7 +10,6 @@ export const configureStore = () => {
 	let persistConfig = {
 		key: "root",
 		storage,
-		blacklist: ['login'],
 		stateReconciler: autoMergeLevel2
 	};
 	let persistedReducer = persistReducer(persistConfig, root_reducer);

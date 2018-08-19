@@ -6,35 +6,27 @@ import {
   StyleSheet,
   View
 } from "react-native";
-import { JWTTOKEN } from "../config";
+import { AuthConstants } from "../config";
+import { connect } from 'react-redux';
 import { loadJwt, saveJwt } from "../services";
 
-export class AuthLoadingScreen extends React.Component {
+class AuthLoadingScreen extends React.Component {
   constructor(props) {
     super(props);
+    this.checkJwt();
   }
 
-  // Fetch the token from storage then navigate to our appropriate place
-  _bootstrapAsync = async () => {
-    const userToken = await loadJwt();
-    // console.log("auth loading screen checking for jwt")
-    // console.log("JWT: ", userToken);
-    // console.log(this.props.navigation)
-    // This will switch to the App screen or Auth screen and this loading
-    // screen will be unmounted and thrown away.
-    this.props.navigation.navigate(userToken ? "App" : "Auth");
+  checkJwt = async () => {
+    var { jwt } = this.props;
+    this.props.navigation.navigate(jwt ? "App" : "Auth");
   };
-  componentDidMount() {
-    // console.log("Auth loading screen mounted")
-    this._bootstrapAsync();
-  }
 
   // Render any loading content that you like here
   render() {
     return (
       <View style={styles.loading}>
-        <ActivityIndicator size="large" color="#0000ff"/>
-        <StatusBar barStyle="default" />
+        <ActivityIndicator size="large" color="#0000ff" />
+        <StatusBar barStyle="default" color="#0000ff" />
       </View>
     );
   }
@@ -47,3 +39,13 @@ const styles = StyleSheet.create({
     alignItems: "center"
   }
 });
+
+const mapStateToProps = (state) => {
+  return {
+    jwt: state.login[AuthConstants.localStateKey()]
+  }
+}
+
+let connectedAuthLoadingScreen = connect(mapStateToProps)(AuthLoadingScreen);
+
+export { connectedAuthLoadingScreen as AuthLoadingScreen };

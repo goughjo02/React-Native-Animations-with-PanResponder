@@ -12,7 +12,7 @@ import {
 	deleteJwt
 } from "../services";
 import { Legend, LineChart, RadialChart, ZoomSlider } from "../components";
-import { fetchDataSuccess } from "../redux";
+import { fetchDataSuccess, loginSuccess } from "../redux";
 
 class PageOne extends React.Component {
 	static navigationOptions = ({ navigation }) => {
@@ -23,7 +23,8 @@ class PageOne extends React.Component {
 		};
 	};
 	logout() {
-		deleteJwt();
+		var { dispatch } = this.props;
+		dispatch(loginSuccess(undefined));
 		this.props.navigation.navigate("AuthLoading");
 	}
 	constructor(props) {

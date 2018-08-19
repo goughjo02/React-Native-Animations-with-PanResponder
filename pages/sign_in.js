@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, Button, StyleSheet, Text, TextInput, View } from "react-native";
 
 import { login, saveJwt, loadJwt } from "../services";
 import { Logo } from "../components";
@@ -51,6 +51,7 @@ class SignInScreen extends React.Component {
 		title: "Please sign in"
 	};
 	render() {
+		let { error, loading } = this.props;
 		return (
 			<View style={styles.container}>
 				<Logo />
@@ -76,6 +77,10 @@ class SignInScreen extends React.Component {
 						value={this.state.password}
 					/>
 				</View>
+				<View>
+					{error && <Text>Incorrect usernme or password.</Text>}
+					{loading && <ActivityIndicator size="large" color="#0000ff"/>}
+				</View>
 				<Button title="Sign in!" onPress={this._signInAsync} />
 			</View>
 		);
@@ -99,7 +104,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
 	return {
-		jwt: state.login[AuthConstants.localStateKey()]
+		jwt: state.login[AuthConstants.localStateKey()],
+		error: state.login.iserror,
+		loading: state.login.isloading
 	};
 };
 const mapDisPatchToProps = dispatch => {

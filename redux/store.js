@@ -18,3 +18,9 @@ export const configureStore = () => {
 	let persistor = persistStore(store);
 	return { store, persistor };
 };
+export const configureBasicStore = () => {
+    return createStore(
+        root_reducer,
+        applyMiddleware(thunk)
+    );
+} 

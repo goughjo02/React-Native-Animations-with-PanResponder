@@ -3,7 +3,7 @@ import renderer from "react-test-renderer";
 import deepFreeze from "deep-freeze";
 
 import {
-	configureStore,
+	configureBasicStore,
 	loginError,
 	loginLoading,
 	loginSuccess,
@@ -18,7 +18,7 @@ import {
 import { AuthConstants } from '../config';
 
 describe("store", () => {
-	var store = configureStore();
+	var store = configureBasicStore();
 
 	var default_state = {
 		data: {

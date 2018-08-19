@@ -2,12 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/integration/react'
-
-import { compose, createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-import { persistStore, persistReducer } from "redux-persist";
-import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
-import storage from "redux-persist/lib/storage"; // defaults to localStorage for web and AsyncStorage for react-native
+import { configureStore } from "./redux";
 
 
 
@@ -28,16 +23,8 @@ const RootStack = createSwitchNavigator(
 );
 //--------------------------------------
 
-// CONFIGURE REDUX STORE
-import { root_reducer } from "./redux";
-const persistConfig = {
-  key: "root",
-  storage,
-  stateReconciler: autoMergeLevel2
-};
-const persistedReducer = persistReducer(persistConfig, root_reducer);
-let store = createStore(persistedReducer, applyMiddleware(thunk));
-let persistor = persistStore(store);
+
+let { store, persistor } = configureStore()
 
 export default class App extends React.Component {
   constructor(props) {

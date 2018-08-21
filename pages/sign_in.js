@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import {
 	ActivityIndicator,
 	Button,
+	KeyboardAvoidingView,
 	StyleSheet,
 	Text,
 	TextInput,
@@ -19,12 +20,12 @@ class SignInScreen extends React.Component {
 		password: ""
 	};
 	static navigationOptions = {
-   header: null,
-};
+		header: null
+	};
 	render() {
 		let { error, loading } = this.props;
 		return (
-			<View style={styles.container}>
+			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
 				<Logo />
 				<View>
 					<TextInput
@@ -32,8 +33,10 @@ class SignInScreen extends React.Component {
 							height: 40,
 							width: 200,
 							borderColor: "gray",
-							borderWidth: 1
+							borderWidth: 1,
+							margin: 10
 						}}
+						underlineColorAndroid="transparent"
 						onChangeText={text => this.setState({ username: text })}
 						value={this.state.username}
 					/>
@@ -42,8 +45,11 @@ class SignInScreen extends React.Component {
 							height: 40,
 							width: 200,
 							borderColor: "gray",
-							borderWidth: 1
+							borderWidth: 1,
+							margin: 10
 						}}
+						underlineColorAndroid="transparent"
+						secureTextEntry={true}
 						onChangeText={text => this.setState({ password: text })}
 						value={this.state.password}
 					/>
@@ -55,7 +61,7 @@ class SignInScreen extends React.Component {
 					)}
 				</View>
 				<Button title="Sign in!" onPress={this._signInAsync} />
-			</View>
+			</KeyboardAvoidingView>
 		);
 	}
 
@@ -69,6 +75,7 @@ class SignInScreen extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		padding: 60,
 		backgroundColor: "#fff",
 		alignItems: "center",
 		justifyContent: "space-around"

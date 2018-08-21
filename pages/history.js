@@ -21,11 +21,6 @@ class History extends React.Component {
 	static navigationOptions = {
 		header: null
 	};
-	logout() {
-		var { dispatch } = this.props;
-		dispatch(loginSuccess(undefined));
-		this.props.navigation.navigate("AuthLoading");
-	}
 	selectLayout() {
 		let portrait =
 			Dimensions.get("window").width < Dimensions.get("window").height;
@@ -42,18 +37,12 @@ class History extends React.Component {
 		this.state = {
 			portrait
 		};
-		this.logout = this.logout.bind(this);
 		this.selectLayout = this.selectLayout.bind(this);
 		this.getLayout = this.getLayout.bind(this);
 	}
 	componentDidMount() {
 		Dimensions.addEventListener("change", () => {
 			this.selectLayout();
-		});
-		this.props.navigation.setParams({
-			headerRight: (
-				<Button onPress={this.logout} title="Log out" color="#000" />
-			)
 		});
 		if (typeof faux_data[0].date !== typeof new Date()) {
 			faux_data.forEach(e => {
@@ -166,9 +155,6 @@ var portraitStyles = StyleSheet.create({
 		flexDirection: "column",
 		justifyContent: "space-around",
 		width: windowWidth,
-		borderStyle: "solid",
-		borderColor: "#000",
-		borderWidth: 5
 	},
 	instruments: {
 		flex: 1,

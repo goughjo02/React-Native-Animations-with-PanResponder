@@ -1,12 +1,23 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { connect } from 'react-redux';
+import { Button, Text, View } from "react-native";
+import { fetchDataSuccess, loginSuccess } from "../redux";
 
-export class Settings extends React.Component {
+class Settings extends React.Component {
+	logout = () => {
+		var { dispatch } = this.props;
+		dispatch(loginSuccess(undefined));
+		this.props.navigation.navigate("AuthLoading");
+	}
 	render() {
 		return (
 			<View>
-				<Text>hello</Text>
+				<Button title={"logout"} onPress={this.logout} />
 			</View>
 		);
 	}
 }
+
+let connectedComponent = connect()(Settings);
+
+export { connectedComponent as Settings }

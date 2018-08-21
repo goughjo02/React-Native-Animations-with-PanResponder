@@ -3,6 +3,7 @@ import { PageOne, AuthLoadingScreen, SignInScreen } from "../pages";
 import { createSwitchNavigator, createStackNavigator } from "react-navigation";
 const AppStack = createStackNavigator({ Home: { screen: PageOne } });
 const AuthStack = createStackNavigator({ SignIn: { screen: SignInScreen } });
+
 export const RootStack = createSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,
@@ -10,6 +11,7 @@ export const RootStack = createSwitchNavigator(
     Auth: AuthStack
   },
   {
+  	headerMode: 'screen',
     initialRouteName: "AuthLoading"
   }
 );

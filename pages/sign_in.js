@@ -1,11 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
-import { ActivityIndicator, Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+	ActivityIndicator,
+	Button,
+	StyleSheet,
+	Text,
+	TextInput,
+	View
+} from "react-native";
 
 import { login, saveJwt, loadJwt } from "../services";
 import { Logo } from "../components";
 import { AuthConstants } from "../config";
-
 
 class SignInScreen extends React.Component {
 	state = {
@@ -13,8 +19,8 @@ class SignInScreen extends React.Component {
 		password: ""
 	};
 	static navigationOptions = {
-		title: "Please sign in"
-	};
+   header: null,
+};
 	render() {
 		let { error, loading } = this.props;
 		return (
@@ -44,7 +50,9 @@ class SignInScreen extends React.Component {
 				</View>
 				<View>
 					{error && <Text>Incorrect usernme or password.</Text>}
-					{loading && <ActivityIndicator size="large" color="#0000ff"/>}
+					{loading && (
+						<ActivityIndicator size="large" color="#0000ff" />
+					)}
 				</View>
 				<Button title="Sign in!" onPress={this._signInAsync} />
 			</View>

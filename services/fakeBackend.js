@@ -13,6 +13,11 @@ export const configureFakBackend = () => {
         id: 1,
         username: "joe",
         password: "password"
+      },
+      {
+        id: 2,
+        username: "niamh",
+        password: "password"
       }
     ];
     var reqUser = parsed.username;

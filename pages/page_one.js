@@ -14,24 +14,42 @@ import {
 import { Legend, LineChart, RadialChart, ZoomSlider } from "../components";
 import { fetchDataSuccess, loginSuccess } from "../redux";
 
+var windowWidth = Dimensions.get("window").width;
+var windowHeight = Dimensions.get("window").height;
+
 class PageOne extends React.Component {
-	static navigationOptions = ({ navigation }) => {
-		return {
-			title: "Dashboard",
-			headerRight:
-				navigation.state.params && navigation.state.params.headerRight
-		};
+	static navigationOptions = {
+		header: null
 	};
 	logout() {
 		var { dispatch } = this.props;
 		dispatch(loginSuccess(undefined));
 		this.props.navigation.navigate("AuthLoading");
 	}
+	selectLayout() {
+		let portrait =
+			Dimensions.get("window").width < Dimensions.get("window").height;
+		this.setState({ portrait });
+	}
+	getLayout() {
+		let { portrait } = this.state;
+		return portrait ? portrait : landscape;
+	}
 	constructor(props) {
 		super(props);
+		let portrait =
+			Dimensions.get("window").width < Dimensions.get("window").height;
+		this.state = {
+			portrait
+		};
 		this.logout = this.logout.bind(this);
+		this.selectLayout = this.selectLayout.bind(this);
+		this.getLayout = this.getLayout.bind(this);
 	}
 	componentDidMount() {
+		Dimensions.addEventListener("change", () => {
+			this.selectLayout();
+		});
 		this.props.navigation.setParams({
 			headerRight: (
 				<Button onPress={this.logout} title="Log out" color="#000" />
@@ -49,6 +67,7 @@ class PageOne extends React.Component {
 		// console.log(this.props.navigation);
 		var duration = 1000;
 		var { data } = this.props;
+		let { portrait } = this.state;
 		var keys = ["produced", "used", "sold"];
 		var sumData = [];
 		for (var i = keys.length - 1; i >= 0; i--) {
@@ -57,58 +76,152 @@ class PageOne extends React.Component {
 				value: getSum(data, keys[i])
 			});
 		}
-		var windowWidth = Dimensions.get("window").width;
-		var linesWidth = windowWidth - 60;
 		if (data.length > 0) {
-			return (
-				<React.Fragment>
-					<View style={styles.one}>
-						<RadialChart
-							data={sumData}
-							radius={45}
-							strokeWidth={4}
-							offsetFactor={2.5}
-							maxAngle={360}
-						/>
-						<Legend data={sumData} duration={duration} />
-					</View>
-					<View style={styles.two}>
-						<LineChart
-							data={data}
-							backgroundColor={"#fff"}
-							graphWidth={windowWidth}
-							linesWidth={linesWidth}
-							yInnerTick={linesWidth}
-						/>
-					</View>
-					<View style={styles.three}>
-						<ZoomSlider
-							dataLength={data.length}
-							backgroundColor={"#ccc"}
-							color={"#666"}
-						/>
-					</View>
-				</React.Fragment>
-			);
+			if (portrait) {
+				var linesWidth = windowWidth - 100;
+				var graphWidth = windowWidth - 40;
+				var linesHeight = 130;
+				var graphHeight = 190;
+				return (
+					<React.Fragment>
+						<View style={portraitStyles.main}>
+							<View style={portraitStyles.instruments}>
+								<RadialChart
+									data={sumData}
+									radius={45}
+									strokeWidth={4}
+									offsetFactor={2.5}
+									maxAngle={360}
+								/>
+								<Legend data={sumData} duration={duration} />
+							</View>
+							<View style={portraitStyles.linechart}>
+								<LineChart
+									data={data}
+									backgroundColor={"#fff"}
+									graphHeight={graphHeight}
+									linesHeight={linesHeight}
+									graphWidth={graphWidth}
+									linesWidth={linesWidth}
+									yInnerTick={linesWidth}
+									xInnerTick={linesHeight}
+								/>
+							</View>
+							<View style={portraitStyles.slider}>
+								<ZoomSlider
+									dataLength={data.length}
+									backgroundColor={"#ccc"}
+									color={"#666"}
+								/>
+							</View>
+						</View>
+					</React.Fragment>
+				);
+			} else {
+				return (
+					<React.Fragment>
+						<View style={landscape.main}>
+							<View style={landscape.linechart}>
+								<LineChart
+									data={data}
+									backgroundColor={"#fff"}
+									graphHeight={graphHeight}
+									linesHeight={linesHeight}
+									graphWidth={graphWidth}
+									linesWidth={linesWidth}
+									yInnerTick={linesWidth}
+									xInnerTick={linesHeight}
+								/>
+							</View>
+							<View style={landscape.instruments}>
+								<RadialChart
+									data={sumData}
+									radius={45}
+									strokeWidth={4}
+									offsetFactor={2.5}
+									maxAngle={360}
+								/>
+								<Legend data={sumData} duration={duration} />
+								<View style={landscape.slider}>
+									<ZoomSlider
+										dataLength={data.length}
+										backgroundColor={"#ccc"}
+										color={"#666"}
+									/>
+								</View>
+							</View>
+						</View>
+					</React.Fragment>
+				);
+			}
 		}
 		return <Text>No data present</Text>;
 	}
 }
 
-const styles = StyleSheet.create({
-	one: {
+var portraitStyles = StyleSheet.create({
+	main: {
 		flex: 1,
+		alignSelf: "stretch",
+		flexDirection: "column",
+		justifyContent: "space-around",
+		width: windowWidth,
+		borderStyle: "solid",
+		borderColor: "#000",
+		borderWidth: 5
+	},
+	instruments: {
+		flex: 1,
+		alignSelf: "stretch",
+		flexDirection: "row",
+		flexWrap: "nowrap",
+		alignItems: "center",
+		justifyContent: "space-around"
+	},
+	linechart: {
+		flex: 1,
+		alignSelf: "stretch",
+		justifyContent: "center",
+		alignItems: "center"
+	},
+	three: {
+		height: 180,
 		flexDirection: "row",
 		flexWrap: "nowrap",
 		alignItems: "center",
 		alignSelf: "stretch",
 		justifyContent: "space-around"
 	},
-	two: {
-		flex: 1
-	},
-	three: {
+	slider: {
 		height: 180,
+		width: windowWidth,
+		justifyContent: "center",
+		alignItems: "center"
+	}
+});
+
+const landscape = StyleSheet.create({
+	main: {
+		flex: 1,
+		flexDirection: "row",
+		padding: 20
+	},
+	instruments: {
+		flex: 1,
+		flexDirection: "column",
+		flexWrap: "nowrap",
+		alignItems: "center",
+		alignSelf: "stretch",
+		justifyContent: "space-around",
+		backgroundColor: "#000"
+	},
+	linechart: {
+		flex: 1,
+		alignSelf: "stretch"
+	},
+	slider: {
+		height: 100,
+		width: (Dimensions.get("window").width - 60) / 2,
 		flexDirection: "row",
 		flexWrap: "nowrap",
 		alignItems: "center",

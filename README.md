@@ -1,1 +1,1 @@
-![Alt Text](https://ephmedia.giphy.com/6ca2391f-0d83-474b-a929-d0364d93c41f.gif)
+![Alt Text](https://github.com/goughjo02/React-Native-Animations-with-PanResponder/blob/master/__gifs__/21Aug2018.gif "21st August 2018")

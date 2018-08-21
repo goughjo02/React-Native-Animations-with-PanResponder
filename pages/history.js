@@ -17,7 +17,7 @@ import { fetchDataSuccess, loginSuccess } from "../redux";
 var windowWidth = Dimensions.get("window").width;
 var windowHeight = Dimensions.get("window").height;
 
-class PageOne extends React.Component {
+class History extends React.Component {
 	static navigationOptions = {
 		header: null
 	};
@@ -242,6 +242,6 @@ const mapStateToProps = state => {
 	};
 };
 
-const ConnectedPage = connect(mapStateToProps)(PageOne);
+const ConnectedPage = connect(mapStateToProps)(History);
 
-export { ConnectedPage as PageOne };
+export { ConnectedPage as History };

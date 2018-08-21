@@ -1,14 +1,30 @@
 import React from 'react';
-import { PageOne, AuthLoadingScreen, Settings, SignInScreen } from "../pages";
+import { History, Current, AuthLoadingScreen, Settings, SignInScreen } from "../pages";
 import { createMaterialTopTabNavigator, createSwitchNavigator, createStackNavigator } from "react-navigation";
-const AppStack = createStackNavigator({ Home: { screen: PageOne } });
+
 const AuthStack = createStackNavigator({ SignIn: { screen: SignInScreen } });
 
 
+const tabBarOptions = {
+  labelStyle: {
+    fontSize: 16,
+  },
+  tabStyle: {
+  },
+  style: {
+  	paddingTop: 26,
+    backgroundColor: '#607a89',
+  },
+}
+
 export const TabStack = createMaterialTopTabNavigator({
-  Home: PageOne,
+  History: History,
+  Current: Current,
   Settings: Settings,
+}, {
+	tabBarOptions: tabBarOptions
 });
+
 
 export const RootStack = createSwitchNavigator(
   {

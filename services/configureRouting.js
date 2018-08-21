@@ -1,13 +1,19 @@
 import React from 'react';
-import { PageOne, AuthLoadingScreen, SignInScreen } from "../pages";
-import { createSwitchNavigator, createStackNavigator } from "react-navigation";
+import { PageOne, AuthLoadingScreen, Settings, SignInScreen } from "../pages";
+import { createMaterialTopTabNavigator, createSwitchNavigator, createStackNavigator } from "react-navigation";
 const AppStack = createStackNavigator({ Home: { screen: PageOne } });
 const AuthStack = createStackNavigator({ SignIn: { screen: SignInScreen } });
+
+
+export const TabStack = createMaterialTopTabNavigator({
+  Home: PageOne,
+  Settings: Settings,
+});
 
 export const RootStack = createSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,
-    App: AppStack,
+    App: TabStack,
     Auth: AuthStack
   },
   {

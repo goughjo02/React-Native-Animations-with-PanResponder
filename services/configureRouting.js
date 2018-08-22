@@ -7,7 +7,7 @@ const AuthStack = createStackNavigator({ SignIn: { screen: SignInScreen } });
 
 const tabBarOptions = {
   labelStyle: {
-    fontSize: 16,
+    fontSize: 12,
   },
   tabStyle: {
   },

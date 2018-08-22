@@ -852,6 +852,10 @@ art@^0.10.0:
   version "0.10.2"
   resolved "https://registry.yarnpkg.com/art/-/art-0.10.2.tgz#55c3738d82a3a07e0623943f070ebe86297253d9"
 
+art@^0.10.2:
+  version "0.10.3"
+  resolved "https://registry.yarnpkg.com/art/-/art-0.10.3.tgz#b01d84a968ccce6208df55a733838c96caeeaea2"
+
 asap@~2.0.3:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
@@ -6010,6 +6014,12 @@ react-native-scripts@1.14.0:
     qrcode-terminal "^0.11.0"
     rimraf "^2.6.1"
     xdl "48.1.4"
+
+react-native-simple-gauge@^0.1.11:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/react-native-simple-gauge/-/react-native-simple-gauge-0.1.11.tgz#ceefb77ba36cb32203562f6732b365acb7f30ade"
+  dependencies:
+    art "^0.10.2"
 
 react-native-svg-web@^1.0.1:
   version "1.0.1"

@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 import { AnimShape } from "./anim_shape";
 
-class AnimLine extends React.Component {
+class AnimLines extends React.Component {
 	constructor(props) {
 		super(props);
 	}
@@ -53,7 +53,7 @@ class AnimLine extends React.Component {
 	}
 }
 
-AnimLine.propTypes = {
+AnimLines.propTypes = {
 	xScale: PropTypes.func.isRequired,
 	yScale: PropTypes.func.isRequired,
 	height: PropTypes.number.isRequired,
@@ -73,7 +73,7 @@ AnimLine.propTypes = {
 		})
 	)
 };
-AnimLine.defaultProps = {
+AnimLines.defaultProps = {
 	height: 170,
 	width: 300,
 	duration: 2000,
@@ -83,4 +83,4 @@ AnimLine.defaultProps = {
 	color3: "#0000ff"
 };
 
-export { AnimLine as Line };
+export { AnimLines as Lines };

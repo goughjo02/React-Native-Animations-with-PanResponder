@@ -218,6 +218,7 @@ class ZoomSlider extends React.Component {
 
 ZoomSlider.propTypes = {
 	debounce: PropTypes.bool,
+	callback: PropTypes.function.isRequired,
 	buttonWidth: PropTypes.number.isRequired,
 	buttonHeight: PropTypes.number.isRequired,
 	buttonRadius: PropTypes.number.isRequired,

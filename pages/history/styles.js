@@ -1,4 +1,3 @@
-
 export const Styles = StyleSheet.create({
 	flexGrow: {
 		flex: 1,

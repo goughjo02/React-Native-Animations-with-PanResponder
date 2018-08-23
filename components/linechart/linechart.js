@@ -11,9 +11,7 @@ import {
 	getXScale,
 	getYScale
 } from "../../services";
-import { Line } from "./line";
-import { XAxis } from "./xAxis";
-import { YAxis } from "./yAxis";
+import { Box, Lines, PrimaryFrame, SecondaryFrame, XAxis, YAxis } from "./";
 
 class LineChart extends React.Component {
 	constructor(props) {
@@ -73,42 +71,56 @@ class LineChart extends React.Component {
 					width={graphWidth}
 					height={graphHeight}
 				>
-					<Group
-						x={graphWidth - linesWidth - curveOffsetRight}
-						y={linesHeight + curveOffsetBottom}
-					>
-						<XAxis
-							xScale={this.xScale}
-							dataPoints={dateArray}
-							innerTick={xInnerTick}
-							outerTick={xOuterTick}
-							fontSize={xFontSize}
-							strokeWidth={xStrokeWidth}
-							curveOffsetTop={curveOffsetTop}
-						/>
-					</Group>
-					<Group x={graphWidth - linesWidth} y={curveOffsetTop}>
-						<YAxis
-							yScale={this.yScale}
-							dataPoints={yAxisPoints}
-							graphWidth={graphWidth}
-							linesWidth={linesWidth}
-							innerTick={yInnerTick}
-							outerTick={yOuterTick}
-							fontSize={yFontSize}
-							strokeWidth={yStrokeWidth}
-							curveOffsetRight={curveOffsetRight}
-						/>
-					</Group>
-					<Group
-						x={graphWidth - linesWidth - curveOffsetRight}
-						y={curveOffsetTop}
-					>
-						<Line
-							height={linesHeight}
-							width={linesWidth}
-							xScale={this.xScale}
-							yScale={this.yScale}
+					<Box
+						x={marginLeft}
+						y={marginTop}
+						height={height - marginTop - marginBottom}
+						width={width - marginLeft - marginRigt}
+					/>
+					<PrimaryFrame
+						xPoints={xPointsPrimary}
+						yPoints={yPointsPrimary}
+						x={marginLeft}
+						y={marginTop}
+						height={height - marginTop - marginBottom}
+						width={width - marginLeft - marginRigt}
+					/>
+					<SecondaryFrame
+						xPoints={xPointsSecondary}
+						yPoints={yPointsSecondary}
+						x={marginLeft}
+						y={marginTop}
+						height={height - marginTop - marginBottom}
+						width={width - marginLeft - marginRigt}
+					/>
+					<XAxis
+						dataPoints={dateArray}
+						fontSize={xFontSize}
+						x={marginLeft}
+						y={height - marginBottom}
+					/>
+					<YAxis
+						dataPoints={dateArray}
+						fontSize={xFontSize}
+						x={marginLeft}
+						y={height - marginBottom}
+					/>
+					<Group x={marginLeft + paddingLeft} y={MarginTop + paddingTop}>
+						<Lines
+							height={
+								height -
+								marginTop -
+								marginBottom -
+								paddingTop -
+								paddingBottom
+							}
+							width={
+								width -
+								marginLeft -
+								marginRight -
+								paddingLeft -
+								paddingRight
+							}
 							data={data}
 							duration={duration}
 							strokeWidth={lineStrokeWidth}
@@ -177,7 +189,6 @@ LineChart.defaultProps = {
 	color3: "#0000ff"
 };
 
-
 const mapStateToProps = state => {
 	return {
 		data: combination_selector(
@@ -187,7 +198,7 @@ const mapStateToProps = state => {
 			state.zoom.start,
 			state.zoom.end
 		),
-/////// TO DO
+		/////// TO DO
 		minX: state.data.minX,
 		maxX: state.data.maxX,
 		minY: state.date.minY,

@@ -8,3 +8,8 @@ export class AuthConstants {
 		return "jsonWebToken"; 
 	}
 }
+export const DataApi {
+	static timeSeries() {
+		return "whazza"
+	}
+}

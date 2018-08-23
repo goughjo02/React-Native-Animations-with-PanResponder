@@ -7,3 +7,4 @@ export * from './login';
 export * from './fakeBackend';
 export * from './local_state';
 export * from './configureRouting';
+export * from 'getScales';

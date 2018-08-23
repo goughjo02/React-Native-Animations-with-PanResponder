@@ -219,4 +219,13 @@ AnimRadialChart.defaultProps = {
   color3: "#0000ff"
 };
 
-export { AnimRadialChart as RadialChart };
+const mapStateToProps = state => {
+  return {
+    data: state.data.sumData
+  };
+};
+
+const ConnectedPage = connect(mapStateToProps)(AnimRadialChart);
+
+export { ConnectedPage as Legend };
+

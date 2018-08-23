@@ -19,21 +19,6 @@ class LineChart extends React.Component {
 	constructor(props) {
 		super(props);
 	}
-	getScales = (height, width, data) => {
-		var time = getMinMax(data, "date");
-		this.minValue = Math.min(
-			getMinMax(data, "produced").min,
-			getMinMax(data, "used").min,
-			getMinMax(data, "sold").min
-		);
-		this.maxValue = Math.max(
-			getMinMax(data, "produced").max,
-			getMinMax(data, "used").max,
-			getMinMax(data, "sold").max
-		);
-		this.xScale = getXScale(time.min, time.max, width);
-		this.yScale = getYScale(this.minValue, this.maxValue, height);
-	};
 	render() {
 		var {
 			backgroundColor,
@@ -115,7 +100,10 @@ class LineChart extends React.Component {
 							curveOffsetRight={curveOffsetRight}
 						/>
 					</Group>
-					<Group x={graphWidth - linesWidth - curveOffsetRight} y={curveOffsetTop}>
+					<Group
+						x={graphWidth - linesWidth - curveOffsetRight}
+						y={curveOffsetTop}
+					>
 						<Line
 							height={linesHeight}
 							width={linesWidth}
@@ -164,32 +152,52 @@ LineChart.propTypes = {
 			sold: PropTypes.number.isRequired,
 			used: PropTypes.number.isRequired
 		})
-	)
+	),
+	minX: PropTypes.number.isRequired,
+	maxX: PropTypes.number.isRequired,
+	minY: PropTypes.number.isRequired,
+	maxY: PropTypes.number.isRequired,
+	scale: PropTypes.function.isRequired,
+	xKey: PropTypes.arrayOf(PropTypes.string.isRequired),
+	yKey: PropTypes.arrayOf(PropTypes.string.isRequired),
+	xAxisPoints: PropTypes.arrayOf(PropTypes.number.isRequired)
 };
 LineChart.defaultProps = {
-	lineStrokeWidth: 1.2,
-	xStrokeWidth: 0.8,
-	yStrokeWidth: 0.8,
-	linesHeight: 200,
-	linesWidth: 270,
-	graphHeight: 250,
-	graphWidth: 320,
+	animated: true,
 	duration: 2000,
-	curveOffsetBottom: 0,
-	curveOffsetTop: 20,
-	curveOffsetRight: 10,
-	xTickDist: 40,
-	yTickDist: 40,
-	xInnerTick: 200,
-	xOuterTick: 10,
-	yInnerTick: 270,
-	yOuterTick: 7,
+	xTick: 0,
+	yTick: 0,
 	xFontSize: 8,
 	yFontSize: 8,
+	xStrokeWidth: 0.8,
+	yStrokeWidth: 0.8,
 	backgroundColor: "#fff",
 	color1: "#ff0000",
 	color2: "#00ff00",
 	color3: "#0000ff"
 };
 
-export { LineChart };
+
+const mapStateToProps = state => {
+	return {
+		data: combination_selector(
+			state.data.data,
+			state.range.start,
+			state.range.end,
+			state.zoom.start,
+			state.zoom.end
+		),
+/////// TO DO
+		minX: state.data.minX,
+		maxX: state.data.maxX,
+		minY: state.date.minY,
+		maxY: state.data.maxY,
+		scale: state.data.scale,
+		xKey: state.data.xKey,
+		yKey: state.data.yKey
+	};
+};
+
+const ConnectedPage = connect(mapStateToProps)(LineChart);
+
+export { ConnectedPage as LineChart };

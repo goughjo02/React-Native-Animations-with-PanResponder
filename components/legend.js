@@ -139,7 +139,17 @@ AnimLegend.defaultProps = {
 	color1: "#ff0000",
 	color2: "#00ff00",
 	color3: "#0000ff",
-	duration: 1000
+	duration: 2000
 };
 
-export { AnimLegend as Legend };
+
+const mapStateToProps = state => {
+	return {
+		data: state.data.sumData
+	};
+};
+
+const ConnectedPage = connect(mapStateToProps)(AnimLegend);
+
+export { ConnectedPage as Legend };
+

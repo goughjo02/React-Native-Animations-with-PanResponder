@@ -175,7 +175,7 @@ class ZoomSlider extends React.Component {
 			},
 			slider: {
 				position: "absolute",
-				height: buttonWidth,
+				height: buttonsHeight,
 				width: buttonWidth,
 				borderRadius: buttonWidth / 2,
 				backgroundColor: color
@@ -219,7 +219,8 @@ class ZoomSlider extends React.Component {
 ZoomSlider.propTypes = {
 	debounce: PropTypes.bool,
 	buttonWidth: PropTypes.number.isRequired,
-	buttonsHeight: PropTypes.number.isRequired,
+	buttonHeight: PropTypes.number.isRequired,
+	buttonRadius: PropTypes.number.isRequired,
 	dataLength: PropTypes.number.isRequired,
 	holderWidth: PropTypes.number.isRequired,
 	margin: PropTypes.number.isRequired,
@@ -241,7 +242,8 @@ ZoomSlider.defaultProps = {
 };
 const mapStateToProps = state => {
 	return {
-		zoom: state.zoom
+		zoom: state.zoom,
+		dataLength: state.data.length
 	};
 };
 

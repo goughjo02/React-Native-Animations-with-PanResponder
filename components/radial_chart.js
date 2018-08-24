@@ -2,6 +2,7 @@ import React from "react";
 import { Animated, ART, AppState, StyleSheet, View } from "react-native";
 const { Surface, Shape, Path, Group } = ART;
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 class RadialChart extends React.Component {
   state = { appState: AppState.currentState };

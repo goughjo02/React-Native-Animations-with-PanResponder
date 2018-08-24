@@ -13,14 +13,50 @@ import {
 	setEndRange,
 	setStartZoom,
 	setEndZoom,
+	setScales,
 	login_reducer,
 	http_data_reducer,
 	range_reducer,
-	zoom_reducer
+	zoom_reducer,
+	scales_reducer
 } from "../redux";
-import { AuthConstants } from '../config';
+import { AuthConstants } from "../config";
 
-
+describe("scaes reducer", () => {
+	it("produces default state", () => {
+		const expected_result = {
+			xScale: 0,
+			yScale: 0,
+			minTime: 0,
+			maxTime: 0,
+			minValue: 0,
+			maxValue: 0
+		};
+		expect(scales_reducer(undefined, {})).toEqual(expected_result);
+	});
+	it("sets all variables", () => {
+		const state_before = {
+			xScale: 0,
+			yScale: 0,
+			minTime: 0,
+			maxTime: 0,
+			minValue: 0,
+			maxValue: 0
+		};
+		const expected_result = {
+			xScale: 10,
+			yScale: 20,
+			minTime: 30,
+			maxTime: 40,
+			minValue: 50,
+			maxValue: 60
+		};
+		deepFreeze(state_before);
+		expect(scales_reducer(state_before, setScales(expected_result.xScale, expected_result.yScale, expected_result.minTime, expected_result.maxTime, expected_result.minValue, expected_result.maxValue ))).toEqual(
+			expected_result
+		)
+	});
+});
 describe("login Reducer", () => {
 	it("produces default state", () => {
 		const expected_result = {
@@ -43,9 +79,9 @@ describe("login Reducer", () => {
 			iserror: false
 		};
 		deepFreeze(state_before);
-		expect(
-			login_reducer(state_before, loginSuccess("test"))
-		).toEqual(expected_result);
+		expect(login_reducer(state_before, loginSuccess("test"))).toEqual(
+			expected_result
+		);
 	});
 
 	it("toggle is loading true", () => {

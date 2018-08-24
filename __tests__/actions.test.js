@@ -12,6 +12,7 @@ import {
 	setEndRange,
 	setStartZoom,
 	setEndZoom,
+	setScales,
 	LOGIN_ERROR,
 	LOGIN_LOADING,
 	LOGIN_SUCCESS,
@@ -21,11 +22,31 @@ import {
 	START_RANGE,
 	END_RANGE,
 	START_ZOOM,
-	END_ZOOM
+	END_ZOOM,
+	SCALES
 } from "../redux";
 import { AuthConstants } from '../config';
 
 describe("actions", () => {
+	it('should create an action to set scales', () => {
+		expect.assertions(1);
+		const xScale = () => "test x";
+		const yScale = () => "test y ";
+		const minTime = new Date(1);
+		const maxTime = new Date (2);
+		const minValue = 10;
+		const maxValue = 100;
+		const expectedResult = {
+			type: SCALES,
+			xScale: xScale,
+			yScale: yScale,
+			minTime: minTime,
+			maxTime: maxTime,
+			minValue: minValue,
+			maxValue: maxValue
+		};
+		expect(setScales(xScale, yScale, minTime, maxTime, minValue, maxValue)).toEqual(expectedResult);
+	})
 	it('should create an action to show that login is loading', () => {
 		expect.assertions(1);
 		const loading = true;

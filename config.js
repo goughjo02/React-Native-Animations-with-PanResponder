@@ -8,7 +8,7 @@ export class AuthConstants {
 		return "jsonWebToken"; 
 	}
 }
-export const DataApi {
+export class DataApi {
 	static timeSeries() {
 		return "whazza"
 	}

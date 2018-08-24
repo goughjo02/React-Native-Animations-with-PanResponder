@@ -13,9 +13,10 @@ import {
 	setStartRange,
 	setEndRange,
 	setStartZoom,
-	setEndZoom
+	setEndZoom,
+	setScales
 } from "../redux";
-import { AuthConstants } from '../config';
+import { AuthConstants } from "../config";
 
 describe("store", () => {
 	var store = configureBasicStore();
@@ -34,6 +35,14 @@ describe("store", () => {
 		range: {
 			start: 0,
 			end: 1
+		},
+		scale: {
+			maxTime: 0,
+			maxValue: 0,
+			minTime: 0,
+			minValue: 0,
+			xScale: 0,
+			yScale: 0
 		},
 		zoom: {
 			start: 0,
@@ -63,6 +72,14 @@ describe("store", () => {
 				start: 0,
 				end: 1
 			},
+			scale: {
+				maxTime: 0,
+				maxValue: 0,
+				minTime: 0,
+				minValue: 0,
+				xScale: 0,
+				yScale: 0
+			},
 			zoom: {
 				start: 0,
 				end: 100
@@ -88,6 +105,14 @@ describe("store", () => {
 				start: 0,
 				end: 1
 			},
+			scale: {
+				maxTime: 0,
+				maxValue: 0,
+				minTime: 0,
+				minValue: 0,
+				xScale: 0,
+				yScale: 0
+			},
 			zoom: {
 				start: 0,
 				end: 100
@@ -112,6 +137,14 @@ describe("store", () => {
 			range: {
 				start: 0,
 				end: 1
+			},
+			scale: {
+				maxTime: 0,
+				maxValue: 0,
+				minTime: 0,
+				minValue: 0,
+				xScale: 0,
+				yScale: 0
 			},
 			zoom: {
 				start: 0,
@@ -139,6 +172,14 @@ describe("store", () => {
 				start: 0,
 				end: 1
 			},
+			scale: {
+				maxTime: 0,
+				maxValue: 0,
+				minTime: 0,
+				minValue: 0,
+				xScale: 0,
+				yScale: 0
+			},
 			zoom: {
 				start: 0,
 				end: 100
@@ -163,6 +204,14 @@ describe("store", () => {
 				start: 0,
 				end: 1
 			},
+			scale: {
+				maxTime: 0,
+				maxValue: 0,
+				minTime: 0,
+				minValue: 0,
+				xScale: 0,
+				yScale: 0
+			},
 			zoom: {
 				start: 0,
 				end: 100
@@ -186,6 +235,14 @@ describe("store", () => {
 			range: {
 				start: 0,
 				end: 1
+			},
+			scale: {
+				maxTime: 0,
+				maxValue: 0,
+				minTime: 0,
+				minValue: 0,
+				xScale: 0,
+				yScale: 0
 			},
 			zoom: {
 				start: 0,
@@ -214,6 +271,14 @@ describe("store", () => {
 				start: choice,
 				end: 1
 			},
+			scale: {
+				maxTime: 0,
+				maxValue: 0,
+				minTime: 0,
+				minValue: 0,
+				xScale: 0,
+				yScale: 0
+			},
 			zoom: {
 				start: 0,
 				end: 100
@@ -239,6 +304,14 @@ describe("store", () => {
 			range: {
 				start: 0,
 				end: choice
+			},
+			scale: {
+				maxTime: 0,
+				maxValue: 0,
+				minTime: 0,
+				minValue: 0,
+				xScale: 0,
+				yScale: 0
 			},
 			zoom: {
 				start: 0,
@@ -266,6 +339,14 @@ describe("store", () => {
 				start: 0,
 				end: 0
 			},
+			scale: {
+				maxTime: 0,
+				maxValue: 0,
+				minTime: 0,
+				minValue: 0,
+				xScale: 0,
+				yScale: 0
+			},
 			zoom: {
 				start: choice,
 				end: 100
@@ -292,12 +373,59 @@ describe("store", () => {
 				start: 0,
 				end: 0
 			},
+			scale: {
+				maxTime: 0,
+				maxValue: 0,
+				minTime: 0,
+				minValue: 0,
+				xScale: 0,
+				yScale: 0
+			},
 			zoom: {
 				start: 0,
 				end: choice
 			}
 		};
 		store.dispatch(setEndZoom(choice));
+		expect(store.getState()).toEqual(expected_state);
+		store.dispatch(setEndZoom(0));
+	});
+	it("sets scale data", () => {
+		const xScale = 100;
+		const yScale = 100;
+		const minTime = 50;
+		const maxTime = 100;
+		const minValue = 20;
+		const maxValue = 80;
+		const expected_state = {
+			data: {
+				data: [],
+				isloading: false,
+				iserror: false
+			},
+			login: {
+				[AuthConstants.localStateKey()]: "",
+				isloading: false,
+				iserror: false
+			},
+			range: {
+				start: 0,
+				end: 0
+			},
+			scale: {
+				maxTime: maxTime,
+				maxValue: maxValue,
+				minTime: minTime,
+				minValue: minValue,
+				xScale: xScale,
+				yScale: yScale
+			},
+			zoom: {
+				start: 0,
+				end: 0
+			}
+		};
+		store.dispatch(setScales(xScale, yScale, minTime, maxTime, minValue, maxValue));
 		expect(store.getState()).toEqual(expected_state);
 		store.dispatch(setEndZoom(0));
 	});

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import { Legend, LineChart, RadialChart, ZoomSlider } from "../../components";
 import { fetchData } from "../../services";
-import { DataApi } from `../../config`;
+import { DataApi } from '../../config';
 import { Styles } from './styles';
 
 
@@ -35,8 +35,8 @@ class History extends React.Component {
 			if (portrait) {
 				return (
 					<React.Fragment>
-						<View style={[]]}>
-							<View style={[]]}>
+						<View style={[Styles.spaceAround]}>
+							<View style={[Styles.justifyCenter, Styles.flexRow]}>
 								<RadialChart
 									duration={duration}
 									radius={45}
@@ -46,7 +46,7 @@ class History extends React.Component {
 								/>
 								<Legend duration={duration} />
 							</View>
-							<View style={[]]}>
+							<View style={[Styles.justifyCenter, styles.alignCenter]}>
 								<LineChart
 									duration={duration}
 									backgroundColor={color.chart.margins}
@@ -66,7 +66,7 @@ class History extends React.Component {
 									lineStrokeWidth={1.2}
 								/>
 							</View>
-							<View style={[]]}>
+							<View style={[Styles.justifyCenter, styles.alignCenter]}>
 								<ZoomSlider
 										buttonWidth={30}
 										buttonsHeight={80}
@@ -83,8 +83,8 @@ class History extends React.Component {
 			} else {
 				return (
 					<React.Fragment>
-						<View style={[]}>
-							<View style={[]]}>
+						<View style={[Styles.spaceAround]}>
+							<View style={[Styles.justifyCenter, styles.alignCenter]}>
 								<LineChart
 									duration={duration}
 									backgroundColor={color.chart.margins}
@@ -104,7 +104,7 @@ class History extends React.Component {
 									lineStrokeWidth={1.2}
 								/>
 							</View>
-							<View style={[]]}>
+							<View style={[Styles.spaceAround]}>
 								<RadialChart
 									duration={duration}
 									radius={45}
@@ -113,7 +113,7 @@ class History extends React.Component {
 									maxAngle={360}
 								/>
 								<Legend duration={duration} />
-								<View style={[]]}>
+								<View style={[Styles.justifyCenter, styles.alignCenter]}>
 									<ZoomSlider
 										buttonWidth={30}
 										buttonsHeight={80}

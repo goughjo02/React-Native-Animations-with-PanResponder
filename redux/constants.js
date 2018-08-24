@@ -8,3 +8,4 @@ export const START_RANGE = 'start range constant'
 export const END_RANGE = 'end range constant';
 export const START_ZOOM = 'start zoom constant';
 export const END_ZOOM = 'end zoom constant';
+export const SCALES = 'scales constant';

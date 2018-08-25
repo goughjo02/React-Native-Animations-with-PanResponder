@@ -12,3 +12,5 @@ export const SCALES = 'scales constant';
 export const COLOR_CHART = 'chart color constant';
 export const COLOR_DATA = 'data color constant';
 export const COLOR_THEME = 'theme color constant';
+export const SCREEN = 'screen redux constant';
+export const DURATION_ANIM = 'duration of animations redux constant';

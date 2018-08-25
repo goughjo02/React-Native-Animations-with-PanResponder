@@ -16,6 +16,8 @@ import {
 	setChartColor,
 	setDataColor,
 	setThemeColor,
+	setDuration,
+	setScreen,
 	LOGIN_ERROR,
 	LOGIN_LOADING,
 	LOGIN_SUCCESS,
@@ -29,11 +31,43 @@ import {
 	SCALES,
 	COLOR_CHART,
 	COLOR_DATA,
-	COLOR_THEME
+	COLOR_THEME,
+    SCREEN,
+    DURATION_ANIM
 } from "../redux";
 import { AuthConstants } from '../config';
 
 describe("actions", () => {
+	it('should create an action to set screen dimensions', () => {
+		expect.assertions(1);
+		const duration = 2000;
+		const expectedResult = {
+			type: DURATION_ANIM,
+			duration
+		}
+		expect(setDuration(duration)).toEqual(expectedResult)
+	})
+	it('should create an action to set screen parameters', () => {
+		expect.assertions(2);
+		var width = 10;
+		var height = 100;
+		var expectedResult = {
+			type: SCREEN,
+			portrait: true,
+			width: width,
+			height: height
+		}
+		expect(setScreen(width, height)).toEqual(expectedResult);
+		var width = 100;
+		var height = 10;
+		var expectedResult = {
+			type: SCREEN,
+			portrait: false,
+			width: width,
+			height: height
+		}
+		expect(setScreen(width, height)).toEqual(expectedResult);
+	})
 	it('should create an action to change theme color', () => {
 		expect.assertions(1);
         const one = "#000000";

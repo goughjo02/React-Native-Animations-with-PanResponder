@@ -12,9 +12,27 @@ import {
     SCALES,
     COLOR_CHART,
     COLOR_DATA,
-    COLOR_THEME
+    COLOR_THEME,
+    SCREEN,
+    DURATION_ANIM
 } from "./constants";
 import { AuthConstants } from "../config";
+
+export function setDuration(duration) {
+    return {
+        type: DURATION_ANIM,
+        duration: duration
+    }
+}
+
+export function setScreen(width, height) {
+    return {
+        type: SCREEN,
+        portrait: width < height,
+        width: width,
+        height: height
+    }
+}
 
 export function setDataColor(one, two, three, four, five) {
     return {

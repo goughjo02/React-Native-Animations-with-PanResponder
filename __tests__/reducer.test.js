@@ -17,6 +17,8 @@ import {
 	setDataColor,
 	setThemeColor,
 	setChartColor,
+	setDuration,
+	setScreen,
 	login_reducer,
 	http_data_reducer,
 	range_reducer,
@@ -25,9 +27,56 @@ import {
 	color_chart_reducer,
 	color_data_reducer,
 	color_theme_reducer,
-	color_reducer
+	color_reducer,
+	animation_duration_reducer,
+	screen_dimensions_reducer
 } from "../redux";
 import { AuthConstants } from "../config";
+
+describe("screen dimensions reducer", () => {
+	it("sets default state", () => {
+		expect.assertions(1);
+		const expected_result = {
+			portrait: true,
+			height: 500,
+			width: 270
+		};
+		expect(screen_dimensions_reducer(undefined, {})).toEqual(expected_result)
+	});
+	it('sets screen dimensions', () => {
+		expect.assertions(1);
+		const width = 800;
+		const height = 200;
+		const expected_result = {
+			portrait: false,
+			height: height,
+			width: width
+		};
+		expect(screen_dimensions_reducer(undefined, setScreen(width, height))).toEqual(expected_result)
+	})
+});
+
+describe("animation duration reducer", () => {
+	it("sets default state", () => {
+		expect.assertions(1);
+		const expected_result = {
+			duration: 2000
+		};
+		expect(animation_duration_reducer(undefined, {})).toEqual(
+			expected_result
+		);
+	});
+	it("sets animation duration", () => {
+		expect.assertions(1);
+		const duration = 1000;
+		const expected_result = {
+			duration: duration
+		};
+		expect(
+			animation_duration_reducer(undefined, setDuration(duration))
+		).toEqual(expected_result);
+	});
+});
 
 describe("color reducers", () => {
 	it("sets default chart color scheme", () => {
@@ -92,7 +141,7 @@ describe("color reducers", () => {
 		expect.assertions(1);
 		const margins = "#222222";
 		const background = "#333333";
-		const primaryFrame = "#444444"
+		const primaryFrame = "#444444";
 		const secondaryFrame = "#555555";
 		const expected_result = {
 			chart: {
@@ -116,13 +165,18 @@ describe("color reducers", () => {
 				five: "#61f376"
 			}
 		};
-		expect(color_reducer(undefined, setChartColor(margins, background, primaryFrame, secondaryFrame))).toEqual(expected_result);
+		expect(
+			color_reducer(
+				undefined,
+				setChartColor(margins, background, primaryFrame, secondaryFrame)
+			)
+		).toEqual(expected_result);
 	});
 	it("changes data color scheme", () => {
 		expect.assertions(1);
 		const one = "#222222";
 		const two = "#333333";
-		const three = "#444444"
+		const three = "#444444";
 		const four = "#555555";
 		const five = "#666666";
 		const expected_result = {
@@ -147,13 +201,15 @@ describe("color reducers", () => {
 				five: "#61f376"
 			}
 		};
-		expect(color_reducer(undefined, setDataColor(one, two, three, four, five))).toEqual(expected_result);
+		expect(
+			color_reducer(undefined, setDataColor(one, two, three, four, five))
+		).toEqual(expected_result);
 	});
 	it("changes theme color scheme", () => {
 		expect.assertions(1);
 		const one = "#222222";
 		const two = "#333333";
-		const three = "#444444"
+		const three = "#444444";
 		const four = "#555555";
 		const five = "#666666";
 		const expected_result = {
@@ -178,7 +234,9 @@ describe("color reducers", () => {
 				five: five
 			}
 		};
-		expect(color_reducer(undefined, setThemeColor(one, two, three, four, five))).toEqual(expected_result);
+		expect(
+			color_reducer(undefined, setThemeColor(one, two, three, four, five))
+		).toEqual(expected_result);
 	});
 });
 

@@ -15,9 +15,45 @@ import {
   SCALES,
   COLOR_CHART,
   COLOR_DATA,
-  COLOR_THEME
+  COLOR_THEME,
+  SCREEN,
+  DURATION_ANIM
 } from "./constants";
 import { AuthApi, AuthConstants } from "../config";
+
+const initial_screen_state = {
+  portrait: true,
+  height: 500,
+  width: 270
+}
+
+export function screen_dimensions_reducer(state = initial_screen_state, action) {
+  switch (action.type) {
+    case SCREEN:
+      return {
+        portrait: action.portrait,
+        height: action.height,
+        width: action.width
+      };
+    default:
+      return state;
+  }
+}
+
+const initial_duration_state = {
+  duration: 2000
+}
+
+export function animation_duration_reducer(state = initial_duration_state, action) {
+  switch (action.type) {
+    case DURATION_ANIM:
+      return {
+        duration: action.duration
+      };
+    default:
+      return state;
+  }
+}
 
 const initial_chart_color_state = {
   margins: "#bbb",

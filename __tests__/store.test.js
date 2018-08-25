@@ -17,7 +17,9 @@ import {
 	setScales,
 	setDataColor,
 	setThemeColor,
-	setChartColor
+	setChartColor,
+	setDuration,
+	setScreen,
 } from "../redux";
 import { AuthConstants } from "../config";
 
@@ -52,6 +54,9 @@ describe("store", () => {
 			isloading: false,
 			iserror: false
 		},
+		duration: {
+			duration: 2000
+		},
 		login: {
 			[AuthConstants.localStateKey()]: "",
 			isloading: false,
@@ -68,6 +73,11 @@ describe("store", () => {
 			minValue: 0,
 			xScale: 0,
 			yScale: 0
+		},
+		screen: {
+			height: 500,
+			portrait: true,
+			width: 270
 		},
 		zoom: {
 			start: 0,
@@ -110,6 +120,9 @@ describe("store", () => {
 				isloading: false,
 				iserror: false
 			},
+			duration: {
+				duration: 2000
+			},
 			login: {
 				[AuthConstants.localStateKey()]: "test",
 				isloading: false,
@@ -126,6 +139,11 @@ describe("store", () => {
 				minValue: 0,
 				xScale: 0,
 				yScale: 0
+			},
+			screen: {
+				height: 500,
+				portrait: true,
+				width: 270
 			},
 			zoom: {
 				start: 0,
@@ -165,6 +183,9 @@ describe("store", () => {
 				isloading: false,
 				iserror: false
 			},
+			duration: {
+				duration: 2000
+			},
 			login: {
 				[AuthConstants.localStateKey()]: "",
 				isloading: true,
@@ -181,6 +202,11 @@ describe("store", () => {
 				minValue: 0,
 				xScale: 0,
 				yScale: 0
+			},
+			screen: {
+				height: 500,
+				portrait: true,
+				width: 270
 			},
 			zoom: {
 				start: 0,
@@ -220,6 +246,9 @@ describe("store", () => {
 				isloading: false,
 				iserror: false
 			},
+			duration: {
+				duration: 2000
+			},
 			login: {
 				[AuthConstants.localStateKey()]: "",
 				isloading: false,
@@ -236,6 +265,11 @@ describe("store", () => {
 				minValue: 0,
 				xScale: 0,
 				yScale: 0
+			},
+			screen: {
+				height: 500,
+				portrait: true,
+				width: 270
 			},
 			zoom: {
 				start: 0,
@@ -276,6 +310,9 @@ describe("store", () => {
 				isloading: false,
 				iserror: false
 			},
+			duration: {
+				duration: 2000
+			},
 			login: {
 				[AuthConstants.localStateKey()]: "",
 				isloading: false,
@@ -292,6 +329,11 @@ describe("store", () => {
 				minValue: 0,
 				xScale: 0,
 				yScale: 0
+			},
+			screen: {
+				height: 500,
+				portrait: true,
+				width: 270
 			},
 			zoom: {
 				start: 0,
@@ -330,6 +372,9 @@ describe("store", () => {
 				isloading: true,
 				iserror: false
 			},
+			duration: {
+				duration: 2000
+			},
 			login: {
 				[AuthConstants.localStateKey()]: "",
 				isloading: false,
@@ -346,6 +391,11 @@ describe("store", () => {
 				minValue: 0,
 				xScale: 0,
 				yScale: 0
+			},
+			screen: {
+				height: 500,
+				portrait: true,
+				width: 270
 			},
 			zoom: {
 				start: 0,
@@ -384,6 +434,9 @@ describe("store", () => {
 				isloading: false,
 				iserror: true
 			},
+			duration: {
+				duration: 2000
+			},
 			login: {
 				[AuthConstants.localStateKey()]: "",
 				isloading: false,
@@ -400,6 +453,11 @@ describe("store", () => {
 				minValue: 0,
 				xScale: 0,
 				yScale: 0
+			},
+			screen: {
+				height: 500,
+				portrait: true,
+				width: 270
 			},
 			zoom: {
 				start: 0,
@@ -441,6 +499,9 @@ describe("store", () => {
 				isloading: false,
 				iserror: false
 			},
+			duration: {
+				duration: 2000
+			},
 			login: {
 				[AuthConstants.localStateKey()]: "",
 				isloading: false,
@@ -457,6 +518,11 @@ describe("store", () => {
 				minValue: 0,
 				xScale: 0,
 				yScale: 0
+			},
+			screen: {
+				height: 500,
+				portrait: true,
+				width: 270
 			},
 			zoom: {
 				start: 0,
@@ -497,6 +563,9 @@ describe("store", () => {
 				isloading: false,
 				iserror: false
 			},
+			duration: {
+				duration: 2000
+			},
 			login: {
 				[AuthConstants.localStateKey()]: "",
 				isloading: false,
@@ -513,6 +582,11 @@ describe("store", () => {
 				minValue: 0,
 				xScale: 0,
 				yScale: 0
+			},
+			screen: {
+				height: 500,
+				portrait: true,
+				width: 270
 			},
 			zoom: {
 				start: 0,
@@ -553,6 +627,9 @@ describe("store", () => {
 				isloading: false,
 				iserror: false
 			},
+			duration: {
+				duration: 2000
+			},
 			login: {
 				[AuthConstants.localStateKey()]: "",
 				isloading: false,
@@ -569,6 +646,11 @@ describe("store", () => {
 				minValue: 0,
 				xScale: 0,
 				yScale: 0
+			},
+			screen: {
+				height: 500,
+				portrait: true,
+				width: 270
 			},
 			zoom: {
 				start: choice,
@@ -609,6 +691,9 @@ describe("store", () => {
 				isloading: false,
 				iserror: false
 			},
+			duration: {
+				duration: 2000
+			},
 			login: {
 				[AuthConstants.localStateKey()]: "",
 				isloading: false,
@@ -625,6 +710,11 @@ describe("store", () => {
 				minValue: 0,
 				xScale: 0,
 				yScale: 0
+			},
+			screen: {
+				height: 500,
+				portrait: true,
+				width: 270
 			},
 			zoom: {
 				start: 0,
@@ -670,6 +760,9 @@ describe("store", () => {
 				isloading: false,
 				iserror: false
 			},
+			duration: {
+				duration: 2000
+			},
 			login: {
 				[AuthConstants.localStateKey()]: "",
 				isloading: false,
@@ -686,6 +779,11 @@ describe("store", () => {
 				minValue: minValue,
 				xScale: xScale,
 				yScale: yScale
+			},
+			screen: {
+				height: 500,
+				portrait: true,
+				width: 270
 			},
 			zoom: {
 				start: 0,
@@ -732,6 +830,9 @@ describe("store", () => {
 				isloading: false,
 				iserror: false
 			},
+			duration: {
+				duration: 2000
+			},
 			login: {
 				[AuthConstants.localStateKey()]: "",
 				isloading: false,
@@ -749,6 +850,11 @@ describe("store", () => {
 				xScale: 0,
 				yScale: 0
 			},
+			screen: {
+				height: 500,
+				portrait: true,
+				width: 270
+			},
 			zoom: {
 				start: 0,
 				end: 0
@@ -760,7 +866,7 @@ describe("store", () => {
 		expect(store.getState()).toEqual(expected_state);
 		store.dispatch(setChartColor("#bbb", "#666", "#000", "#444"));
 	});
-	it('sets data color', () => {
+	it("sets data color", () => {
 		expect.assertions(1);
 		var one = "#ffffff";
 		var two = "#eeeeee";
@@ -795,6 +901,9 @@ describe("store", () => {
 				isloading: false,
 				iserror: false
 			},
+			duration: {
+				duration: 2000
+			},
 			login: {
 				[AuthConstants.localStateKey()]: "",
 				isloading: false,
@@ -812,18 +921,23 @@ describe("store", () => {
 				xScale: 0,
 				yScale: 0
 			},
+			screen: {
+				height: 500,
+				portrait: true,
+				width: 270
+			},
 			zoom: {
 				start: 0,
 				end: 0
 			}
 		};
-		store.dispatch(
-			setDataColor(one, two, three, four, five)
-		);
+		store.dispatch(setDataColor(one, two, three, four, five));
 		expect(store.getState()).toEqual(expected_state);
-		store.dispatch(setDataColor("#f00", "#0f0", "#00f", "#070f1a", "#61a376"));
-	})
-	it('sets theme color', () => {
+		store.dispatch(
+			setDataColor("#f00", "#0f0", "#00f", "#070f1a", "#61a376")
+		);
+	});
+	it("sets theme color", () => {
 		expect.assertions(1);
 		var one = "#ffffff";
 		var two = "#eeeeee";
@@ -858,6 +972,9 @@ describe("store", () => {
 				isloading: false,
 				iserror: false
 			},
+			duration: {
+				duration: 2000
+			},
 			login: {
 				[AuthConstants.localStateKey()]: "",
 				isloading: false,
@@ -875,15 +992,151 @@ describe("store", () => {
 				xScale: 0,
 				yScale: 0
 			},
+			screen: {
+				height: 500,
+				portrait: true,
+				width: 270
+			},
 			zoom: {
 				start: 0,
 				end: 0
 			}
 		};
-		store.dispatch(
-			setThemeColor(one, two, three, four, five)
-		);
+		store.dispatch(setThemeColor(one, two, three, four, five));
 		expect(store.getState()).toEqual(expected_state);
-		store.dispatch(setThemeColor("#f11100", "#0f2220", "#00f333", "#070444", "#61f376"));
+		store.dispatch(
+			setThemeColor("#f11100", "#0f2220", "#00f333", "#070444", "#61f376")
+		);
+	});
+	it('sets duration', () => {
+		expect.assertions(1);
+		var duration = 1000;
+		var expected_state = {
+			color: {
+				chart: {
+					margins: "#bbb",
+					background: "#666",
+					primaryFrame: "#000",
+					secondaryFrame: "#444"
+				},
+				data: {
+					one: "#f00",
+					two: "#0f0",
+					three: "#00f",
+					four: "#070f1a",
+					five: "#61a376"
+				},
+				theme: {
+					one: "#f11100",
+					two: "#0f2220",
+					three: "#00f333",
+					four: "#070444",
+					five: "#61f376"
+				}
+			},
+			data: {
+				data: [],
+				isloading: false,
+				iserror: false
+			},
+			duration: {
+				duration: duration
+			},
+			login: {
+				[AuthConstants.localStateKey()]: "",
+				isloading: false,
+				iserror: false
+			},
+			range: {
+				start: 0,
+				end: 0
+			},
+			scale: {
+				maxTime: 0,
+				maxValue: 0,
+				minTime: 0,
+				minValue: 0,
+				xScale: 0,
+				yScale: 0
+			},
+			screen: {
+				height: 500,
+				portrait: true,
+				width: 270
+			},
+			zoom: {
+				start: 0,
+				end: 0
+			}
+		};
+		store.dispatch(setDuration(duration));
+		expect(store.getState()).toEqual(expected_state);
+		store.dispatch(setDuration(2000));
+	})
+	it('sets screen parameters', () => {
+		expect.assertions(1);
+		var width = 500;
+		var height = 200;
+		var expected_state = {
+			color: {
+				chart: {
+					margins: "#bbb",
+					background: "#666",
+					primaryFrame: "#000",
+					secondaryFrame: "#444"
+				},
+				data: {
+					one: "#f00",
+					two: "#0f0",
+					three: "#00f",
+					four: "#070f1a",
+					five: "#61a376"
+				},
+				theme: {
+					one: "#f11100",
+					two: "#0f2220",
+					three: "#00f333",
+					four: "#070444",
+					five: "#61f376"
+				}
+			},
+			data: {
+				data: [],
+				isloading: false,
+				iserror: false
+			},
+			duration: {
+				duration: 2000
+			},
+			login: {
+				[AuthConstants.localStateKey()]: "",
+				isloading: false,
+				iserror: false
+			},
+			range: {
+				start: 0,
+				end: 0
+			},
+			scale: {
+				maxTime: 0,
+				maxValue: 0,
+				minTime: 0,
+				minValue: 0,
+				xScale: 0,
+				yScale: 0
+			},
+			screen: {
+				height: height,
+				portrait: false,
+				width: width
+			},
+			zoom: {
+				start: 0,
+				end: 0
+			}
+		};
+		store.dispatch(setScreen(width, height));
+		expect(store.getState()).toEqual(expected_state);
+		store.dispatch(setScreen(270, 500));
 	})
 });

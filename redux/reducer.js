@@ -259,5 +259,7 @@ export const root_reducer = combineReducers({
   scale: scales_reducer,
   range: range_reducer,
   zoom: zoom_reducer,
-  color: color_reducer
+  color: color_reducer,
+  screen: screen_dimensions_reducer,
+  duration: animation_duration_reducer
 });

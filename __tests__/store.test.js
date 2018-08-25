@@ -25,6 +25,28 @@ describe("store", () => {
 	var store = configureBasicStore();
 
 	var default_state = {
+		color: {
+			chart: {
+				margins: "#bbb",
+				background: "#666",
+				primaryFrame: "#000",
+				secondaryFrame: "#444"
+			},
+			data: {
+				one: "#f00",
+				two: "#0f0",
+				three: "#00f",
+				four: "#070f1a",
+				five: "#61a376"
+			},
+			theme: {
+				one: "#f11100",
+				two: "#0f2220",
+				three: "#00f333",
+				four: "#070444",
+				five: "#61f376"
+			}
+		},
 		data: {
 			data: [],
 			isloading: false,
@@ -61,6 +83,28 @@ describe("store", () => {
 	});
 	it("responds to login success", () => {
 		const expected_state = {
+			color: {
+				chart: {
+					margins: "#bbb",
+					background: "#666",
+					primaryFrame: "#000",
+					secondaryFrame: "#444"
+				},
+				data: {
+					one: "#f00",
+					two: "#0f0",
+					three: "#00f",
+					four: "#070f1a",
+					five: "#61a376"
+				},
+				theme: {
+					one: "#f11100",
+					two: "#0f2220",
+					three: "#00f333",
+					four: "#070444",
+					five: "#61f376"
+				}
+			},
 			data: {
 				data: [],
 				isloading: false,
@@ -94,6 +138,28 @@ describe("store", () => {
 	});
 	it("sets login loading to true", () => {
 		const expected_state = {
+			color: {
+				chart: {
+					margins: "#bbb",
+					background: "#666",
+					primaryFrame: "#000",
+					secondaryFrame: "#444"
+				},
+				data: {
+					one: "#f00",
+					two: "#0f0",
+					three: "#00f",
+					four: "#070f1a",
+					five: "#61a376"
+				},
+				theme: {
+					one: "#f11100",
+					two: "#0f2220",
+					three: "#00f333",
+					four: "#070444",
+					five: "#61f376"
+				}
+			},
 			data: {
 				data: [],
 				isloading: false,
@@ -127,6 +193,28 @@ describe("store", () => {
 	});
 	it("sets login error to true", () => {
 		const expected_state = {
+			color: {
+				chart: {
+					margins: "#bbb",
+					background: "#666",
+					primaryFrame: "#000",
+					secondaryFrame: "#444"
+				},
+				data: {
+					one: "#f00",
+					two: "#0f0",
+					three: "#00f",
+					four: "#070f1a",
+					five: "#61a376"
+				},
+				theme: {
+					one: "#f11100",
+					two: "#0f2220",
+					three: "#00f333",
+					four: "#070444",
+					five: "#61f376"
+				}
+			},
 			data: {
 				data: [],
 				isloading: false,
@@ -161,6 +249,28 @@ describe("store", () => {
 	});
 	it("responds to data success", () => {
 		const expected_state = {
+			color: {
+				chart: {
+					margins: "#bbb",
+					background: "#666",
+					primaryFrame: "#000",
+					secondaryFrame: "#444"
+				},
+				data: {
+					one: "#f00",
+					two: "#0f0",
+					three: "#00f",
+					four: "#070f1a",
+					five: "#61a376"
+				},
+				theme: {
+					one: "#f11100",
+					two: "#0f2220",
+					three: "#00f333",
+					four: "#070444",
+					five: "#61f376"
+				}
+			},
 			data: {
 				data: ["test"],
 				isloading: false,
@@ -193,6 +303,28 @@ describe("store", () => {
 	});
 	it("sets data loading to true", () => {
 		const expected_state = {
+			color: {
+				chart: {
+					margins: "#bbb",
+					background: "#666",
+					primaryFrame: "#000",
+					secondaryFrame: "#444"
+				},
+				data: {
+					one: "#f00",
+					two: "#0f0",
+					three: "#00f",
+					four: "#070f1a",
+					five: "#61a376"
+				},
+				theme: {
+					one: "#f11100",
+					two: "#0f2220",
+					three: "#00f333",
+					four: "#070444",
+					five: "#61f376"
+				}
+			},
 			data: {
 				data: [],
 				isloading: true,
@@ -225,6 +357,28 @@ describe("store", () => {
 	});
 	it("sets data error to true", () => {
 		const expected_state = {
+			color: {
+				chart: {
+					margins: "#bbb",
+					background: "#666",
+					primaryFrame: "#000",
+					secondaryFrame: "#444"
+				},
+				data: {
+					one: "#f00",
+					two: "#0f0",
+					three: "#00f",
+					four: "#070f1a",
+					five: "#61a376"
+				},
+				theme: {
+					one: "#f11100",
+					two: "#0f2220",
+					three: "#00f333",
+					four: "#070444",
+					five: "#61f376"
+				}
+			},
 			data: {
 				data: [],
 				isloading: false,
@@ -260,6 +414,28 @@ describe("store", () => {
 	it("sets start range", () => {
 		const choice = 50;
 		const expected_state = {
+			color: {
+				chart: {
+					margins: "#bbb",
+					background: "#666",
+					primaryFrame: "#000",
+					secondaryFrame: "#444"
+				},
+				data: {
+					one: "#f00",
+					two: "#0f0",
+					three: "#00f",
+					four: "#070f1a",
+					five: "#61a376"
+				},
+				theme: {
+					one: "#f11100",
+					two: "#0f2220",
+					three: "#00f333",
+					four: "#070444",
+					five: "#61f376"
+				}
+			},
 			data: {
 				data: [],
 				isloading: false,
@@ -294,6 +470,28 @@ describe("store", () => {
 	it("sets end range", () => {
 		const choice = 50;
 		const expected_state = {
+			color: {
+				chart: {
+					margins: "#bbb",
+					background: "#666",
+					primaryFrame: "#000",
+					secondaryFrame: "#444"
+				},
+				data: {
+					one: "#f00",
+					two: "#0f0",
+					three: "#00f",
+					four: "#070f1a",
+					five: "#61a376"
+				},
+				theme: {
+					one: "#f11100",
+					two: "#0f2220",
+					three: "#00f333",
+					four: "#070444",
+					five: "#61f376"
+				}
+			},
 			data: {
 				data: [],
 				isloading: false,
@@ -328,6 +526,28 @@ describe("store", () => {
 	it("sets start zoom", () => {
 		const choice = 50;
 		const expected_state = {
+			color: {
+				chart: {
+					margins: "#bbb",
+					background: "#666",
+					primaryFrame: "#000",
+					secondaryFrame: "#444"
+				},
+				data: {
+					one: "#f00",
+					two: "#0f0",
+					three: "#00f",
+					four: "#070f1a",
+					five: "#61a376"
+				},
+				theme: {
+					one: "#f11100",
+					two: "#0f2220",
+					three: "#00f333",
+					four: "#070444",
+					five: "#61f376"
+				}
+			},
 			data: {
 				data: [],
 				isloading: false,
@@ -362,6 +582,28 @@ describe("store", () => {
 	it("sets end zoom", () => {
 		const choice = 50;
 		const expected_state = {
+			color: {
+				chart: {
+					margins: "#bbb",
+					background: "#666",
+					primaryFrame: "#000",
+					secondaryFrame: "#444"
+				},
+				data: {
+					one: "#f00",
+					two: "#0f0",
+					three: "#00f",
+					four: "#070f1a",
+					five: "#61a376"
+				},
+				theme: {
+					one: "#f11100",
+					two: "#0f2220",
+					three: "#00f333",
+					four: "#070444",
+					five: "#61f376"
+				}
+			},
 			data: {
 				data: [],
 				isloading: false,
@@ -401,6 +643,28 @@ describe("store", () => {
 		const minValue = 20;
 		const maxValue = 80;
 		const expected_state = {
+			color: {
+				chart: {
+					margins: "#bbb",
+					background: "#666",
+					primaryFrame: "#000",
+					secondaryFrame: "#444"
+				},
+				data: {
+					one: "#f00",
+					two: "#0f0",
+					three: "#00f",
+					four: "#070f1a",
+					five: "#61a376"
+				},
+				theme: {
+					one: "#f11100",
+					two: "#0f2220",
+					three: "#00f333",
+					four: "#070444",
+					five: "#61f376"
+				}
+			},
 			data: {
 				data: [],
 				isloading: false,
@@ -428,8 +692,198 @@ describe("store", () => {
 				end: 0
 			}
 		};
-		store.dispatch(setScales(xScale, yScale, minTime, maxTime, minValue, maxValue));
+		store.dispatch(
+			setScales(xScale, yScale, minTime, maxTime, minValue, maxValue)
+		);
 		expect(store.getState()).toEqual(expected_state);
-		store.dispatch(setEndZoom(0));
+		store.dispatch(setScales(0, 0, 0, 0, 0, 0));
 	});
+	it("sets chart color", () => {
+		expect.assertions(1);
+		var margins = "#ffffff";
+		var background = "#eeeeee";
+		var primaryFrame = "#dddddd";
+		var secondaryFrame = "#cccccc";
+		var expected_state = {
+			color: {
+				chart: {
+					margins: margins,
+					background: background,
+					primaryFrame: primaryFrame,
+					secondaryFrame: secondaryFrame
+				},
+				data: {
+					one: "#f00",
+					two: "#0f0",
+					three: "#00f",
+					four: "#070f1a",
+					five: "#61a376"
+				},
+				theme: {
+					one: "#f11100",
+					two: "#0f2220",
+					three: "#00f333",
+					four: "#070444",
+					five: "#61f376"
+				}
+			},
+			data: {
+				data: [],
+				isloading: false,
+				iserror: false
+			},
+			login: {
+				[AuthConstants.localStateKey()]: "",
+				isloading: false,
+				iserror: false
+			},
+			range: {
+				start: 0,
+				end: 0
+			},
+			scale: {
+				maxTime: 0,
+				maxValue: 0,
+				minTime: 0,
+				minValue: 0,
+				xScale: 0,
+				yScale: 0
+			},
+			zoom: {
+				start: 0,
+				end: 0
+			}
+		};
+		store.dispatch(
+			setChartColor(margins, background, primaryFrame, secondaryFrame)
+		);
+		expect(store.getState()).toEqual(expected_state);
+		store.dispatch(setChartColor("#bbb", "#666", "#000", "#444"));
+	});
+	it('sets data color', () => {
+		expect.assertions(1);
+		var one = "#ffffff";
+		var two = "#eeeeee";
+		var three = "#dddddd";
+		var four = "#cccccc";
+		var five = "#bbbbbb";
+		var expected_state = {
+			color: {
+				chart: {
+					margins: "#bbb",
+					background: "#666",
+					primaryFrame: "#000",
+					secondaryFrame: "#444"
+				},
+				data: {
+					one: one,
+					two: two,
+					three: three,
+					four: four,
+					five: five
+				},
+				theme: {
+					one: "#f11100",
+					two: "#0f2220",
+					three: "#00f333",
+					four: "#070444",
+					five: "#61f376"
+				}
+			},
+			data: {
+				data: [],
+				isloading: false,
+				iserror: false
+			},
+			login: {
+				[AuthConstants.localStateKey()]: "",
+				isloading: false,
+				iserror: false
+			},
+			range: {
+				start: 0,
+				end: 0
+			},
+			scale: {
+				maxTime: 0,
+				maxValue: 0,
+				minTime: 0,
+				minValue: 0,
+				xScale: 0,
+				yScale: 0
+			},
+			zoom: {
+				start: 0,
+				end: 0
+			}
+		};
+		store.dispatch(
+			setDataColor(one, two, three, four, five)
+		);
+		expect(store.getState()).toEqual(expected_state);
+		store.dispatch(setDataColor("#f00", "#0f0", "#00f", "#070f1a", "#61a376"));
+	})
+	it('sets theme color', () => {
+		expect.assertions(1);
+		var one = "#ffffff";
+		var two = "#eeeeee";
+		var three = "#dddddd";
+		var four = "#cccccc";
+		var five = "#bbbbbb";
+		var expected_state = {
+			color: {
+				chart: {
+					margins: "#bbb",
+					background: "#666",
+					primaryFrame: "#000",
+					secondaryFrame: "#444"
+				},
+				data: {
+					one: "#f00",
+					two: "#0f0",
+					three: "#00f",
+					four: "#070f1a",
+					five: "#61a376"
+				},
+				theme: {
+					one: one,
+					two: two,
+					three: three,
+					four: four,
+					five: five
+				}
+			},
+			data: {
+				data: [],
+				isloading: false,
+				iserror: false
+			},
+			login: {
+				[AuthConstants.localStateKey()]: "",
+				isloading: false,
+				iserror: false
+			},
+			range: {
+				start: 0,
+				end: 0
+			},
+			scale: {
+				maxTime: 0,
+				maxValue: 0,
+				minTime: 0,
+				minValue: 0,
+				xScale: 0,
+				yScale: 0
+			},
+			zoom: {
+				start: 0,
+				end: 0
+			}
+		};
+		store.dispatch(
+			setThemeColor(one, two, three, four, five)
+		);
+		expect(store.getState()).toEqual(expected_state);
+		store.dispatch(setThemeColor("#f11100", "#0f2220", "#00f333", "#070444", "#61f376"));
+	})
 });

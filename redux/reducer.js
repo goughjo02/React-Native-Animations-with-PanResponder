@@ -222,5 +222,6 @@ export const root_reducer = combineReducers({
   data: http_data_reducer,
   scale: scales_reducer,
   range: range_reducer,
-  zoom: zoom_reducer
+  zoom: zoom_reducer,
+  color: color_reducer
 });

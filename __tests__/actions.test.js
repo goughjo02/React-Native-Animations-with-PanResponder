@@ -13,6 +13,9 @@ import {
 	setStartZoom,
 	setEndZoom,
 	setScales,
+	setChartColor,
+	setDataColor,
+	setThemeColor,
 	LOGIN_ERROR,
 	LOGIN_LOADING,
 	LOGIN_SUCCESS,
@@ -23,11 +26,63 @@ import {
 	END_RANGE,
 	START_ZOOM,
 	END_ZOOM,
-	SCALES
+	SCALES,
+	COLOR_CHART,
+	COLOR_DATA,
+	COLOR_THEME
 } from "../redux";
 import { AuthConstants } from '../config';
 
 describe("actions", () => {
+	it('should create an action to change theme color', () => {
+		expect.assertions(1);
+        const one = "#000000";
+        const two = "#00ff00";
+        const three = "#ff0000";
+        const four = "#0000ff";
+        const five = "#0ff0ff";
+		const expectedResult = {
+			type: COLOR_THEME,
+			one: one,
+			two: two,
+			three: three,
+			four: four,
+			five: five
+		};
+		expect(setThemeColor(one, two, three, four, five)).toEqual(expectedResult);
+	})
+	it('should create an action to change data color', () => {
+		expect.assertions(1);
+        const one = "#000000";
+        const two = "#00ff00";
+        const three = "#ff0000";
+        const four = "#0000ff";
+        const five = "#0ff0ff";
+		const expectedResult = {
+			type: COLOR_DATA,
+			one: one,
+			two: two,
+			three: three,
+			four: four,
+			five: five
+		};
+		expect(setDataColor(one, two, three, four, five)).toEqual(expectedResult);
+	})
+	it('should create an action to change chart color', () => {
+		expect.assertions(1);
+        const margins = "#000000";
+        const background = "#00ff00";
+        const primaryFrame = "#ff0000";
+        const secondaryFrame = "#0000ff";
+		const expectedResult = {
+			type: COLOR_CHART,
+			margins: margins,
+			background: background,
+			primaryFrame: primaryFrame,
+			secondaryFrame: secondaryFrame
+		};
+		expect(setChartColor(margins, background, primaryFrame, secondaryFrame)).toEqual(expectedResult);
+	})
 	it('should create an action to set scales', () => {
 		expect.assertions(1);
 		const xScale = () => "test x";

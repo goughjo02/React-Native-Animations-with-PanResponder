@@ -9,3 +9,6 @@ export const END_RANGE = 'end range constant';
 export const START_ZOOM = 'start zoom constant';
 export const END_ZOOM = 'end zoom constant';
 export const SCALES = 'scales constant';
+export const COLOR_CHART = 'chart color constant';
+export const COLOR_DATA = 'data color constant';
+export const COLOR_THEME = 'theme color constant';

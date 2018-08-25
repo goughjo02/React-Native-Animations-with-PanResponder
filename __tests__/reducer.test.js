@@ -14,16 +14,177 @@ import {
 	setStartZoom,
 	setEndZoom,
 	setScales,
+	setDataColor,
+	setThemeColor,
+	setChartColor,
 	login_reducer,
 	http_data_reducer,
 	range_reducer,
 	zoom_reducer,
-	scales_reducer
+	scales_reducer,
+	color_chart_reducer,
+	color_data_reducer,
+	color_theme_reducer,
+	color_reducer
 } from "../redux";
 import { AuthConstants } from "../config";
 
+describe("color reducers", () => {
+	it("sets default chart color scheme", () => {
+		expect.assertions(1);
+		const expected_result = {
+			margins: "#bbb",
+			background: "#666",
+			primaryFrame: "#000",
+			secondaryFrame: "#444"
+		};
+		expect(color_chart_reducer(undefined, {})).toEqual(expected_result);
+	});
+	it("sets default data color scheme", () => {
+		expect.assertions(1);
+		const expected_result = {
+			one: "#f00",
+			two: "#0f0",
+			three: "#00f",
+			four: "#070f1a",
+			five: "#61a376"
+		};
+		expect(color_data_reducer(undefined, {})).toEqual(expected_result);
+	});
+	it("sets default theme color scheme", () => {
+		expect.assertions(1);
+		const expected_result = {
+			one: "#f11100",
+			two: "#0f2220",
+			three: "#00f333",
+			four: "#070444",
+			five: "#61f376"
+		};
+		expect(color_theme_reducer(undefined, {})).toEqual(expected_result);
+	});
+	it("sets default state for full color palette", () => {
+		expect.assertions(1);
+		const expected_result = {
+			chart: {
+				margins: "#bbb",
+				background: "#666",
+				primaryFrame: "#000",
+				secondaryFrame: "#444"
+			},
+			data: {
+				one: "#f00",
+				two: "#0f0",
+				three: "#00f",
+				four: "#070f1a",
+				five: "#61a376"
+			},
+			theme: {
+				one: "#f11100",
+				two: "#0f2220",
+				three: "#00f333",
+				four: "#070444",
+				five: "#61f376"
+			}
+		};
+		expect(color_reducer(undefined, {})).toEqual(expected_result);
+	});
+	it("changes chart color scheme", () => {
+		expect.assertions(1);
+		const margins = "#222222";
+		const background = "#333333";
+		const primaryFrame = "#444444"
+		const secondaryFrame = "#555555";
+		const expected_result = {
+			chart: {
+				margins: margins,
+				background: background,
+				primaryFrame: primaryFrame,
+				secondaryFrame: secondaryFrame
+			},
+			data: {
+				one: "#f00",
+				two: "#0f0",
+				three: "#00f",
+				four: "#070f1a",
+				five: "#61a376"
+			},
+			theme: {
+				one: "#f11100",
+				two: "#0f2220",
+				three: "#00f333",
+				four: "#070444",
+				five: "#61f376"
+			}
+		};
+		expect(color_reducer(undefined, setChartColor(margins, background, primaryFrame, secondaryFrame))).toEqual(expected_result);
+	});
+	it("changes data color scheme", () => {
+		expect.assertions(1);
+		const one = "#222222";
+		const two = "#333333";
+		const three = "#444444"
+		const four = "#555555";
+		const five = "#666666";
+		const expected_result = {
+			chart: {
+				margins: "#bbb",
+				background: "#666",
+				primaryFrame: "#000",
+				secondaryFrame: "#444"
+			},
+			data: {
+				one: one,
+				two: two,
+				three: three,
+				four: four,
+				five: five
+			},
+			theme: {
+				one: "#f11100",
+				two: "#0f2220",
+				three: "#00f333",
+				four: "#070444",
+				five: "#61f376"
+			}
+		};
+		expect(color_reducer(undefined, setDataColor(one, two, three, four, five))).toEqual(expected_result);
+	});
+	it("changes theme color scheme", () => {
+		expect.assertions(1);
+		const one = "#222222";
+		const two = "#333333";
+		const three = "#444444"
+		const four = "#555555";
+		const five = "#666666";
+		const expected_result = {
+			chart: {
+				margins: "#bbb",
+				background: "#666",
+				primaryFrame: "#000",
+				secondaryFrame: "#444"
+			},
+			data: {
+				one: "#f00",
+				two: "#0f0",
+				three: "#00f",
+				four: "#070f1a",
+				five: "#61a376"
+			},
+			theme: {
+				one: one,
+				two: two,
+				three: three,
+				four: four,
+				five: five
+			}
+		};
+		expect(color_reducer(undefined, setThemeColor(one, two, three, four, five))).toEqual(expected_result);
+	});
+});
+
 describe("scaes reducer", () => {
 	it("produces default state", () => {
+		expect.assertions(1);
 		const expected_result = {
 			xScale: 0,
 			yScale: 0,
@@ -35,6 +196,7 @@ describe("scaes reducer", () => {
 		expect(scales_reducer(undefined, {})).toEqual(expected_result);
 	});
 	it("sets all variables", () => {
+		expect.assertions(1);
 		const state_before = {
 			xScale: 0,
 			yScale: 0,
@@ -52,9 +214,19 @@ describe("scaes reducer", () => {
 			maxValue: 60
 		};
 		deepFreeze(state_before);
-		expect(scales_reducer(state_before, setScales(expected_result.xScale, expected_result.yScale, expected_result.minTime, expected_result.maxTime, expected_result.minValue, expected_result.maxValue ))).toEqual(
-			expected_result
-		)
+		expect(
+			scales_reducer(
+				state_before,
+				setScales(
+					expected_result.xScale,
+					expected_result.yScale,
+					expected_result.minTime,
+					expected_result.maxTime,
+					expected_result.minValue,
+					expected_result.maxValue
+				)
+			)
+		).toEqual(expected_result);
 	});
 });
 describe("login Reducer", () => {

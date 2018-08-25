@@ -9,6 +9,8 @@ import { PrimaryFrame } from "./primaryFrame";
 import { SecondaryFrame } from "./secondaryFrame";
 import { XAxis } from "./xAxis";
 import { YAxis } from "./yAxis";
+import { setScales } from '../../redux';
+import { getScales } from '../../services';
 
 class LineChart extends React.Component {
 	constructor(props) {
@@ -27,19 +29,10 @@ class LineChart extends React.Component {
 			yFontSize,
 			xFontSize
 		} = this.props;
-		this.getScales(linesHeight, linesWidth, data);
-		var timedata = data.map(e => e.date);
-		var xAxisPoints = get_x_axes_points(xTickDist, linesWidth, timedata);
-		var yAxisPoints = get_y_axes_points(
-			this.minValue,
-			this.maxValue,
-			yTickDist,
-			linesHeight
-		);
-		var dateArray = [];
-		xAxisPoints.forEach(e => {
-			dateArray.push(new Date(e));
-		});
+		var linesHeight = height - marginTop - marginBottom - paddingTop - paddingBottom;
+		var linesWidth = width - marginLeft - marginRight - paddingLeft - paddingRight;
+		var { xScale, yScale, minTime, maxTime, minValue, maxValue } = getScales(linesHeight, linesWidth, data);
+		this.props.dispatch(setScales(xScale, yScale, minTime, maxTime, minValue, maxValu));
 		const styles = StyleSheet.create({
 			main: {
 				borderStyle: "solid",
@@ -55,56 +48,10 @@ class LineChart extends React.Component {
 					width={graphWidth}
 					height={graphHeight}
 				>
-					<Box
-						x={marginLeft}
-						y={marginTop}
-						height={height - marginTop - marginBottom}
-						width={width - marginLeft - marginRigt}
-					/>
-					<PrimaryFrame
-						xPoints={xPointsPrimary}
-						yPoints={yPointsPrimary}
-						x={marginLeft}
-						y={marginTop}
-						height={height - marginTop - marginBottom}
-						width={width - marginLeft - marginRigt}
-					/>
-					<SecondaryFrame
-						xPoints={xPointsSecondary}
-						yPoints={yPointsSecondary}
-						x={marginLeft}
-						y={marginTop}
-						height={height - marginTop - marginBottom}
-						width={width - marginLeft - marginRigt}
-					/>
-					<XAxis
-						dataPoints={dateArray}
-						fontSize={xFontSize}
-						x={marginLeft}
-						y={height - marginBottom}
-					/>
-					<YAxis
-						dataPoints={dateArray}
-						fontSize={yFontSize}
-						x={marginLeft}
-						y={height - marginBottom}
-					/>
 					<Group x={marginLeft + paddingLeft} y={MarginTop + paddingTop}>
 						<Lines
-							height={
-								height -
-								marginTop -
-								marginBottom -
-								paddingTop -
-								paddingBottom
-							}
-							width={
-								width -
-								marginLeft -
-								marginRight -
-								paddingLeft -
-								paddingRight
-							}
+							height={linesHeight}
+							width={linesWidth}
 							data={data}
 							duration={duration}
 							strokeWidth={lineStrokeWidth}
@@ -113,6 +60,71 @@ class LineChart extends React.Component {
 				</Surface>
 			</React.Fragment>
 		);
+		// return (
+		// 	<React.Fragment>
+		// 		<Surface
+		// 			style={styles.main}
+		// 			width={graphWidth}
+		// 			height={graphHeight}
+		// 		>
+		// 			<Box
+		// 				x={marginLeft}
+		// 				y={marginTop}
+		// 				height={height - marginTop - marginBottom}
+		// 				width={width - marginLeft - marginRigt}
+		// 			/>
+		// 			<PrimaryFrame
+		// 				xPoints={xPointsPrimary}
+		// 				yPoints={yPointsPrimary}
+		// 				x={marginLeft}
+		// 				y={marginTop}
+		// 				height={height - marginTop - marginBottom}
+		// 				width={width - marginLeft - marginRigt}
+		// 			/>
+		// 			<SecondaryFrame
+		// 				xPoints={xPointsSecondary}
+		// 				yPoints={yPointsSecondary}
+		// 				x={marginLeft}
+		// 				y={marginTop}
+		// 				height={height - marginTop - marginBottom}
+		// 				width={width - marginLeft - marginRigt}
+		// 			/>
+		// 			<XAxis
+		// 				dataPoints={dateArray}
+		// 				fontSize={xFontSize}
+		// 				x={marginLeft}
+		// 				y={height - marginBottom}
+		// 			/>
+		// 			<YAxis
+		// 				dataPoints={dateArray}
+		// 				fontSize={yFontSize}
+		// 				x={marginLeft}
+		// 				y={height - marginBottom}
+		// 			/>
+		// 			<Group x={marginLeft + paddingLeft} y={MarginTop + paddingTop}>
+		// 				<Lines
+		// 					height={
+		// 						height -
+		// 						marginTop -
+		// 						marginBottom -
+		// 						paddingTop -
+		// 						paddingBottom
+		// 					}
+		// 					width={
+		// 						width -
+		// 						marginLeft -
+		// 						marginRight -
+		// 						paddingLeft -
+		// 						paddingRight
+		// 					}
+		// 					data={data}
+		// 					duration={duration}
+		// 					strokeWidth={lineStrokeWidth}
+		// 				/>
+		// 			</Group>
+		// 		</Surface>
+		// 	</React.Fragment>
+		// );
 	}
 }
 
@@ -128,10 +140,6 @@ LineChart.propTypes = {
 			used: PropTypes.number.isRequired
 		})
 	),
-	scale: PropTypes.function.isRequired,
-	xKey: PropTypes.arrayOf(PropTypes.string.isRequired),
-	yKey: PropTypes.arrayOf(PropTypes.string.isRequired),
-	xAxisPoints: PropTypes.arrayOf(PropTypes.number.isRequired)
 };
 LineChart.defaultProps = {
 	animated: true,
@@ -147,9 +155,6 @@ const mapStateToProps = state => {
 			state.zoom.start,
 			state.zoom.end
 		),
-		/////// TO DO
-		xScale: state.scale.xScale,
-		yScale: state.scale.yScale
 	};
 };
 

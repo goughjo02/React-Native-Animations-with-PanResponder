@@ -12,9 +12,81 @@ import {
   END_RANGE,
   START_ZOOM,
   END_ZOOM,
-  SCALES
+  SCALES,
+  COLOR_CHART,
+  COLOR_DATA,
+  COLOR_THEME
 } from "./constants";
 import { AuthApi, AuthConstants } from "../config";
+
+const initial_chart_color_state = {
+  margins: "#bbb",
+  background: "#666",
+  primaryFrame: "#000",
+  secondaryFrame: "#444"
+};
+
+export function color_chart_reducer(state = initial_chart_color_state, action) {
+  switch (action.type) {
+    case COLOR_CHART:
+      return {
+        margins: action.margins,
+        background: action.background,
+        primaryFrame: action.primaryFrame,
+        secondaryFrame: action.secondaryFrame
+      };
+    default:
+      return state;
+  }
+}
+const initial_data_color_state = {
+  one: "#f00",
+  two: "#0f0",
+  three: "#00f",
+  four: "#070f1a",
+  five: "#61a376"
+};
+export function color_data_reducer(state = initial_data_color_state, action) {
+  switch (action.type) {
+    case COLOR_DATA:
+      return {
+        one: action.one,
+        two: action.two,
+        three: action.three,
+        four: action.four,
+        five: action.five
+      };
+    default:
+      return state;
+  }
+}
+const initial_theme_color_state = {
+  one: "#f11100",
+  two: "#0f2220",
+  three: "#00f333",
+  four: "#070444",
+  five: "#61f376"
+};
+export function color_theme_reducer(state = initial_theme_color_state, action) {
+  switch (action.type) {
+    case COLOR_THEME:
+      return {
+        one: action.one,
+        two: action.two,
+        three: action.three,
+        four: action.four,
+        five: action.five
+      };
+    default:
+      return state;
+  }
+}
+
+export const color_reducer = combineReducers({
+  chart: color_chart_reducer,
+  data: color_data_reducer,
+  theme: color_theme_reducer
+});
 
 const initial_scales_state = {
   xScale: 0,

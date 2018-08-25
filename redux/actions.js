@@ -9,9 +9,44 @@ import {
     END_RANGE,
     START_ZOOM,
     END_ZOOM,
-    SCALES
+    SCALES,
+    COLOR_CHART,
+    COLOR_DATA,
+    COLOR_THEME
 } from "./constants";
 import { AuthConstants } from "../config";
+
+export function setDataColor(one, two, three, four, five) {
+    return {
+        type: COLOR_DATA,
+        one: one,
+        two: two,
+        three: three,
+        four: four,
+        five: five
+    };
+}
+
+export function setThemeColor(one, two, three, four, five) {
+    return {
+        type: COLOR_THEME,
+        one: one,
+        two: two,
+        three: three,
+        four: four,
+        five: five
+    };
+}
+
+export function setChartColor(margins, background, primaryFrame, secondaryFrame) {
+    return {
+        type: COLOR_CHART,
+        margins: margins,
+        background: background,
+        primaryFrame: primaryFrame,
+        secondaryFrame: secondaryFrame
+    };
+}
 
 export function setScales(xScale, yScale, minTime, maxTime, minValue, maxValue) {
     return {

@@ -14,7 +14,10 @@ import {
 	setEndRange,
 	setStartZoom,
 	setEndZoom,
-	setScales
+	setScales,
+	setDataColor,
+	setThemeColor,
+	setChartColor
 } from "../redux";
 import { AuthConstants } from "../config";
 

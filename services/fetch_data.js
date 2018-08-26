@@ -1,5 +1,7 @@
 import redux from 'redux';
+import axios from "axios";
 import { dataHasErrored, dataIsLoading, fetchDataSuccess } from '../redux';
+import { DataApi } from '../config';
 
 export function convertDateTime(dateString) {
     var datetime = dateString.split(" ");
@@ -15,24 +17,24 @@ export function convertDateTime(dateString) {
     return result;
 }
 
-export function fetchData(url) {
+export function fetchData(url = DataApi.timeSeries()) {
     return (dispatch) => {
         dispatch(dataIsLoading(true));
-        return fetch(url)
+        return axios.get(url)
             .then((response) => {
-                if (!response.ok) {
+                if (!(response.status === 200)) {
+                    console.log("ERROR FETCH DATA")
                     throw Error(response.statusText);
                 }
                 dispatch(dataIsLoading(false));
-                return response;
-            })
-            .then((response) => response.json())
-            .then((response) => {
-                return response
+                return response.data;
             })
             .then((items) => {
+                let date = new Date(1)
                 items.forEach((e) => {
-                    e.date = convertDateTime(e.date)
+                    if (typeof e.date !== typeof date) {
+                        e.date = convertDateTime(e.date)
+                    }
                 })
                 return items
             })

@@ -1,9 +1,10 @@
 import configureMockStore from "redux-mock-store";
-import thunk from "redux-thunk";
-import fetchMock from "fetch-mock";
+import MockAdapter from "axios-mock-adapter";
 import renderer from "react-test-renderer";
-
-import { fetchData, convertDateTime } from "../services/fetch_data";
+import thunk from "redux-thunk";
+import axios from "axios";
+import { fetchData, convertDateTime } from "../services";
+import { DataApi } from "../config";
 import {
   dataHasErrored,
   dataIsLoading,
@@ -15,51 +16,77 @@ import {
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
+const mockApi = new MockAdapter(axios);
+const dummyData = [
+  {
+    bought: 0,
+    date: "2012-05-01 00:00:00+00:00",
+    produced: 65,
+    sold: 28,
+    used: 37
+  },
+  {
+    bought: 6,
+    date: "2012-05-01 01:00:00+00:00",
+    produced: 4,
+    sold: 0,
+    used: 10
+  },
+  {
+    bought: 2,
+    date: "2012-05-01 02:00:00+00:00",
+    produced: 8,
+    sold: 0,
+    used: 10
+  }
+];
+const expectData = [
+  {
+    bought: 0,
+    date: convertDateTime("2012-05-01 00:00:00+00:00"),
+    produced: 65,
+    sold: 28,
+    used: 37
+  },
+  {
+    bought: 6,
+    date: convertDateTime("2012-05-01 01:00:00+00:00"),
+    produced: 4,
+    sold: 0,
+    used: 10
+  },
+  {
+    bought: 2,
+    date: convertDateTime("2012-05-01 02:00:00+00:00"),
+    produced: 8,
+    sold: 0,
+    used: 10
+  }
+];
 
-describe("async actions", () => {
-  afterEach(() => {
-    fetchMock.reset();
-    fetchMock.restore();
-  });
-
+describe("fecth data", () => {
   it("creates SUCCESS when fetching data is successful", () => {
-    fetchMock.getOnce("http_json", {
-      status: 200,
-      headers: { "content-type": "application/json" },
-      body: [
-        {
-          bought: 2,
-          date: "2012-05-01 02:00:00+00:00",
-          produced: 8,
-          sold: 0,
-          used: 10
-        }
-      ]
+    expect.assertions(1);
+    mockApi.onGet(DataApi.timeSeries()).replyOnce(function(config) {
+      return [200, dummyData];
     });
     const expectations = [
       { type: LOADING, isloading: true },
       { type: LOADING, isloading: false },
       {
         type: SUCCESS,
-        data: [
-          {
-            bought: 2,
-            date: convertDateTime("2012-05-01 02:00:00+00:00"),
-            produced: 8,
-            sold: 0,
-            used: 10
-          }
-        ]
+        data: dummyData
       }
     ];
     const store = mockStore({ isloading: [], data: [] });
-    return store.dispatch(fetchData("http_json")).then(() => {
+    return store.dispatch(fetchData()).then(res => {
       expect(store.getActions()).toEqual(expectations);
     });
   });
 
   it("creates ERROR when fetching data errs", () => {
-    fetchMock.getOnce("http_json", {
+    expect.assertions(1);
+    mockApi.onGet(DataApi.timeSeries()).replyOnce({
       status: 401,
       headers: { "content-type": "application/json" },
       body: ["hello"]
@@ -69,7 +96,7 @@ describe("async actions", () => {
       { type: ERROR, iserror: true }
     ];
     const store = mockStore({ isloading: [], iserror: [] });
-    return store.dispatch(fetchData("http_json")).then(() => {
+    return store.dispatch(fetchData()).then(() => {
       expect(store.getActions()).toEqual(expectations);
     });
   });
@@ -80,65 +107,20 @@ describe("async actions", () => {
   });
 
   it("parses incoming datetime strings into Date objects", () => {
-    fetchMock.getOnce("http_json", {
-      status: 200,
-      headers: { "content-type": "application/json" },
-      body: [
-        {
-          bought: 0,
-          date: "2012-05-01 00:00:00+00:00",
-          produced: 65,
-          sold: 28,
-          used: 37
-        },
-        {
-          bought: 6,
-          date: "2012-05-01 01:00:00+00:00",
-          produced: 4,
-          sold: 0,
-          used: 10
-        },
-        {
-          bought: 2,
-          date: "2012-05-01 02:00:00+00:00",
-          produced: 8,
-          sold: 0,
-          used: 10
-        }
-      ]
+    expect.assertions(1);
+    mockApi.onGet(DataApi.timeSeries()).replyOnce(function(config) {
+      return [200, dummyData];
     });
     const expectations = [
       { type: LOADING, isloading: true },
       { type: LOADING, isloading: false },
       {
         type: SUCCESS,
-        data: [
-          {
-            bought: 0,
-            date: convertDateTime("2012-05-01 00:00:00+00:00"),
-            produced: 65,
-            sold: 28,
-            used: 37
-          },
-          {
-            bought: 6,
-            date: convertDateTime("2012-05-01 01:00:00+00:00"),
-            produced: 4,
-            sold: 0,
-            used: 10
-          },
-          {
-            bought: 2,
-            date: convertDateTime("2012-05-01 02:00:00+00:00"),
-            produced: 8,
-            sold: 0,
-            used: 10
-          }
-        ]
+        data: dummyData
       }
     ];
     const store = mockStore({ isloading: [], data: [] });
-    return store.dispatch(fetchData("http_json")).then(() => {
+    return store.dispatch(fetchData()).then(() => {
       expect(store.getActions()).toEqual(expectations);
     });
   });

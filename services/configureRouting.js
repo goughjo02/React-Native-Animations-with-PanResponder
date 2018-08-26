@@ -1,5 +1,5 @@
 import React from 'react';
-import { History, Current, AuthLoadingScreen, Settings, SignInScreen } from "../pages";
+import { History, Current, AuthLoadingScreen, Settings, SignInScreen, Test } from "../pages";
 import { createMaterialTopTabNavigator, createSwitchNavigator, createStackNavigator } from "react-navigation";
 
 const AuthStack = createStackNavigator({ SignIn: { screen: SignInScreen } });
@@ -29,7 +29,7 @@ export const TabStack = createMaterialTopTabNavigator({
 export const RootStack = createSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,
-    App: TabStack,
+    App: Test,
     Auth: AuthStack
   },
   {

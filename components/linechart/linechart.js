@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from 'react-redux';
 import { ART, StyleSheet } from "react-native";
 const { Group, Path, Shape, Surface, Text } = ART;
 import PropTypes from "prop-types";
@@ -129,7 +130,7 @@ class LineChart extends React.Component {
 }
 
 LineChart.propTypes = {
-	animated: PropTypes.boolean.isRequired,
+	animated: PropTypes.bool.isRequired,
 	duration: PropTypes.number.isRequired,
 	data: PropTypes.arrayOf(
 		PropTypes.shape({
@@ -155,6 +156,9 @@ const mapStateToProps = state => {
 			state.zoom.start,
 			state.zoom.end
 		),
+		duration: state.duration,
+		xScale: state.scales.xScale,
+		yScale: state.scales.yScale
 	};
 };
 

@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 
 import { Legend, LineChart, RadialChart, ZoomSlider } from "../../components";
 import { fetchData } from "../../services";
-import { DataApi } from '../../config';
 import { Styles } from './styles';
 
 
@@ -17,8 +16,7 @@ class History extends React.Component {
 		super(props);
 	}
 	componentDidMount() {
-		// Get time series data from API
-		this.props.dispatch(fetchData(DataApi.timeSeries()));
+		this.props.dispatch(fetchData());
 	}
 	render() {
 		var duration = 2000;
@@ -32,9 +30,8 @@ class History extends React.Component {
 		// Is there data?
 		if (dataPresent) {
 			return (
-				<View style={[Styles.justifyCenter, styles.alignCenter]}>
+				<View style={[Styles.justifyCenter, Styles.alignCenter]}>
 								<LineChart
-									duration={duration}
 									backgroundColor={color.chart.margins}
 									chartColor={color.chart.background}
 									primaryFrameColor={color.chart.primaryFrame}
@@ -159,7 +156,7 @@ class History extends React.Component {
 const mapStateToProps = state => {
 	return {
 		//Only render charts if data is present
-		data: state.data.length > 0,
+		dataPresent: state.data.data.length > 0,
 		//Get colors
 		color: state.color,
 		//Get screen state

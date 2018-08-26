@@ -1,6 +1,7 @@
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
-import { AuthApi, AuthConstants } from "../config";
+import { AuthApi, AuthConstants, DataApi } from "../config";
+import { faux_data } from "../__json_http__/dummy_data";
 
 export const configureFakBackend = () => {
   const mockApi = new MockAdapter(axios, { delayResponse: 2000 });
@@ -39,4 +40,16 @@ export const configureFakBackend = () => {
       ];
     } else return [401, { text: "user not recognised" }];
   });
+  const response_data = JSON.stringify(faux_data)
+  mockApi.onGet(DataApi.timeSeries()).reply(config => {
+    // console.log("fake backend sign in")
+    // console.log(faux_data)
+      return [
+        200,
+        { response_data }
+      ];
+  });
+  console.log("configured fake backend")
+  console.log(fetch(DataApi.timeSeries()))
+  // fetch(DataApi.timeSeries()).then(res => console.log(res))
 };

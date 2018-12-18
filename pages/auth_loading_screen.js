@@ -18,7 +18,7 @@ class AuthLoadingScreen extends React.Component {
 
   checkJwt = async () => {
     let { jwt } = this.props;
-    this.props.navigation.navigate(jwt ? "App" : "Auth");
+    this.props.navigation.navigate(jwt ? "Nav" : "Auth");
   };
 
   // Render any loading content that you like here

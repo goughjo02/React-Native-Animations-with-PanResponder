@@ -74,6 +74,14 @@ class History extends React.Component {
 				return (
 					<React.Fragment>
 						<View style={portraitStyles.main}>
+							<View style={portraitStyles.temp}>
+								<Button
+									title={"home"}
+									onPress={() => this.props.navigation.navigate(
+										"Nav"
+									)}
+								/>
+							</View>
 							<View style={portraitStyles.instruments}>
 								<RadialChart
 									data={sumData}
@@ -154,7 +162,13 @@ var portraitStyles = StyleSheet.create({
 		alignSelf: "stretch",
 		flexDirection: "column",
 		justifyContent: "space-around",
-		width: windowWidth,
+		width: windowWidth
+	},
+	temp: {
+		flexDirection: "row",
+		justifyContent: "flex-start",
+		marginTop: 40,
+		marginLeft: 10
 	},
 	instruments: {
 		flex: 1,

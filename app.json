@@ -1,5 +1,15 @@
 {
-  "expo": {
-    "sdkVersion": "27.0.0"
-  }
-}
+   "expo": {
+    "name": "amie",
+    "icon": "./logo.png",
+    "version": "1.0.0",
+    "slug": "control-center",
+    "sdkVersion": "27.0.0",
+    "ios": {
+      "bundleIdentifier": "com.joeygough.amie"
+    },
+    "android": {
+      "package": "com.joeygough.amie"
+    }
+   }
+ }

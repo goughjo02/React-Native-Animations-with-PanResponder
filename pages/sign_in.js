@@ -3,8 +3,10 @@ import { connect } from "react-redux";
 import {
 	ActivityIndicator,
 	Button,
+	Dimensions,
 	KeyboardAvoidingView,
 	StyleSheet,
+	Image,
 	Text,
 	TextInput,
 	View
@@ -12,6 +14,7 @@ import {
 
 import { login, saveJwt, loadJwt } from "../services";
 import { Logo } from "../components";
+import pbLogo from "../logo.png";
 import { AuthConstants } from "../config";
 
 class SignInScreen extends React.Component {
@@ -25,8 +28,23 @@ class SignInScreen extends React.Component {
 	render() {
 		let { error, loading } = this.props;
 		return (
-			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-				<Logo />
+			<KeyboardAvoidingView
+				style={styles.container}
+				behavior="padding"
+				enabled
+			>
+			<View
+				style={styles.container2}>
+			{
+				// <Logo />
+			}
+			{
+				<Image
+					style={{ width: 60, height: 60 }}
+					source={require("../logo.png")}
+				/>	
+			}
+			</View>
 				<View>
 					<TextInput
 						style={{
@@ -76,6 +94,13 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		padding: 60,
+		backgroundColor: "#fff",
+		alignItems: "center",
+		justifyContent: "space-around"
+	},
+	container2: {
+		width: Dimensions.get('window').width,
+		// flexDirection: "row",
 		backgroundColor: "#fff",
 		alignItems: "center",
 		justifyContent: "space-around"

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Button, Text, View } from "react-native";
 import {
 	AnimatedGaugeProgress,
 	GaugeProgress
@@ -32,6 +32,12 @@ export class Current extends React.Component {
 			batteryTitle: {
 				fontSize: 16
 			},
+			temp: {
+				flexDirection: "row",
+				justifyContent: "flex-start",
+				marginTop: 20,
+				marginLeft: 10
+			},
 			textView: {
 				position: "absolute",
 				top: textOffset + 10,
@@ -48,6 +54,12 @@ export class Current extends React.Component {
 		});
 		return (
 			<View style={[styles.bordered, styles.main]}>
+				<View style={styles.temp}>
+					<Button
+						title={"home"}
+						onPress={() => this.props.navigation.navigate("Nav")}
+					/>
+				</View>
 				<View style={[styles.batteryStatus]}>
 					<Text style={styles.batteryTitle}>Battery Volume</Text>
 					<AnimatedGaugeProgress

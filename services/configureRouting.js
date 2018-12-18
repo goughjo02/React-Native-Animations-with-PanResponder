@@ -2,6 +2,7 @@ import React from 'react';
 import { History, Current, AuthLoadingScreen, Settings, SignInScreen } from "../pages";
 import { createMaterialTopTabNavigator, createSwitchNavigator, createStackNavigator } from "react-navigation";
 
+import { NavigatorScreen } from "../pages/Navigator";
 const AuthStack = createStackNavigator({ SignIn: { screen: SignInScreen } });
 
 
@@ -30,7 +31,11 @@ export const RootStack = createSwitchNavigator(
   {
     AuthLoading: AuthLoadingScreen,
     App: TabStack,
-    Auth: AuthStack
+    Auth: AuthStack,
+    Nav: NavigatorScreen,
+    Chart: History,
+    Settings: Settings,
+    Current: Current
   },
   {
   	headerMode: 'screen',

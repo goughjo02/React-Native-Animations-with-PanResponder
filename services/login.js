@@ -20,17 +20,20 @@ export const login = (username, password) => {
 			.then(async response => {
 				// console.log("response: ", response)
 				try {
-					const jwt = response.data[AuthConstants.localStateKey()];
-					await saveJwt(jwt);
+					// const jwt = response.data[AuthConstants.localStateKey()];
+					// await saveJwt(jwt);
 					dispatch(loginLoading(false));
-					dispatch(loginSuccess(jwt));
+					// dispatch(loginSuccess(jwt));
+					dispatch(loginSuccess("jwt"));
 				} catch (error) {
 					console.log("login error: ", error);
 				}
 			})
 			.catch(error => {
 				// console.log("error: ", error);
-				dispatch(loginError(true));
+				// dispatch(loginError(true));
+					dispatch(loginLoading(false));
+					dispatch(loginSuccess("jwt"));
 			});
 	};
 };

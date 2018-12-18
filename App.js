@@ -4,8 +4,9 @@ import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/integration/react'
 
 import { configureFakBackend, RootStack } from './services';
-import { configureStore } from "./redux";
-let { store, persistor } = configureStore()
+import { configureStore, configureBasicStore } from "./redux";
+let { store, persistor } = configureStore();
+store = configureBasicStore();
 
 configureFakBackend();
 
